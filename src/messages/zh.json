@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "Across · 在 AI 作答的世界,让你的品牌被选中。",
+    "titleTemplate": "%s | Across",
+    "description": "Across 公司 — 通过 GEO·AEO 答案引擎优化,让你的品牌在 AI 给出的答案中被选择。"
+  },
+  "ui": {
+    "themeToggle": {
+      "toLight": "切换到浅色模式",
+      "toDark": "切换到深色模式"
+    },
+    "languageToggle": {
+      "label": "切换语言"
+    }
+  },
+  "errors": {
+    "boundary": {
+      "code": "ERROR",
+      "title": "出了点问题",
+      "description": "可能是暂时性故障,请再试一次。",
+      "retry": "重试"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "路径中断了",
+      "description": "找不到该页面。回到 Across 首页吗?",
+      "home": "返回首页"
+    }
+  },
+  "footer": {
+    "companyInfoLabel": "公司信息",
+    "companyLine": "代表 李在弘 · 营业执照 288-86-03687",
+    "navLabel": "站点导航",
+    "terms": "服务条款",
+    "privacy": "隐私政策"
+  },
+  "home": {
+    "hero": {
+      "eyebrowBrand": "Across",
+      "eyebrowTagline": "AEO · GEO — AI 答案优化服务",
+      "titleLine1": "在 AI 作答的世界,",
+      "titleLine2": "让你的品牌",
+      "titleLine3": "被选中。"
+    }
+  }
+}

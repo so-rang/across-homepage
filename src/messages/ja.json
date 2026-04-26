@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "アクロス · AIが答える世界で、あなたのブランドが選ばれるように。",
+    "titleTemplate": "%s | アクロス",
+    "description": "株式会社アクロス(Across Inc.)— GEO・AEO によるAI回答最適化で、AIの答えの中であなたのブランドが選ばれるよう設計します。"
+  },
+  "ui": {
+    "themeToggle": {
+      "toLight": "ライトモードに切り替え",
+      "toDark": "ダークモードに切り替え"
+    },
+    "languageToggle": {
+      "label": "言語を切り替え"
+    }
+  },
+  "errors": {
+    "boundary": {
+      "code": "ERROR",
+      "title": "問題が発生しました",
+      "description": "一時的なエラーかもしれません。もう一度お試しください。",
+      "retry": "再試行"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "道が途切れました",
+      "description": "お探しのページが見つかりません。アクロスのホームに戻りますか?",
+      "home": "ホームへ戻る"
+    }
+  },
+  "footer": {
+    "companyInfoLabel": "会社情報",
+    "companyLine": "代表 イ・ジェホン · 事業者登録番号 288-86-03687",
+    "navLabel": "サイトナビゲーション",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー"
+  },
+  "home": {
+    "hero": {
+      "eyebrowBrand": "アクロス",
+      "eyebrowTagline": "AEO・GEO — AI回答最適化サービス",
+      "titleLine1": "AIが答える世界で、",
+      "titleLine2": "あなたのブランドが",
+      "titleLine3": "選ばれるように。"
+    }
+  }
+}

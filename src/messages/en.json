@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "Across · Be the answer when AI answers.",
+    "titleTemplate": "%s | Across",
+    "description": "Across Inc. — Generative & Answer Engine Optimization (GEO·AEO). We design your brand to be chosen inside the answers AI gives."
+  },
+  "ui": {
+    "themeToggle": {
+      "toLight": "Switch to light mode",
+      "toDark": "Switch to dark mode"
+    },
+    "languageToggle": {
+      "label": "Change language"
+    }
+  },
+  "errors": {
+    "boundary": {
+      "code": "ERROR",
+      "title": "Something went wrong",
+      "description": "This may be a temporary glitch. Please try once more.",
+      "retry": "Try again"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "The path went cold",
+      "description": "We couldn't find that page. Want to head back to Across home?",
+      "home": "Back to home"
+    }
+  },
+  "footer": {
+    "companyInfoLabel": "Company information",
+    "companyLine": "CEO Lee Jae-hong · Business Reg. 288-86-03687",
+    "navLabel": "Site navigation",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "home": {
+    "hero": {
+      "eyebrowBrand": "Across",
+      "eyebrowTagline": "AEO · GEO — Answer-Engine Optimization",
+      "titleLine1": "In a world where AI answers,",
+      "titleLine2": "make sure your brand",
+      "titleLine3": "gets chosen."
+    }
+  }
+}

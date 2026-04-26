@@ -1,0 +1,883 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/*
+ ---break---
+ */
+@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
+
+/*
+ * Across Homepage — Design Tokens (DESIGN.md §3)
+ * Tailwind v4 CSS-first config via @theme directive.
+ */
+@theme {
+  /* ── Color ───────────────────────────────────────── */
+  --color-bg: #04040a;
+  --color-bg-elev-1: rgba(255, 255, 255, 0.035);
+  --color-bg-elev-2: rgba(255, 255, 255, 0.06);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.28);
+  --color-text: #f3ecde;
+  --color-text-muted: rgba(243, 236, 222, 0.55);
+  /* Desaturated dusty blue — ethereal, not "Microsoft Blue". */
+  --color-signal-blue: #7fa3d4;
+  --color-gpto-blue: #5f7dae;
+  --color-earth-cyan: #9dc5d9;
+  --color-star-warm: #f8efd6;
+
+  /* ── Font families (Pretendard everywhere for unity) ── */
+  --font-sans:
+    var(--font-pretendard), "Pretendard Variable", Pretendard, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-serif:
+    var(--font-serif-kr), "Noto Serif KR", var(--font-cormorant),
+    "Cormorant Garamond", "Nanum Myeongjo", "AppleMyungjo", "Apple SD Gothic Neo",
+    ui-serif, Georgia, serif;
+  --font-mono:
+    var(--font-jetbrains), "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* ── Motion ──────────────────────────────────────── */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Breakpoints (frontend.md: 320 / 768 / 1024 / 1440) ── */
+  --breakpoint-xs: 20rem;   /* 320px */
+  --breakpoint-sm: 40rem;   /* 640px */
+  --breakpoint-md: 48rem;   /* 768px */
+  --breakpoint-lg: 64rem;   /* 1024px */
+  --breakpoint-xl: 80rem;   /* 1280px */
+  --breakpoint-2xl: 90rem;  /* 1440px */
+}
+
+/*
+ * Light theme — "Dawn Atmosphere"
+ * Brand narrative: dark = 심야 우주, light = 새벽 대기.
+ * Ink Navy text, Horizon Magenta accent (color wheel opposite of dusty blue).
+ * elev-1 / elev-2 are solid cool-ink tints so cards and hover states
+ * remain legible on the white body (the dark tokens use alpha glass;
+ * on pure white that collapses to invisible, hence these solid values).
+ */
+html.light {
+  --color-bg: #ffffff;
+  --color-bg-elev-1: #f5f6fa;
+  --color-bg-elev-2: #eaecf3;
+  --color-border-subtle: rgba(18, 25, 51, 0.1);
+  --color-border-strong: rgba(18, 25, 51, 0.28);
+  --color-text: #121933;
+  --color-text-muted: rgba(18, 25, 51, 0.58);
+  --color-signal-blue: #e63b7a;
+  --color-gpto-blue: #3355a8;
+  --color-earth-cyan: #6ab0d8;
+  --color-star-warm: #b3894a;
+  color-scheme: light;
+}
+
+/* ── Base ──────────────────────────────────────────── */
+html {
+  color-scheme: dark;
+  /* Keep sticky PageHeader from overlapping anchor targets / landing titles. */
+  scroll-padding-top: 5rem;
+}
+/* Must stay unlayered — unlayered declarations outrank anything inside
+ * `@layer utilities`, so the snap override below would otherwise lose
+ * to the base `html` rule above and shift every snapped section 5rem
+ * down from the viewport top. */
+html.snap-page,
+html.home-snap {
+  scroll-padding-top: 0;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Light mode: flat white body. */
+html.light body {
+  background-image: none;
+  background-color: #ffffff;
+}
+
+/* Cosmic stage layers are dark-native (WebGL nebula, starfield, corner
+ * glow) and the Hero's Earth vignette bakes in #04040a overlays. In light
+ * mode hide them entirely — the Dawn Gradient body itself is the BG. */
+html.light .stage-layer,
+html.light [data-intro-item="stage-low"],
+html.light [data-intro-item="stage-particles"],
+html.light [data-intro-item="stage-border"] {
+  display: none;
+}
+
+/* Constellation connecting lines are baked in warm cream (#f8efd6);
+ * invisible on Dawn cream. Swap to ink navy in light mode. */
+html.light nav[aria-label="메뉴"] svg line {
+  stroke: rgba(18, 25, 51, 0.3) !important;
+}
+
+/* Logo emblem ✦ uses warm white drop-shadows — unreadable on Dawn.
+ * Darken the glow so the pinpoint reads on light atmosphere. */
+html.light .logo-emblem-star,
+html.light .across-glyph-sparkle {
+  filter: drop-shadow(0 0 1.4px rgba(18, 25, 51, 0.6));
+}
+html.light .constellation-star {
+  animation: none;
+  filter: drop-shadow(0 0 2px rgba(179, 137, 74, 0.55));
+}
+
+/* ── Dawn Sky (light mode cloud field) ──────────────────
+ * Hidden in dark mode so the component can mount unconditionally.
+ * Each cloud drifts on its own cycle + amplitude so parallax reads as
+ * real atmosphere, not a loop. transform + opacity only (60fps). */
+[data-dawn-sky] {
+  display: none;
+}
+
+@keyframes dawn-cloud-drift-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+  50%      { transform: translate3d(30vw, -4vh, 0) scale(1.12); opacity: 1; }
+}
+@keyframes dawn-cloud-drift-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.85; }
+  50%      { transform: translate3d(-26vw, 5vh, 0) scale(1.1); opacity: 1; }
+}
+@keyframes dawn-cloud-drift-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  50%      { transform: translate3d(34vw, 2vh, 0) scale(1.08); opacity: 0.95; }
+}
+@keyframes dawn-cloud-drift-4 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.88; }
+  50%      { transform: translate3d(-18vw, -6vh, 0) scale(1.14); opacity: 1; }
+}
+@keyframes dawn-cloud-drift-5 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.78; }
+  50%      { transform: translate3d(-28vw, -3vh, 0) scale(1.1); opacity: 0.95; }
+}
+@keyframes dawn-sunrise-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(1.14); opacity: 1; }
+}
+
+/* Hero scattered stars — twinkle + subtle drift. `--base-opacity` is set
+ * per-star from inline style so each keeps its own peak brightness. */
+@keyframes hero-star-twinkle {
+  0%, 100% {
+    opacity: var(--base-opacity, 1);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  40% {
+    opacity: calc(var(--base-opacity, 1) * 0.35);
+    transform: translate3d(0.6px, -0.4px, 0) scale(0.85);
+  }
+  70% {
+    opacity: calc(var(--base-opacity, 1) * 0.9);
+    transform: translate3d(-0.4px, 0.5px, 0) scale(1.05);
+  }
+}
+.hero-star { will-change: opacity, transform; }
+
+/* Hero nebula — slow drifting + breathing cosmic glow behind the stars. */
+@keyframes hero-nebula-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.9;
+  }
+  33% {
+    transform: translate3d(-1.6vw, 0.8vh, 0) scale(1.05);
+    opacity: 1;
+  }
+  66% {
+    transform: translate3d(1.2vw, -0.6vh, 0) scale(1.08);
+    opacity: 0.95;
+  }
+}
+.hero-nebula {
+  animation: hero-nebula-drift 56s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-nebula {
+    animation: none;
+  }
+}
+
+.dawn-cloud { will-change: transform, opacity; }
+.dawn-cloud-1 { animation: dawn-cloud-drift-1 38s ease-in-out infinite; }
+.dawn-cloud-2 { animation: dawn-cloud-drift-2 46s ease-in-out infinite; }
+.dawn-cloud-3 { animation: dawn-cloud-drift-3 54s ease-in-out infinite; }
+.dawn-cloud-4 { animation: dawn-cloud-drift-4 42s ease-in-out infinite; }
+.dawn-cloud-5 { animation: dawn-cloud-drift-5 50s ease-in-out infinite; }
+.dawn-sunrise { animation: dawn-sunrise-pulse 9s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dawn-cloud,
+  .dawn-sunrise {
+    animation: none;
+  }
+}
+
+/* CJK readability baseline */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  /* Korean: break only at eojeol (spaces), never mid-word */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Focus ring — Signal Blue (WCAG 2.2) */
+*:focus-visible {
+  outline: 2px solid var(--color-signal-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-signal-blue);
+  color: var(--color-text);
+}
+
+/* Prevent iOS tap-zoom on form fields */
+input,
+textarea,
+select {
+  font-size: max(16px, 1rem);
+}
+
+/* ── Reduced motion (DESIGN.md §11.1) ───────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Intro timeline (plan T10 / DESIGN.md §5) ────────
+ * `html[data-intro]` is set by the inline bootstrap before first paint.
+ * Default (no attribute, JS off) → all items visible, no animation.
+ * `first`  → full 1.8s timeline with per-element delays.
+ * `short`  → 0.4s fade for every item (returning visitor).
+ * `reduced` / `done` → no animation; items rest at final visible state.
+ */
+@keyframes intro-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes intro-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes intro-mark-in {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+html[data-intro="first"] [data-intro-item="stage-low"] {
+  animation: intro-fade-in 400ms var(--ease-soft) 200ms both;
+}
+html[data-intro="first"] [data-intro-item="stage-particles"] {
+  animation: intro-fade-in 400ms var(--ease-soft) 400ms both;
+}
+html[data-intro="first"] [data-intro-item="mark"] {
+  display: inline-block;
+  transform-origin: left center;
+  animation: intro-mark-in 400ms var(--ease-soft) 600ms both;
+}
+html[data-intro="first"] [data-intro-item="eyebrow"] {
+  animation: intro-copy-in 900ms var(--ease-soft) 700ms both;
+}
+html[data-intro="first"] [data-intro-item="copy-1"] {
+  animation: intro-copy-in 900ms var(--ease-soft) 900ms both;
+}
+html[data-intro="first"] [data-intro-item="copy-2"] {
+  animation: intro-copy-in 900ms var(--ease-soft) 1100ms both;
+}
+html[data-intro="first"] [data-intro-item="copy-3"] {
+  animation: intro-copy-in 900ms var(--ease-soft) 1300ms both;
+}
+/* Constellation intro — domino flow:
+   • Each star fades in (260ms).
+   • Its outgoing line fades in right after (440ms, soft ease) — a calm
+     materialization rather than a wiping stroke reveal.
+   • The next star begins while the line is still settling so it reads
+     as a continuous unveiling instead of pause-act. */
+html[data-intro="first"] [data-intro-item="line-1"],
+html[data-intro="first"] [data-intro-item="line-2"],
+html[data-intro="first"] [data-intro-item="line-3"] {
+  opacity: 0;
+}
+
+html[data-intro="first"] [data-intro-item="star-1"] {
+  animation: star-pop 260ms cubic-bezier(0.2, 0.9, 0.3, 1) 1100ms both;
+}
+html[data-intro="first"] [data-intro-item="line-1"] {
+  animation: intro-fade-in 440ms var(--ease-soft) 1220ms forwards;
+}
+html[data-intro="first"] [data-intro-item="star-2"] {
+  animation: star-pop 260ms cubic-bezier(0.2, 0.9, 0.3, 1) 1440ms both;
+}
+html[data-intro="first"] [data-intro-item="line-2"] {
+  animation: intro-fade-in 440ms var(--ease-soft) 1560ms forwards;
+}
+html[data-intro="first"] [data-intro-item="star-3"] {
+  animation: star-pop 260ms cubic-bezier(0.2, 0.9, 0.3, 1) 1780ms both;
+}
+html[data-intro="first"] [data-intro-item="line-3"] {
+  animation: intro-fade-in 440ms var(--ease-soft) 1900ms forwards;
+}
+html[data-intro="first"] [data-intro-item="star-4"] {
+  animation: star-pop 260ms cubic-bezier(0.2, 0.9, 0.3, 1) 2120ms both;
+}
+html[data-intro="first"] [data-intro-item="stage-border"] {
+  animation: intro-fade-in 300ms var(--ease-soft) 2420ms both;
+}
+
+@keyframes star-pop {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+html[data-intro="short"] [data-intro-item] {
+  animation: intro-fade-in 400ms var(--ease-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro] [data-intro-item] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── Hero ambient breathe ─────────────────────────────
+ * After the intro timeline, the eyebrow + 3-line hero title
+ * pulse together with a slow brightness/glow breathe synced
+ * to the constellation chase, so the whole hero feels like
+ * one breathing organism. Filter-only keeps the H1's inline
+ * `transform: scaleX(1.04)` intact (no layout cost either). */
+@keyframes hero-copy-breathe {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 0 rgba(248, 239, 214, 0));
+  }
+  50% {
+    filter: brightness(1.08) drop-shadow(0 0 22px rgba(248, 239, 214, 0.24));
+  }
+}
+html[data-intro="done"] #hero-title,
+html[data-intro="done"] [data-intro-item="eyebrow"] {
+  animation: hero-copy-breathe 6.4s var(--ease-soft) infinite;
+  will-change: filter;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro="done"] #hero-title,
+  html[data-intro="done"] [data-intro-item="eyebrow"] {
+    animation: none;
+  }
+}
+
+/* ── Constellation line pulse (subtle breathing) ───── */
+@keyframes constellation-breathe {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.9; }
+}
+
+/* ── Constellation star chase glow ────────────────────
+ * Each of the 4 nav stars takes its turn shining brightest.
+ * 4.8s total cycle ÷ 4 stars = 1.2s stagger. At any moment,
+ * roughly one star is at peak glow — a soft travelling light. */
+@keyframes constellation-chase {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 3px rgba(255, 253, 240, 1))
+      drop-shadow(0 0 14px rgba(248, 239, 214, 0.65))
+      drop-shadow(0 0 32px rgba(157, 197, 217, 0.25))
+      brightness(1.05);
+  }
+  6% {
+    filter:
+      drop-shadow(0 0 3.5px rgba(255, 255, 245, 1))
+      drop-shadow(0 0 16px rgba(255, 253, 240, 0.95))
+      drop-shadow(0 0 36px rgba(248, 239, 214, 0.8))
+      drop-shadow(0 0 60px rgba(157, 197, 217, 0.4))
+      brightness(1.18);
+  }
+  14% {
+    filter:
+      drop-shadow(0 0 5px rgba(255, 255, 250, 1))
+      drop-shadow(0 0 18px rgba(255, 253, 240, 1))
+      drop-shadow(0 0 40px rgba(248, 239, 214, 1))
+      drop-shadow(0 0 80px rgba(157, 197, 217, 0.85))
+      drop-shadow(0 0 130px rgba(127, 163, 212, 0.55))
+      brightness(1.4);
+  }
+  22% {
+    filter:
+      drop-shadow(0 0 3.5px rgba(255, 255, 245, 1))
+      drop-shadow(0 0 16px rgba(255, 253, 240, 0.95))
+      drop-shadow(0 0 36px rgba(248, 239, 214, 0.8))
+      drop-shadow(0 0 64px rgba(157, 197, 217, 0.45))
+      brightness(1.22);
+  }
+}
+
+.constellation-star {
+  animation: constellation-chase 4.8s ease-in-out infinite;
+}
+
+[data-intro-item="star-1"] .constellation-star { animation-delay: 0s; }
+[data-intro-item="star-2"] .constellation-star { animation-delay: 1.2s; }
+[data-intro-item="star-3"] .constellation-star { animation-delay: 2.4s; }
+[data-intro-item="star-4"] .constellation-star { animation-delay: 3.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-star {
+    animation: none;
+    filter:
+      drop-shadow(0 0 2.5px rgba(255, 255, 245, 1))
+      drop-shadow(0 0 10px rgba(248, 239, 214, 0.6))
+      drop-shadow(0 0 30px rgba(157, 197, 217, 0.35));
+  }
+}
+
+/* ── Home scroll-snap (attached/detached by HomeSnap client component) ── */
+html.home-snap {
+  scroll-snap-type: y mandatory;
+}
+.home-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.home-snap { scroll-snap-type: none; }
+}
+
+/* ── Logo emblem ✦ star (crisp pinpoint + rays, no diffuse halo) ── */
+.logo-emblem-star {
+  animation: logo-emblem-star 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 1.4px rgba(255, 250, 230, 0.9));
+}
+
+@keyframes logo-emblem-star {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(0.94);
+    filter: drop-shadow(0 0 1.2px rgba(255, 250, 230, 0.8));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 2.6px rgba(255, 250, 230, 1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-emblem-star {
+    animation: none;
+    opacity: 0.95;
+    filter: drop-shadow(0 0 1.4px rgba(255, 250, 230, 0.85));
+  }
+}
+
+/* ── Across glyph (large on-screen brand mark, home screen 2) ──
+ * Positioning anchor for the shimmer sweep overlay. No diffuse halo —
+ * the only animation is a highlight traveling along the strokes.
+ * `isolation: isolate` keeps mix-blend-mode contained within the logo
+ * stacking context so the page bg never bleeds into the blend. */
+.across-glyph-halo {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Light traveling along the logo silhouette. The PNG is used as a mask
+ * so the moving gradient only paints inside the glyph shape. A narrow
+ * hot core with a brief trail reads as a razor-sharp specular highlight
+ * sweeping across the strokes. */
+.across-glyph-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 252, 235, 0.85) 50%,
+    transparent 62%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  mix-blend-mode: plus-lighter;
+  animation: across-glyph-shimmer-sweep 4.6s ease-in-out infinite;
+}
+
+@keyframes across-glyph-shimmer-sweep {
+  0% { background-position: -60% 0; opacity: 0; }
+  10% { opacity: 1; }
+  60% { opacity: 1; }
+  70%, 100% { background-position: 160% 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .across-glyph-shimmer {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ── Across glyph ✦ sparkle (legacy SVG path — kept for future use) ── */
+.across-glyph-sparkle {
+  transform-box: fill-box;
+  transform-origin: 62.5% 54.2%;
+  animation: across-glyph-twinkle 3.8s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 1.2px rgba(255, 250, 230, 0.95))
+    drop-shadow(0 0 3px rgba(248, 239, 214, 0.8))
+    drop-shadow(0 0 8px rgba(248, 239, 214, 0.4));
+}
+
+@keyframes across-glyph-twinkle {
+  0%, 100% {
+    opacity: 0.95;
+    filter:
+      drop-shadow(0 0 1px rgba(255, 250, 230, 0.9))
+      drop-shadow(0 0 3px rgba(248, 239, 214, 0.6))
+      drop-shadow(0 0 8px rgba(248, 239, 214, 0.3));
+  }
+  50% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 2px rgba(255, 250, 230, 1))
+      drop-shadow(0 0 6px rgba(248, 239, 214, 0.95))
+      drop-shadow(0 0 14px rgba(248, 239, 214, 0.6));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .across-glyph-sparkle {
+    animation: none;
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 1.5px rgba(255, 250, 230, 0.9))
+      drop-shadow(0 0 4px rgba(248, 239, 214, 0.7));
+  }
+}
+
+/* ── View transitions (plan T12 / DESIGN.md §7.2) ──── */
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(1.3); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes zoom-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: scale(0.7); }
+}
+
+::view-transition-old(root) {
+  animation: zoom-out 600ms var(--ease-soft) both;
+}
+::view-transition-new(root) {
+  animation: zoom-in 800ms var(--ease-snap) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* ── Utilities ──────────────────────────────────────── */
+@utility ambient-blur {
+  filter: blur(10px) brightness(0.95);
+  transform: scale(1.3);
+  opacity: 0.95;
+}
+
+@utility stage-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Article reading mode — dims the stage layers (DESIGN.md §8.5) */
+.article-dim .stage-layer {
+  opacity: 0.35;
+}
+
+/* Prose for MDX blog posts (DESIGN.md §8.5) */
+.prose-across {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+.prose-across h2 {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 2.5rem 0 1rem;
+}
+.prose-across h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+.prose-across p {
+  margin: 0 0 1.25rem;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+.prose-across ul,
+.prose-across ol {
+  margin: 0 0 1.25rem 1.25rem;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+.prose-across ul { list-style: disc; }
+.prose-across ol { list-style: decimal; }
+.prose-across li { margin: 0.25rem 0; }
+.prose-across strong { color: var(--color-text); }
+.prose-across a {
+  color: var(--color-signal-blue);
+  text-underline-offset: 3px;
+}
+.prose-across a:hover { text-decoration: underline; }
+.prose-across code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  background: var(--color-bg-elev-2);
+}
+.prose-across blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--color-signal-blue);
+  color: var(--color-text);
+  font-style: italic;
+}
+
+/*
+ ---break---
+ */
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ ---break---
+ */
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/*
+ ---break---
+ */
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+/*
+ ---break---
+ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  html.snap-page {
+    scroll-snap-type: y mandatory;
+    /* scroll-padding-top is set unlayered near the base `html` rule — the
+     * layer cascade would otherwise sink that override under the base. */
+  }
+  html.snap-page main > section[id] {
+    scroll-snap-align: start;
+    /* Neutralize per-section `scroll-mt-*`; in snap mode the section box
+     * itself aligns with the viewport edge. A non-zero scroll-margin-top
+     * pushed content downward and made every snap land low. */
+    scroll-margin-top: 0;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    /* Center content in the viewport. Padding must stay 0 — any vertical
+     * padding here inflates tall sections past 100dvh, so mandatory snap
+     * fights the user's mid-section scroll. */
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  /* First section — biased below center so the hero group sits visually
+   * anchored, not hugging the top edge. */
+  html.snap-page main > section:first-of-type {
+    justify-content: flex-start;
+    padding-top: 31vh;
+    padding-bottom: 0;
+  }
+
+  /* Last section (About's #cta) packs CTA + Footer together. With
+   * `justify-content: center` the CTA card centered vertically steals
+   * space from the Footer; combined with `scroll-snap-stop: always` the
+   * user gets trapped at the section top so the Footer's bottom half
+   * gets clipped when total content exceeds 100vh.
+   *   - `justify-content: flex-start` lets CTA sit at the top and the
+   *     Footer at the bottom of the flex container.
+   *   - `scroll-snap-stop: normal` lets the user pass through and see
+   *     the Footer fully when the section is taller than the viewport. */
+  html.snap-page main > section#cta {
+    justify-content: flex-start;
+    scroll-snap-stop: normal;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.snap-page {
+      scroll-snap-type: none;
+    }
+    html.snap-page main > section[id] {
+      min-height: auto;
+    }
+  }
+
+  /* Hide PageHeader mark while the hero section is in view.
+   * Data attribute is toggled by <HeroMarkToggle />. */
+  html[data-in-hero] header [data-zoom-out] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+  }
+  header [data-zoom-out] {
+    transition: opacity 400ms var(--ease-soft), transform 400ms var(--ease-soft);
+  }
+}

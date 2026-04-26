@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "어크로스 · AI가 답하는 세상에서, 당신의 브랜드가 선택받도록",
+    "titleTemplate": "%s | 어크로스",
+    "description": "주식회사 어크로스(Across Inc.) — AI 답변 최적화(GEO·AEO)로 당신의 브랜드가 AI의 답에 선택받도록 설계합니다."
+  },
+  "ui": {
+    "themeToggle": {
+      "toLight": "라이트 모드로 전환",
+      "toDark": "다크 모드로 전환"
+    },
+    "languageToggle": {
+      "label": "언어 전환"
+    }
+  },
+  "errors": {
+    "boundary": {
+      "code": "ERROR",
+      "title": "문제가 생겼습니다",
+      "description": "일시적인 오류일 수 있어요. 한 번 더 시도해보세요.",
+      "retry": "다시 시도"
+    },
+    "notFound": {
+      "code": "404",
+      "title": "길이 끊어졌습니다",
+      "description": "찾으시는 페이지가 없어요. 어크로스 홈으로 돌아가시겠어요?",
+      "home": "홈으로 돌아가기"
+    }
+  },
+  "footer": {
+    "companyInfoLabel": "회사 정보",
+    "companyLine": "대표 이재홍 · 사업자등록번호 288-86-03687",
+    "navLabel": "사이트 네비게이션",
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침"
+  },
+  "home": {
+    "hero": {
+      "eyebrowBrand": "어크로스",
+      "eyebrowTagline": "AEO · GEO — AI 답변 최적화 서비스",
+      "titleLine1": "AI가 답하는 세상에서,",
+      "titleLine2": "당신의 브랜드가",
+      "titleLine3": "선택받도록"
+    }
+  }
+}

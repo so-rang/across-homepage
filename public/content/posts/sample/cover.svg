@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="AI Decision Layer One">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#2e7dff" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#06060b" stop-opacity="0.0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#06060b"/>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.85">
+    <path d="M800 210 L815 280 L885 295 L815 310 L800 380 L785 310 L715 295 L785 280 Z"/>
+  </g>
+  <text x="800" y="540" fill="#ffffff" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="56" font-weight="700" text-anchor="middle">AI Decision Layer One</text>
+  <text x="800" y="600" fill="rgba(255,255,255,0.6)" font-family="system-ui,sans-serif" font-size="22" text-anchor="middle">Across · Perspective</text>
+</svg>
