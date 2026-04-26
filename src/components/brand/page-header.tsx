@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AcrossMark } from "@/components/brand/across-mark";
 import { Minimap } from "@/components/nav/minimap";
+import { MobileNav } from "@/components/nav/mobile-nav";
 import { LanguageToggle } from "@/components/ui/language-toggle";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
@@ -16,24 +17,26 @@ type Props = {
  */
 export function PageHeader({ back }: Props) {
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between gap-4 py-4 pl-3 pr-6 sm:pl-5 sm:pr-10">
+    <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-4 py-4 sm:pl-5 sm:pr-10">
       {/* Soft wash that fades into the page so the bar reads as part of the
        * background. Single gradient without an extra mask — the gradient
        * itself carries the fade, which keeps the visual band tight around
        * the items so `items-center` looks truly centered. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-md"
+        className="pointer-events-none absolute inset-0 -z-10 supports-backdrop-filter:backdrop-blur-md"
         style={{
           background:
-            "linear-gradient(to bottom, color-mix(in oklab, var(--color-bg) 82%, transparent) 0%, color-mix(in oklab, var(--color-bg) 40%, transparent) 85%, transparent 100%)",
+            "linear-gradient(to bottom, color-mix(in oklab, var(--color-bg) 95%, transparent) 0%, color-mix(in oklab, var(--color-bg) 75%, transparent) 70%, transparent 100%)",
         }}
       />
-      <span data-zoom-out>
+      <span data-zoom-out className="min-w-0 shrink-0">
         <AcrossMark />
       </span>
-      <div className="flex items-center gap-3 sm:gap-5">
-        <Minimap />
+      <div className="flex items-center gap-2 sm:gap-5">
+        <div className="hidden sm:block">
+          <Minimap />
+        </div>
         {back ? (
           <Link
             href={back.href}
@@ -44,6 +47,9 @@ export function PageHeader({ back }: Props) {
         ) : null}
         <ThemeToggle />
         <LanguageToggle />
+        <div className="sm:hidden">
+          <MobileNav />
+        </div>
       </div>
     </header>
   );

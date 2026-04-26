@@ -1,22 +1,16 @@
-import Image from "next/image";
-
 /**
  * "On-scroll" emblem for the second screen.
- * Uses `/logo/across_logo_cream.png` (transparent cutout). The ✦ glow is
- * a crisp star — pinpoint core + four thin tapered rays — not a diffuse
- * dust halo. Only the rays breathe, never the whole mark.
+ * Uses `/logo/across_logo_cream.png` as a CSS mask painted via background
+ * color, so the mark color follows the theme without needing two PNG
+ * variants. The ✦ glow is a crisp star — pinpoint core + four thin
+ * tapered rays — not a diffuse dust halo. Only the rays breathe.
  */
 export function LogoEmblem() {
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[280px] lg:max-w-[320px]">
-      <Image
-        src="/logo/across_logo_cream.png"
-        alt=""
+      <span
         aria-hidden
-        fill
-        sizes="320px"
-        className="select-none object-contain brightness-0 dark:brightness-100"
-        priority={false}
+        className="across-mark absolute inset-0 select-none bg-white/85 light:bg-black/85"
       />
       {/* Crisp star at the ✦ position (≈62.5%, 54% of the image box). */}
       <svg

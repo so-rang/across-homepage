@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/brand/page-header";
 import { ZoomOutGesture } from "@/components/nav/zoom-out-gesture";
 import { OwnCards } from "@/components/sections/services/own-cards";
 import { PartnerRow } from "@/components/sections/services/partner-row";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "자체 솔루션 GPTO·GenRank·NAEO와 파트너 서비스 한경GPTO·MediGPTO·고객의눈 GPTO.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("services.metadata");
+  return {
+    title: "Services",
+    description: t("description"),
+  };
+}
 
 export default function ServicesPage() {
+  const t = useTranslations("services");
   return (
     <>
       <ZoomOutGesture backHref="/" />
@@ -21,7 +26,7 @@ export default function ServicesPage() {
             Services
           </h1>
           <p className="mt-4 text-[17px] leading-[1.65] text-text-muted">
-            어크로스가 직접 운영하는 프로덕트와, 파트너와 함께 만든 솔루션
+            {t("subtitle")}
           </p>
         </header>
         <OwnCards />

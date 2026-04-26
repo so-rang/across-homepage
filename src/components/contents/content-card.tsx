@@ -1,17 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { NewsThumbnail } from "@/components/contents/news-thumbnail";
 import { VideoModal } from "@/components/contents/video-modal";
 import type { ContentsItem } from "@/lib/content/types";
 import { youtubeThumbnail } from "@/lib/content/youtube";
-
-const BADGE: Record<ContentsItem["type"], string> = {
-  blog: "블로그",
-  news: "뉴스",
-  video: "영상",
-};
 
 function CardFrame({
   children,
@@ -54,6 +49,7 @@ function CardFrame({
 }
 
 export function ContentCard({ item }: { item: ContentsItem }) {
+  const t = useTranslations("contents.badge");
   if (item.type === "blog") {
     return (
       <Link
@@ -67,12 +63,12 @@ export function ContentCard({ item }: { item: ContentsItem }) {
                 src={item.coverImage}
                 alt={item.coverAlt}
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
                 className="object-cover"
               />
             </div>
           }
-          badge={BADGE.blog}
+          badge={t("blog")}
           source={item.author}
           title={item.title}
           excerpt={item.excerpt}
@@ -99,7 +95,7 @@ export function ContentCard({ item }: { item: ContentsItem }) {
               fallback={{ sourceName: item.sourceName, date: item.date }}
             />
           }
-          badge={BADGE.news}
+          badge={t("news")}
           source={item.sourceName}
           title={item.title}
           excerpt={item.excerpt}
@@ -119,7 +115,7 @@ export function ContentCard({ item }: { item: ContentsItem }) {
               src={thumb}
               alt={item.title}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
               className="object-cover"
             />
             <span
@@ -141,7 +137,7 @@ export function ContentCard({ item }: { item: ContentsItem }) {
             </span>
           </div>
         }
-        badge={BADGE.video}
+        badge={t("video")}
         source={item.channelName}
         title={item.title}
         excerpt={item.excerpt}

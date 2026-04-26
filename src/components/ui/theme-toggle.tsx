@@ -3,7 +3,11 @@
 import { Moon, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
-import { THEME_STORAGE_KEY, type Theme } from "@/lib/theme/bootstrap";
+import {
+  THEME_COOKIE_KEY,
+  THEME_STORAGE_KEY,
+  type Theme,
+} from "@/lib/theme/bootstrap";
 
 /**
  * Theme toggle — switches between dark (Deep Space) and light (Dawn).
@@ -45,6 +49,7 @@ export function ThemeToggle() {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next);
     } catch {}
+    document.cookie = `${THEME_COOKIE_KEY}=${next}; path=/; max-age=31536000; samesite=lax`;
   };
 
   const isLight = theme === "light";

@@ -1,11 +1,13 @@
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+type PartnerId = "hkgpto" | "medigpto" | "customereye";
+
 type Partner = {
+  id: PartnerId;
   name: string;
-  tagline: string;
-  blurb: string;
   href?: string;
   logo: {
     src: string;
@@ -18,9 +20,8 @@ type Partner = {
 
 const PARTNERS: Partner[] = [
   {
+    id: "hkgpto",
     name: "한경GPTO",
-    tagline: "한국경제 × 어크로스",
-    blurb: "한경 권위 콘텐츠로 B2B 브랜드를 AI 답변에 심습니다.",
     href: "https://www.hkgpto.com",
     logo: {
       src: "/logo/hkgpto_hk.svg",
@@ -31,9 +32,8 @@ const PARTNERS: Partner[] = [
     },
   },
   {
+    id: "medigpto",
     name: "MediGPTO",
-    tagline: "메디고라운드 × 어크로스",
-    blurb: "병원·의료 특화 GEO로 지역 AI 추천을 선점합니다.",
     href: "https://medigpto.com",
     logo: {
       src: "/logo/medi_trans_logo.png",
@@ -43,9 +43,8 @@ const PARTNERS: Partner[] = [
     },
   },
   {
+    id: "customereye",
     name: "고객의눈 GPTO",
-    tagline: "김팀장 × 어크로스",
-    blurb: "전문가·자영업의 AI 추천 목록 진입을 설계합니다.",
     href: "https://client-gpto.com",
     logo: {
       src: "/logo/client_eye_logo.png",
@@ -81,7 +80,15 @@ function PartnerMark({ partner }: { partner: Partner }) {
   );
 }
 
-function PartnerCard({ partner }: { partner: Partner }) {
+function PartnerCard({
+  partner,
+  tagline,
+  blurb,
+}: {
+  partner: Partner;
+  tagline: string;
+  blurb: string;
+}) {
   const body = (
     <>
       <div className="mb-2 flex h-10 items-center justify-between gap-3">
@@ -94,11 +101,9 @@ function PartnerCard({ partner }: { partner: Partner }) {
         ) : null}
       </div>
       <p className="text-[11px] uppercase tracking-[0.2em] text-text-muted">
-        {partner.tagline}
+        {tagline}
       </p>
-      <p className="mt-2 text-[13px] leading-[1.55] text-text-muted">
-        {partner.blurb}
-      </p>
+      <p className="mt-2 text-[13px] leading-[1.55] text-text-muted">{blurb}</p>
     </>
   );
 
@@ -119,15 +124,20 @@ function PartnerCard({ partner }: { partner: Partner }) {
 }
 
 export function HomePartnerRow() {
+  const t = useTranslations("home.partnerRow");
   return (
     <section className="mt-10 border-t border-border-subtle pt-8">
       <h3 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-text-muted">
-        파트너 서비스
+        {t("heading")}
       </h3>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PARTNERS.map((partner) => (
-          <li key={partner.name}>
-            <PartnerCard partner={partner} />
+          <li key={partner.id}>
+            <PartnerCard
+              partner={partner}
+              tagline={t(`${partner.id}.tagline`)}
+              blurb={t(`${partner.id}.blurb`)}
+            />
           </li>
         ))}
       </ul>

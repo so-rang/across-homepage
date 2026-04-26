@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
+import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type AcrossMarkProps = {
@@ -27,43 +27,47 @@ const ASPECT = 589 / 758;
 export function AcrossMark({
   className,
   href = "/",
-  label = "어크로스 홈",
+  label,
   size = "md",
   showWordmark = true,
 }: AcrossMarkProps) {
+  const t = useTranslations("nav.brand");
   const h = size === "sm" ? 28 : 34;
   const w = Math.round(h * ASPECT);
   const pathname = usePathname();
+  const ariaLabel = label ?? t("homeAria");
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (pathname === href) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // When wrapped by [data-zoom-out], the parent gesture handler runs the
+    // View Transition on pointerdown; suppress the Link's own navigation so
+    // the two paths don't race and tear the zoom animation.
+    if (event.currentTarget.closest("[data-zoom-out]")) {
+      event.preventDefault();
     }
   };
 
   return (
     <Link
       href={href}
-      aria-label={label}
+      aria-label={ariaLabel}
       onClick={handleClick}
       className={cn(
         "inline-flex items-center gap-2 text-text transition-opacity hover:opacity-90 focus-visible:opacity-100",
         className
       )}
     >
-      <Image
-        src="/logo/across_logo_cream.png"
-        alt=""
+      <span
         aria-hidden
-        width={w}
-        height={h}
-        priority
-        className="block shrink-0 select-none brightness-0 dark:brightness-100"
+        className="across-mark block shrink-0 select-none bg-white/85 light:bg-black/85"
         style={{ height: h, width: w }}
       />
       {showWordmark ? (
-        <span className="ml-1 text-[17px] font-medium tracking-[0.01em]">
+        <span className="ml-1 hidden whitespace-nowrap text-[17px] font-medium tracking-[0.01em] sm:inline">
           Across Inc.
         </span>
       ) : null}

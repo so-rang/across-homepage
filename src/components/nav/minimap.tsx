@@ -1,7 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const STARS = [
@@ -17,11 +18,12 @@ const STARS = [
  * and stays clickable. Star icon + label on sm+, icon-only on mobile.
  */
 export function Minimap() {
+  const t = useTranslations("nav.minimap");
   const pathname = usePathname();
 
   return (
     <nav
-      aria-label="미니맵"
+      aria-label={t("label")}
       className="flex items-center gap-1 sm:gap-2"
     >
       {STARS.map((s) => {
@@ -31,7 +33,7 @@ export function Minimap() {
           <Link
             key={s.href}
             href={s.href}
-            aria-label={`${s.label}로 이동`}
+            aria-label={t("goTo", { label: s.label })}
             aria-current={current ? "page" : undefined}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-2 py-1 text-sm transition-colors sm:px-3",

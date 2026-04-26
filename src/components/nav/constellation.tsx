@@ -1,10 +1,10 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type Star = {
   readonly href: "/about" | "/services" | "/contents" | "/contact";
   readonly label: string;
-  readonly aria: string;
   readonly pos: string;
   readonly xPct: number;
   readonly yPct: number;
@@ -14,7 +14,6 @@ const STARS: readonly Star[] = [
   {
     href: "/about",
     label: "About",
-    aria: "About 섹션으로 이동",
     pos: "sm:left-[28%] sm:top-[14%]",
     xPct: 28,
     yPct: 14,
@@ -22,7 +21,6 @@ const STARS: readonly Star[] = [
   {
     href: "/services",
     label: "Services",
-    aria: "Services 섹션으로 이동",
     pos: "sm:left-[72%] sm:top-[34%]",
     xPct: 72,
     yPct: 34,
@@ -30,7 +28,6 @@ const STARS: readonly Star[] = [
   {
     href: "/contents",
     label: "Contents",
-    aria: "Contents 섹션으로 이동",
     pos: "sm:left-[30%] sm:top-[62%]",
     xPct: 30,
     yPct: 62,
@@ -38,20 +35,13 @@ const STARS: readonly Star[] = [
   {
     href: "/contact",
     label: "Contact",
-    aria: "Contact 섹션으로 이동",
     pos: "sm:left-[74%] sm:top-[84%]",
     xPct: 74,
     yPct: 84,
   },
 ] as const;
 
-/**
- * Primary site navigation as a four-star constellation (DESIGN.md §7.1).
- * Lines connect consecutive stars with a gap around each star — the line
- * starts a few units out from one star and ends a few units before the next,
- * like a real constellation map. Only rendered on ≥sm.
- */
-const STAR_GAP = 12; // viewBox units — keeps the line clear of the star + its label below
+const STAR_GAP = 12;
 
 type Segment = { x1: number; y1: number; x2: number; y2: number };
 
@@ -71,18 +61,15 @@ const SEGMENTS: readonly Segment[] = STARS.slice(0, -1).map((from, i) => {
 });
 
 export function Constellation() {
+  const t = useTranslations("nav.constellation");
   return (
-    <nav aria-label="메뉴" className="relative h-full w-full">
+    <nav aria-label={t("label")} className="relative h-full w-full">
       <svg
         aria-hidden
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block"
       >
-        {/* Sequential zigzag: About → Services → Contents → Contact.
-            Each segment floats between two stars with a gap at both ends,
-            leaving room for the label below each star. The intro timeline
-            fades each line in after the preceding star appears. */}
         {SEGMENTS.map((seg, i) => (
           <line
             key={i}
@@ -111,7 +98,7 @@ export function Constellation() {
           >
             <Link
               href={star.href}
-              aria-label={star.aria}
+              aria-label={t("goTo", { label: star.label })}
               className="group inline-flex min-h-11 flex-col items-center gap-2.5 rounded-full px-3 py-1.5 sm:gap-3"
             >
               <svg
@@ -119,9 +106,6 @@ export function Constellation() {
                 viewBox="0 0 20 20"
                 className="constellation-star h-6 w-6 text-star-warm transition-transform duration-[var(--d-base)] ease-[var(--ease-snap)] group-hover:scale-[1.3] group-focus-visible:scale-[1.3]"
               >
-                {/* 4-point star + bright pinpoint core. The halo glow is
-                    handled by a chase animation in globals.css (each of
-                    the 4 stars takes its turn shining). */}
                 <path
                   d="M 10 1 L 11.2 8.8 L 19 10 L 11.2 11.2 L 10 19 L 8.8 11.2 L 1 10 L 8.8 8.8 Z"
                   fill="currentColor"

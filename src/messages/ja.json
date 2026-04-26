@@ -2,7 +2,9 @@
   "metadata": {
     "title": "アクロス · AIが答える世界で、あなたのブランドが選ばれるように。",
     "titleTemplate": "%s | アクロス",
-    "description": "株式会社アクロス(Across Inc.)— GEO・AEO によるAI回答最適化で、AIの答えの中であなたのブランドが選ばれるよう設計します。"
+    "description": "株式会社アクロス(Across Inc.)— GEO・AEO によるAI回答最適化で、AIの答えの中であなたのブランドが選ばれるよう設計します。",
+    "organizationName": "株式会社アクロス",
+    "websiteName": "アクロス"
   },
   "ui": {
     "themeToggle": {
@@ -41,6 +43,471 @@
       "titleLine1": "AIが答える世界で、",
       "titleLine2": "あなたのブランドが",
       "titleLine3": "選ばれるように。"
+    },
+    "position": {
+      "eyebrow": "About · Across",
+      "titleLine1": "アクロスはAI回答最適化",
+      "titleLine2": "GEO・AEOの会社です",
+      "lead": "検索の時代が答えの時代へ移り変わる今、AIがブランドをどう呼び、選ぶかを設計します。自社プロダクトを直接運営し、パートナープロダクトに<nowrap>コア技術を供給しています。</nowrap>",
+      "logoAlt": "アクロスロゴ"
+    },
+    "method": {
+      "eyebrow": "Services · Own products",
+      "title": "AI回答の中のブランド戦略",
+      "leadLine1": "登場を追跡し、順位を読み、韓国語と業界の文脈に合わせます。",
+      "leadLine2": "自社プロダクトがそれぞれの役割を担います。"
+    },
+    "practice": {
+      "eyebrow": "Contents · Latest",
+      "titleLine1": "アクロスはこうして",
+      "titleLine2": "世界と出会っています",
+      "leadLine1": "私たちが見るもの、外が私たちを映すもの。",
+      "leadLine2": "ブログ・ニュース・動画でご覧いただけます。"
+    },
+    "partners": {
+      "eyebrow": "Ecosystem · Backed & trusted",
+      "titleLine1": "基準を共に",
+      "titleLine2": "築く人々",
+      "lead": "資本と戦略、二つの軸でアクロスを信頼するパートナーたちが、AI回答最適化の基準を共に作っています。"
+    },
+    "invitation": {
+      "eyebrow": "Contact · Work with us",
+      "titleLine1": "ご提案をお待ちしています",
+      "titleLine2": "迅速に返信します",
+      "lead": "製品導入・パートナーシップ・メディア取材・採用に関するお問い合わせを歓迎します。メールでお気軽にお送りください。",
+      "cta": "お問い合わせを送る"
+    },
+    "cta": {
+      "viewAbout": "会社の詳細を見る",
+      "viewServices": "サービスの詳細を見る",
+      "viewContents": "コンテンツの詳細を見る",
+      "viewPartners": "パートナー・投資家の詳細を見る"
+    },
+    "ownCards": {
+      "gpto": {
+        "tagline": "統合AEO GEOプラットフォーム",
+        "blurb": "AI回答でブランドがどう呼ばれているかを診断し、改善します。"
+      },
+      "genrank": {
+        "tagline": "AI回答の比較",
+        "blurb": "生成AIの回答をモデル・時点ごとにクロス比較します。"
+      },
+      "naeo": {
+        "tagline": "Naver AI診断",
+        "blurb": "Naverの生成回答環境における露出位置を分析します。"
+      }
+    },
+    "partnerRow": {
+      "heading": "パートナーサービス",
+      "hkgpto": {
+        "tagline": "韓国経済新聞 × アクロス",
+        "blurb": "韓経の権威あるコンテンツで、B2BブランドをAI回答に組み込みます。"
+      },
+      "medigpto": {
+        "tagline": "メディゴラウンド × アクロス",
+        "blurb": "病院・医療特化のGEOで、地域のAI推薦を先取りします。"
+      },
+      "customereye": {
+        "tagline": "キム・チームリーダー × アクロス",
+        "blurb": "専門家・自営業者がAI推薦リストに入る方法を設計します。"
+      }
+    },
+    "scale": {
+      "aiModel": {
+        "unit": "AIモデル",
+        "detail": "グローバル5 + 中国5"
+      },
+      "learning": {
+        "unit": "学習サイト",
+        "detail": "AIが学習するネットワーク"
+      },
+      "customers": {
+        "unit": "顧客企業",
+        "detail": "国内外の実績データ"
+      },
+      "multilingual": {
+        "unit": "多言語",
+        "detail": "韓・英・中・日を含む"
+      }
+    },
+    "partnersStrip": {
+      "hankyung": {
+        "name": "韓国経済新聞",
+        "field": "経済メディア"
+      },
+      "medigoround": {
+        "name": "メディゴラウンド",
+        "field": "ヘルスケアプラットフォーム"
+      },
+      "kimteamlead": {
+        "name": "キム・チームリーダー",
+        "field": "専門家ネットワーク"
+      }
+    },
+    "contents": {
+      "sectionLabel": "最新コンテンツ",
+      "empty": "もうすぐ最初の記録を公開します。",
+      "prev": "前のコンテンツ",
+      "next": "次のコンテンツ",
+      "goToSlide": "{n}番目のコンテンツへ移動"
+    }
+  },
+  "about": {
+    "metadata": {
+      "description": "アクロスはGEO・AEO(AI回答最適化)の会社です。検索の時代からAI回答の時代へ。代表・投資家・パートナーをご紹介します。"
+    },
+    "across": {
+      "homeAria": "アクロスのホームへ",
+      "logoAlt": "アクロスロゴ",
+      "title": "アクロスはAI回答最適化のGEO・AEO会社です",
+      "p1": "ChatGPT・Claude・Geminiが答えを出す瞬間、あなたのブランドが最初に引用されるようにします。",
+      "p2": "自社プロダクトで先に検証し、同じ技術をパートナープロダクトに供給します。実証された方法だけをお届けします。"
+    },
+    "marketShift": {
+      "eyebrow": "Market shift",
+      "title": "露出の時代から、選択の時代へ",
+      "leadLine1": "AIが答えを生成して引用する仕組みは、検索最適化とはまったく異なります。",
+      "leadLine2": "基準が変わったからこそ、成果の作り方も変える必要があります。",
+      "tableHeader": {
+        "seo": "SEO",
+        "geo": "GEO・AEO"
+      },
+      "rows": {
+        "target": {
+          "axis": "最適化対象",
+          "seo": "Googleアルゴリズム",
+          "geo": "AIモデル(ChatGPT・Claude・Geminiなど)"
+        },
+        "kpi": {
+          "axis": "成果指標",
+          "seo": "キーワード順位・CTR",
+          "geo": "AI引用頻度・ブランド言及率"
+        },
+        "content": {
+          "axis": "コンテンツ戦略",
+          "seo": "キーワード密度・被リンク",
+          "geo": "Semantic HTML・Schema・権威性のあるコンテンツ"
+        },
+        "competition": {
+          "axis": "競争構造",
+          "seo": "10件の結果内で競う",
+          "geo": "AIが選ぶ少数のブランド"
+        }
+      },
+      "closing": "SEOは見せ、<em>GEOは選ばれます。</em>"
+    },
+    "scale": {
+      "eyebrow": "Scale",
+      "title": "数字で見るアクロス",
+      "metrics": {
+        "aiModel": {
+          "unit": "AIモデル",
+          "detail": "グローバル5 + 中国5、毎週APIモニタリング"
+        },
+        "learning": {
+          "unit": "学習サイト",
+          "detail": "AIが学習する信頼性の高い配信ネットワーク"
+        },
+        "customers": {
+          "unit": "顧客企業",
+          "detail": "国内外の実績データを透明に管理"
+        },
+        "multilingual": {
+          "unit": "多言語",
+          "detail": "韓国語・英語・中国語・日本語を含む"
+        }
+      },
+      "industriesLabel": "主な顧客業界",
+      "industries": {
+        "retail": "リテール",
+        "healthcare": "ヘルスケア",
+        "media": "メディア",
+        "fnb": "F&B",
+        "finance": "金融",
+        "tech": "テック"
+      }
+    },
+    "method": {
+      "eyebrow": "Method",
+      "title": "AIにあなたを語らせる方法",
+      "leadLine1": "診断・戦略・実行。三段階を繰り返し、AI回答の中での位置を作ります。",
+      "leadLine2": "勘ではなくデータで、AIがあなたを選ぶ理由を積み上げます。",
+      "steps": {
+        "diagnose": {
+          "title": "診断",
+          "body": "貴社業界の目標となる質問を設計し、10種のAIモデルがどう答えるかを測定します。自社・競合の言及率と文脈を数字で取り出します。"
+        },
+        "strategy": {
+          "title": "戦略",
+          "body": "診断結果をもとに、最適化の方向・想定成果・タイムラインを設計します。勘ではなくデータで、次の6か月のマップを作ります。"
+        },
+        "execute": {
+          "title": "実行",
+          "body": "AIの学習が進みやすいネットワークに最適化されたコンテンツを配信し、毎週モニタリングしながら継続的に改善します。"
+        }
+      }
+    },
+    "ceo": {
+      "title": "代表",
+      "photoAlt": "株式会社アクロス代表 イ・ジェホン",
+      "quote": "AIはDecision Layer Oneである。",
+      "name": "イ・ジェホン",
+      "role": "株式会社アクロス Founder & CEO・GPTO技術の創始者",
+      "bio": "KAIST産業工学を卒業後、第一企画(Cheil)でData Scientist・AEとして3年間勤務。<br/>その後、スタートアップで企画・マーケティングを6年間担当しました。<br/>企画から開発まで自ら手を動かすフルスタック・オペレーターです。",
+      "achievements": {
+        "book": "<cite>『AEO・GEO 生存戦略』</cite>著者・経済経営ベストセラー5位",
+        "demoDay": "プライマー27期デモデー登壇",
+        "talks": "教保文庫本社カンファレンス登壇",
+        "consulting": "国内外の主要VC・企業向けGEOセミナー・コンサルティング"
+      }
+    },
+    "partnersClients": {
+      "eyebrow": "Ecosystem",
+      "title": "アクロスを選んだ名前たち",
+      "leadLine1": "資本と現場、二つの軸が同じ決定を下しました。",
+      "leadLine2": "AI回答の時代を先導する投資家とパートナーが、アクロスと共に歩んでいます。",
+      "items": {
+        "hankyung": {
+          "name": "韓国経済新聞",
+          "field": "経済メディア"
+        },
+        "medigoround": {
+          "name": "メディゴラウンド",
+          "field": "ヘルスケアプラットフォーム"
+        },
+        "kimteamlead": {
+          "name": "キム・チームリーダー",
+          "field": "専門家ネットワーク"
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Start now",
+      "title": "AIの答えになる場所、今すぐ確保しましょう",
+      "leadLine1": "SEOがそうだったように、GEOもまもなく標準になります。",
+      "leadLine2": "先に動いたブランドが、AIの答えに先に名を刻みます。",
+      "link": "お問い合わせを送る"
+    }
+  },
+  "services": {
+    "metadata": {
+      "description": "自社ソリューションのGPTO・GenRank・NAEOと、パートナーサービスの韓経GPTO・MediGPTO・カスタマーズアイGPTO。"
+    },
+    "subtitle": "アクロスが直接運営するプロダクトと、パートナーとともにつくったソリューション"
+  },
+  "contact": {
+    "metadata": {
+      "description": "製品導入・パートナーシップ・メディア・採用のお問い合わせは、アクロスへ直接お送りください。"
+    },
+    "subtitle": "お問い合わせ",
+    "leadIntro": "製品導入・パートナーシップ・メディア・採用、",
+    "leadInvite": "どんなお話でもお気軽にお寄せください。",
+    "form": {
+      "fields": {
+        "name": {
+          "label": "お名前",
+          "required": "お名前を入力してください"
+        },
+        "company": {
+          "label": "会社名"
+        },
+        "email": {
+          "label": "メールアドレス",
+          "required": "メールアドレスを入力してください",
+          "invalid": "正しいメールアドレスを入力してください"
+        },
+        "inquiryType": {
+          "label": "お問い合わせ種別",
+          "placeholder": "選択してください"
+        },
+        "message": {
+          "label": "メッセージ",
+          "required": "メッセージを入力してください",
+          "tooShort": "20文字以上ご入力ください"
+        }
+      },
+      "inquiryTypes": {
+        "product": "プロダクト導入のお問い合わせ",
+        "partnership": "パートナーシップ",
+        "press": "メディア・取材のお問い合わせ",
+        "careers": "採用のお問い合わせ",
+        "other": "その他"
+      },
+      "privacy": {
+        "agreement": "<link>個人情報の収集・利用</link>に同意します。",
+        "required": "個人情報の収集・利用への同意が必要です"
+      },
+      "submit": {
+        "idle": "送信する",
+        "busy": "送信中…"
+      },
+      "toasts": {
+        "validation": "入力内容をご確認ください。",
+        "success": "受け付けました。",
+        "rateLimit": "しばらくしてから再度お試しください。",
+        "transmitError": "送信に問題が発生しました。ask@across.center まで直接ご連絡ください。"
+      }
+    }
+  },
+  "contents": {
+    "metadata": {
+      "description": "アクロスの動画・報道・ブログをすべて見られる場所です。"
+    },
+    "emptyCategory": "このカテゴリーにはまだコンテンツがありません。",
+    "viewAll": "すべて見る",
+    "filters": {
+      "ariaLabel": "コンテンツフィルター",
+      "all": "すべて",
+      "video": "動画",
+      "news": "ニュース",
+      "blog": "ブログ"
+    },
+    "badge": {
+      "blog": "ブログ",
+      "news": "ニュース",
+      "video": "動画"
+    },
+    "video": {
+      "subscribe": "アクロスハウスを登録",
+      "viewOnChannel": "元のチャンネルで見る",
+      "fallback": "この動画はYouTubeで開きます。"
+    }
+  },
+  "nav": {
+    "minimap": {
+      "label": "ミニマップ",
+      "goTo": "{label} へ移動"
+    },
+    "sectionIndex": {
+      "label": "セクション一覧"
+    },
+    "constellation": {
+      "label": "メニュー",
+      "goTo": "{label} セクションへ移動"
+    },
+    "backToTop": "ページの先頭へ",
+    "brand": {
+      "homeAria": "アクロスのホーム"
+    },
+    "menu": {
+      "open": "メニューを開く",
+      "close": "メニューを閉じる",
+      "title": "メニュー"
+    }
+  },
+  "intro": {
+    "constellationHint": "星をクリックして移動"
+  },
+  "legal": {
+    "terms": {
+      "metadata": {
+        "title": "利用規約"
+      },
+      "title": "利用規約",
+      "lastUpdatedLabel": "最終更新日",
+      "purpose": {
+        "title": "1. 目的",
+        "body": "本規約は、株式会社アクロス(以下「当社」)が運営するウェブサイトで提供される情報およびお問い合わせ窓口の利用条件を定めます。"
+      },
+      "service": {
+        "title": "2. サービスの提供",
+        "body": "当社はウェブサイトを通じて、会社案内、製品・サービス紹介、コンテンツ、お問い合わせ受付機能を提供します。提供内容は事前通知なく変更されることがあります。"
+      },
+      "userObligations": {
+        "title": "3. 利用者の義務",
+        "items": [
+          "関連法令および本規約の規定を遵守しなければなりません。",
+          "他者の権利を侵害したり、業務を妨げる行為をしてはなりません。",
+          "虚偽の情報や他人の情報を不正に使用してはなりません。"
+        ]
+      },
+      "ip": {
+        "title": "4. 知的財産権",
+        "body": "ウェブサイトに掲載されたすべてのコンテンツ(テキスト・画像・動画・ロゴなど)の著作権は当社または正当な権利者に帰属し、事前の書面同意なく複製・転送・配布することはできません。"
+      },
+      "disclaimer": {
+        "title": "5. 免責事項",
+        "body": "天災や回線障害など不可抗力によるサービス中断について、当社は責任を負いません。外部リンク先の第三者サービスの正確性・適法性についても責任を負いません。"
+      },
+      "governingLaw": {
+        "title": "6. 準拠法および管轄",
+        "body": "本規約は大韓民国の法令に従って解釈され、紛争が発生した場合は民事訴訟法上の管轄裁判所を第一審の管轄裁判所とします。"
+      },
+      "amendment": {
+        "title": "7. 改定",
+        "body": "本規約は {date} から施行されます。改定時はウェブサイトで告知します。"
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "プライバシーポリシー"
+      },
+      "title": "プライバシーポリシー",
+      "lastUpdatedLabel": "最終更新日",
+      "intro": "株式会社アクロス(以下「当社」)は、個人情報保護法および関連法令を遵守し、利用者の個人情報を保護します。本ポリシーは当社のウェブサイトおよびお問い合わせ窓口に適用されます。",
+      "items": {
+        "title": "1. 収集する個人情報の項目",
+        "lines": [
+          "必須:お名前、メールアドレス、お問い合わせ種別、メッセージ",
+          "任意:会社名",
+          "自動収集:IPアドレス、User-Agent、アクセス日時"
+        ]
+      },
+      "purpose": {
+        "title": "2. 収集および利用目的",
+        "lines": [
+          "お問い合わせへの対応・回答",
+          "サービス品質改善のための統計分析"
+        ]
+      },
+      "retention": {
+        "title": "3. 保有期間",
+        "body": "収集した個人情報は、お問い合わせ対応完了後 <emphasis>1年間</emphasis> 保管し、その後遅滞なく破棄します。ただし、関連法令により保存が必要な場合は、その期間中保管します。"
+      },
+      "thirdParty": {
+        "title": "4. 第三者提供",
+        "body": "当社は利用者の個人情報を第三者に提供しません。"
+      },
+      "processors": {
+        "title": "5. 処理委託",
+        "lines": [
+          "Resend, Inc. — お問い合わせメールの送信。委託項目:お名前、メールアドレス、メッセージ内容。"
+        ]
+      },
+      "rights": {
+        "title": "6. 利用者の権利",
+        "body": "利用者はいつでも自身の個人情報の閲覧・訂正・削除・処理停止を要求でき、要求を受けた場合は遅滞なく対応します。ご要望は <email>ask@across.center</email> までご連絡ください。"
+      },
+      "security": {
+        "title": "7. 安全性確保措置",
+        "body": "通信区間の暗号化(HTTPS/TLS)、アクセス制御、ストレージ最小化の原則を適用します。"
+      },
+      "company": {
+        "title": "8. 会社情報",
+        "labels": {
+          "name": "商号",
+          "ceo": "代表取締役",
+          "registrationNumber": "事業者登録番号",
+          "address": "本店所在地",
+          "email": "メールアドレス"
+        },
+        "values": {
+          "name": "株式会社アクロス (Across Inc.)",
+          "ceo": "イ・ジェホン",
+          "registrationNumber": "288-86-03687"
+        }
+      },
+      "amendment": {
+        "title": "9. 改定履歴",
+        "body": "本ポリシーは {date} から施行されます。"
+      }
+    }
+  },
+  "article": {
+    "post": {
+      "prevNext": "前の記事・次の記事",
+      "prev": "前の記事",
+      "next": "次の記事"
     }
   }
 }

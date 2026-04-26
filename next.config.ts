@@ -9,7 +9,7 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.resend.com",
+  "connect-src 'self' https://api.resend.com https://*.supabase.co wss://*.supabase.co",
   "frame-src https://www.youtube-nocookie.com",
   "object-src 'none'",
   "base-uri 'self'",
@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.ytimg.com" },
       { protocol: "https", hostname: "ytimg.com" },
       { protocol: "https", hostname: "img.youtube.com" },
+      { protocol: "https", hostname: "**.supabase.co" },
     ],
   },
   async headers() {

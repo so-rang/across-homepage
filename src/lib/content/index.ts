@@ -1,35 +1,14 @@
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
 import { z } from "zod";
+import type { JSONContent } from "@tiptap/react";
 import generatedJson from "@/content/generated.json";
 import metaJson from "@/content/meta.json";
+import { getSupabaseAnonClient } from "@/lib/supabase/anon";
 import type { BlogItem, ContentsItem, NewsItem, VideoItem } from "./types";
-
-const POSTS_DIR = path.join(process.cwd(), "src", "content", "posts");
-
-const BlogFrontmatterSchema = z.object({
-  slug: z.string().min(1).max(80),
-  title: z.string().min(1).max(80),
-  excerpt: z.string().min(1).max(200),
-  date: z.preprocess(
-    (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
-    z.string()
-  ),
-  author: z.string(),
-  authorBio: z.string(),
-  coverImage: z.string(),
-  coverAlt: z.string(),
-  readTime: z.number().int().positive(),
-  category: z.string(),
-  published: z.boolean(),
-});
 
 const NewsSchema = z.object({
   id: z.string(),
   type: z.literal("news"),
   sourceName: z.string(),
-  // Generated items don't ship a local logo asset — allow empty.
   sourceLogo: z.string(),
   url: z.string().url(),
   thumbnail: z.string(),
@@ -62,58 +41,84 @@ const GeneratedSchema = z.object({
   items: z.array(z.union([NewsSchema, VideoSchema])),
 });
 
-export type BlogWithSource = BlogItem & { body: string };
+export type BlogWithSource = BlogItem & { content: JSONContent };
 
-function readBlogPosts(): BlogWithSource[] {
-  if (!fs.existsSync(POSTS_DIR)) return [];
-  const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".mdx"));
-  const posts: BlogWithSource[] = [];
-  for (const file of files) {
-    const full = path.join(POSTS_DIR, file);
-    const raw = fs.readFileSync(full, "utf8");
-    const parsed = matter(raw);
-    const fm = BlogFrontmatterSchema.parse(parsed.data);
-    if (!fm.published) continue;
-    posts.push({
-      type: "blog",
-      slug: fm.slug,
-      title: fm.title,
-      excerpt: fm.excerpt,
-      date: fm.date,
-      author: fm.author,
-      authorBio: fm.authorBio,
-      coverImage: fm.coverImage,
-      coverAlt: fm.coverAlt,
-      readTime: fm.readTime,
-      category: fm.category,
-      body: parsed.content,
-    });
-  }
-  return posts;
+type DbPostRow = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  content: JSONContent;
+  cover_image: string | null;
+  cover_alt: string | null;
+  category: string | null;
+  read_time: number | null;
+  author_name: string | null;
+  author_bio: string | null;
+  published_at: string | null;
+};
+
+function mapPostRow(row: DbPostRow): BlogWithSource {
+  return {
+    type: "blog",
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt ?? "",
+    date: (row.published_at ?? new Date().toISOString()).slice(0, 10),
+    author: row.author_name ?? "",
+    authorBio: row.author_bio ?? "",
+    coverImage: row.cover_image ?? "",
+    coverAlt: row.cover_alt ?? "",
+    readTime: row.read_time ?? 0,
+    category: row.category ?? "",
+    content: row.content ?? { type: "doc", content: [] },
+  };
 }
 
-export function getAllContents(): ContentsItem[] {
-  const blogs: BlogItem[] = readBlogPosts().map((post) => {
-    const { body, ...rest } = post;
-    void body;
+const BLOG_SELECT =
+  "slug,title,excerpt,content,cover_image,cover_alt,category,read_time,author_name,author_bio,published_at";
+
+async function fetchPublishedPosts(): Promise<BlogWithSource[]> {
+  const supabase = getSupabaseAnonClient();
+  const { data } = await supabase
+    .from("posts")
+    .select(BLOG_SELECT)
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+  return (data ?? []).map((row) => mapPostRow(row as DbPostRow));
+}
+
+export async function getAllContents(): Promise<ContentsItem[]> {
+  const blogs: BlogItem[] = (await fetchPublishedPosts()).map((post) => {
+    const { content, ...rest } = post;
+    void content;
     return rest;
   });
   const meta = MetaSchema.parse(metaJson);
   const generated = GeneratedSchema.parse(generatedJson);
-  // Curated meta.json wins on id collision so editors can override auto data.
   const byId = new Map<string, NewsItem | VideoItem>();
   for (const item of generated.items) byId.set(item.id, item);
   for (const item of meta.items) byId.set(item.id, item);
   return [...blogs, ...byId.values()].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getBlogPost(slug: string): BlogWithSource | null {
-  const posts = readBlogPosts();
-  return posts.find((p) => p.slug === slug) ?? null;
+export async function getBlogPost(slug: string): Promise<BlogWithSource | null> {
+  const supabase = getSupabaseAnonClient();
+  const { data } = await supabase
+    .from("posts")
+    .select(BLOG_SELECT)
+    .eq("slug", slug)
+    .in("status", ["published", "private"])
+    .maybeSingle();
+  return data ? mapPostRow(data as DbPostRow) : null;
 }
 
-export function getAllBlogSlugs(): string[] {
-  return readBlogPosts().map((p) => p.slug);
+export async function getAllBlogSlugs(): Promise<string[]> {
+  const supabase = getSupabaseAnonClient();
+  const { data } = await supabase
+    .from("posts")
+    .select("slug")
+    .eq("status", "published");
+  return ((data ?? []) as { slug: string }[]).map((row) => row.slug);
 }
 
 export function youtubeThumbnail(id: string): string {

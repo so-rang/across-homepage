@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Minimap } from "@/components/nav/minimap";
+import { MobileNav } from "@/components/nav/mobile-nav";
 import { cn } from "@/lib/utils";
 
 /**
  * Shows the Minimap only after the user has scrolled past the Hero.
  * On the first screen the header stays quiet (logo only); as soon as the
  * user starts moving into the narrative, the nav slides in from above.
+ * Mobile (`<sm`) swaps the inline minimap for a hamburger drawer.
  */
 export function ScrollMinimap() {
   const [visible, setVisible] = useState(false);
@@ -31,7 +33,12 @@ export function ScrollMinimap() {
           : "pointer-events-none -translate-y-2 opacity-0"
       )}
     >
-      <Minimap />
+      <div className="hidden sm:block">
+        <Minimap />
+      </div>
+      <div className="sm:hidden">
+        <MobileNav />
+      </div>
     </div>
   );
 }

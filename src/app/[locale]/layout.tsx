@@ -1,5 +1,6 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -10,7 +11,7 @@ import {
 } from "@/app/fonts";
 import { routing } from "@/i18n/routing";
 import { INTRO_BOOTSTRAP } from "@/lib/motion/intro";
-import { THEME_BOOTSTRAP } from "@/lib/theme/bootstrap";
+import { THEME_BOOTSTRAP, THEME_COOKIE_KEY } from "@/lib/theme/bootstrap";
 import { cn } from "@/lib/utils";
 import "../globals.css";
 
@@ -37,6 +38,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function LocaleLayout({
   children,
   params,
@@ -50,12 +53,17 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
 
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get(THEME_COOKIE_KEY)?.value;
+  const theme = themeCookie === "light" ? "light" : "dark";
+
   return (
     <html
       lang={locale}
       suppressHydrationWarning
       className={cn(
         "h-full",
+        theme,
         pretendard.variable,
         jetbrainsMono.variable,
         cormorant.variable,

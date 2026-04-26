@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/brand/page-header";
 import { ContentCard } from "@/components/contents/content-card";
 import { ZoomOutGesture } from "@/components/nav/zoom-out-gesture";
@@ -6,10 +7,15 @@ import { FilterChips } from "@/components/sections/contents/filter-chips";
 import { getAllContents } from "@/lib/content";
 import type { ContentsFilter } from "@/lib/content/types";
 
-export const metadata: Metadata = {
-  title: "Contents",
-  description: "어크로스의 영상, 언론 보도, 블로그를 모두 볼 수 있는 곳.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("contents.metadata");
+  return {
+    title: "Contents",
+    description: t("description"),
+  };
+}
 
 function parseFilter(raw: string | string[] | undefined): ContentsFilter {
   const v = Array.isArray(raw) ? raw[0] : raw;
@@ -24,8 +30,9 @@ export default async function ContentsPage({
 }) {
   const sp = await searchParams;
   const filter = parseFilter(sp.f);
-  const all = getAllContents();
+  const all = await getAllContents();
   const items = filter === "all" ? all : all.filter((i) => i.type === filter);
+  const t = await getTranslations("contents");
 
   return (
     <>
@@ -41,14 +48,12 @@ export default async function ContentsPage({
 
         {items.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border-subtle bg-bg-elev-1 p-10 text-center">
-            <p className="text-text-muted">
-              아직 이 카테고리에는 콘텐츠가 없어요.
-            </p>
+            <p className="text-text-muted">{t("emptyCategory")}</p>
             <a
               href="/contents"
               className="mt-4 inline-block text-sm text-signal-blue hover:underline"
             >
-              전체 보기
+              {t("viewAll")}
             </a>
           </div>
         ) : (

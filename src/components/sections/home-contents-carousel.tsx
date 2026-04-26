@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useState } from "react";
 import { ContentCard } from "@/components/contents/content-card";
 import type { ContentsItem } from "@/lib/content/types";
@@ -22,6 +23,7 @@ const AUTO_ADVANCE_MS = 5200;
  * loop feels endless without duplicating the list.
  */
 export function HomeContentsCarousel({ items }: Props) {
+  const t = useTranslations("home.contents");
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const labelId = useId();
@@ -66,11 +68,11 @@ export function HomeContentsCarousel({ items }: Props) {
       aria-labelledby={labelId}
     >
       <span id={labelId} className="sr-only">
-        최신 콘텐츠
+        {t("sectionLabel")}
       </span>
 
       <div
-        className="relative mx-auto h-[420px] w-full max-w-[380px] sm:h-[456px] sm:max-w-[420px]"
+        className="relative mx-auto h-[420px] w-full max-w-[380px] sm:h-[440px] sm:max-w-[420px] lg:h-[460px] lg:max-w-[460px]"
         role="group"
         aria-roledescription="carousel"
         tabIndex={0}
@@ -91,7 +93,7 @@ export function HomeContentsCarousel({ items }: Props) {
                 ? `news-${item.id}`
                 : `video-${item.id}`;
 
-          const translate = rel * 62;
+          const translate = rel * 40;
           const scale = isCenter ? 1 : isPeek ? 0.82 : 0.7;
           const opacity = isCenter ? 1 : isPeek ? 0.45 : 0;
           const blur = isCenter ? 0 : isPeek ? 6 : 10;
@@ -107,16 +109,18 @@ export function HomeContentsCarousel({ items }: Props) {
                 !isCenter && !isPeek && "pointer-events-none"
               )}
               style={{
-                transform: `translateX(${translate}%) scale(${scale})`,
+                transform: isCenter
+                  ? undefined
+                  : `translateX(${translate}%) scale(${scale})`,
                 opacity,
-                filter: `blur(${blur}px)`,
+                filter: isCenter ? undefined : `blur(${blur}px)`,
                 zIndex: z,
               }}
               onClick={() => {
                 if (isPeek) setIndex(i);
               }}
             >
-              <div className="h-full">
+              <div className="h-full overflow-hidden rounded-2xl bg-bg">
                 <ContentCard item={item} />
               </div>
             </div>
@@ -127,7 +131,7 @@ export function HomeContentsCarousel({ items }: Props) {
       <div className="mt-6 flex items-center justify-center gap-3">
         <button
           type="button"
-          aria-label="이전 콘텐츠"
+          aria-label={t("prev")}
           onClick={() => go(-1)}
           className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border-subtle text-text-muted transition-colors hover:border-signal-blue hover:text-text"
         >
@@ -140,7 +144,7 @@ export function HomeContentsCarousel({ items }: Props) {
                 type="button"
                 role="tab"
                 aria-selected={i === index}
-                aria-label={`${i + 1}번째 콘텐츠로 이동`}
+                aria-label={t("goToSlide", { n: i + 1 })}
                 onClick={() => setIndex(i)}
                 className={cn(
                   "h-1.5 cursor-pointer rounded-full transition-all duration-300",
@@ -154,7 +158,7 @@ export function HomeContentsCarousel({ items }: Props) {
         </ul>
         <button
           type="button"
-          aria-label="다음 콘텐츠"
+          aria-label={t("next")}
           onClick={() => go(1)}
           className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-border-subtle text-text-muted transition-colors hover:border-signal-blue hover:text-text"
         >

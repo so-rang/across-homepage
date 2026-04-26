@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
@@ -25,6 +26,7 @@ type Props = {
  * - CTA label switches on `ownedByUs`.
  */
 export function VideoModal({ video, children, triggerClassName }: Props) {
+  const t = useTranslations("contents.video");
   const [open, setOpen] = useState(false);
   const [embedFailed, setEmbedFailed] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -52,9 +54,7 @@ export function VideoModal({ video, children, triggerClassName }: Props) {
   const ctaHref = video.ownedByUs
     ? "https://www.youtube.com/@acrosshouse?sub_confirmation=1"
     : `https://www.youtube.com/watch?v=${video.youtubeId}`;
-  const ctaLabel = video.ownedByUs
-    ? "어크로스하우스 구독"
-    : "원본 채널에서 보기";
+  const ctaLabel = video.ownedByUs ? t("subscribe") : t("viewOnChannel");
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -87,7 +87,7 @@ export function VideoModal({ video, children, triggerClassName }: Props) {
             />
           ) : (
             <div className="absolute inset-0 grid place-items-center p-6 text-center text-sm text-text-muted">
-              이 영상은 YouTube에서 열립니다.
+              {t("fallback")}
             </div>
           )}
         </div>

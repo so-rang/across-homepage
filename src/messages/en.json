@@ -2,7 +2,9 @@
   "metadata": {
     "title": "Across · Be the answer when AI answers.",
     "titleTemplate": "%s | Across",
-    "description": "Across Inc. — Generative & Answer Engine Optimization (GEO·AEO). We design your brand to be chosen inside the answers AI gives."
+    "description": "Across Inc. — Generative & Answer Engine Optimization (GEO·AEO). We design your brand to be chosen inside the answers AI gives.",
+    "organizationName": "Across Inc.",
+    "websiteName": "Across"
   },
   "ui": {
     "themeToggle": {
@@ -41,6 +43,471 @@
       "titleLine1": "In a world where AI answers,",
       "titleLine2": "make sure your brand",
       "titleLine3": "gets chosen."
+    },
+    "position": {
+      "eyebrow": "About · Across",
+      "titleLine1": "Across is an AI-answer optimization",
+      "titleLine2": "GEO·AEO company",
+      "lead": "Search is giving way to answers. We design how AI calls on brands and chooses them. We run our own products directly and supply <nowrap>core tech to partner products.</nowrap>",
+      "logoAlt": "Across logo"
+    },
+    "method": {
+      "eyebrow": "Services · Own products",
+      "title": "Brand strategy inside AI answers",
+      "leadLine1": "We track surfaces, read rankings, and align to Korean-language and industry context.",
+      "leadLine2": "Each of our own products takes its place."
+    },
+    "practice": {
+      "eyebrow": "Contents · Latest",
+      "titleLine1": "How Across",
+      "titleLine2": "meets the world",
+      "leadLine1": "What we see, and how the outside frames us.",
+      "leadLine2": "Find us on the blog, in the news, and on video."
+    },
+    "partners": {
+      "eyebrow": "Ecosystem · Backed & trusted",
+      "titleLine1": "Setting the standard,",
+      "titleLine2": "side by side",
+      "lead": "Partners who trust Across on both capital and strategy are shaping the standard for AI-answer optimization with us."
+    },
+    "invitation": {
+      "eyebrow": "Contact · Work with us",
+      "titleLine1": "We're waiting for your proposal,",
+      "titleLine2": "and we reply fast",
+      "lead": "Product adoption, partnerships, media inquiries, and hiring questions are all welcome. A quick email works too.",
+      "cta": "Send a message"
+    },
+    "cta": {
+      "viewAbout": "About the company",
+      "viewServices": "Explore services",
+      "viewContents": "Browse contents",
+      "viewPartners": "Partners and investors"
+    },
+    "ownCards": {
+      "gpto": {
+        "tagline": "Unified AEO GEO platform",
+        "blurb": "Diagnoses and improves how AI answers refer to your brand."
+      },
+      "genrank": {
+        "tagline": "AI answer comparison",
+        "blurb": "Cross-compares generative AI answers across models and time."
+      },
+      "naeo": {
+        "tagline": "Naver AI diagnosis",
+        "blurb": "Analyzes exposure positioning in Naver's generative-answer environment."
+      }
+    },
+    "partnerRow": {
+      "heading": "Partner services",
+      "hkgpto": {
+        "tagline": "Hankyung × Across",
+        "blurb": "Plants B2B brands into AI answers via Hankyung's authoritative content."
+      },
+      "medigpto": {
+        "tagline": "MediGoRound × Across",
+        "blurb": "Wins local AI recommendations with healthcare-specialized GEO."
+      },
+      "customereye": {
+        "tagline": "Kim Team-Lead × Across",
+        "blurb": "Designs entry into AI recommendation lists for experts and small businesses."
+      }
+    },
+    "scale": {
+      "aiModel": {
+        "unit": "AI models",
+        "detail": "5 global + 5 in China"
+      },
+      "learning": {
+        "unit": "Training sites",
+        "detail": "Network the AI learns from"
+      },
+      "customers": {
+        "unit": "Customers",
+        "detail": "Performance data, KR and abroad"
+      },
+      "multilingual": {
+        "unit": "Languages",
+        "detail": "Includes KO, EN, ZH, JA"
+      }
+    },
+    "partnersStrip": {
+      "hankyung": {
+        "name": "Hankyung",
+        "field": "Economic media"
+      },
+      "medigoround": {
+        "name": "MediGoRound",
+        "field": "Healthcare platform"
+      },
+      "kimteamlead": {
+        "name": "Kim Team-Lead",
+        "field": "Expert network"
+      }
+    },
+    "contents": {
+      "sectionLabel": "Latest contents",
+      "empty": "We'll post the first record soon.",
+      "prev": "Previous content",
+      "next": "Next content",
+      "goToSlide": "Go to content {n}"
+    }
+  },
+  "about": {
+    "metadata": {
+      "description": "Across is a GEO·AEO (AI-answer optimization) company. From the age of search to the age of AI answers. Meet our founder, investors, and partners."
+    },
+    "across": {
+      "homeAria": "Across home",
+      "logoAlt": "Across logo",
+      "title": "Across is an AI-answer optimization GEO·AEO company",
+      "p1": "The moment ChatGPT, Claude, or Gemini answers, your brand gets cited first.",
+      "p2": "We validate with our own products first, then supply the same tech to partner products. We deliver only what's proven."
+    },
+    "marketShift": {
+      "eyebrow": "Market shift",
+      "title": "From the age of impressions to the age of choice",
+      "leadLine1": "How AI generates answers and cites sources is fundamentally different from search optimization.",
+      "leadLine2": "The criteria changed, so the way you create results must change too.",
+      "tableHeader": {
+        "seo": "SEO",
+        "geo": "GEO · AEO"
+      },
+      "rows": {
+        "target": {
+          "axis": "Optimization target",
+          "seo": "Google algorithm",
+          "geo": "AI models (ChatGPT · Claude · Gemini · …)"
+        },
+        "kpi": {
+          "axis": "Success metric",
+          "seo": "Keyword ranking, CTR",
+          "geo": "AI citation frequency, brand mention rate"
+        },
+        "content": {
+          "axis": "Content strategy",
+          "seo": "Keyword density, backlinks",
+          "geo": "Semantic HTML, Schema, authoritative content"
+        },
+        "competition": {
+          "axis": "Competitive shape",
+          "seo": "Compete within 10 results",
+          "geo": "A handful of brands AI picks"
+        }
+      },
+      "closing": "SEO shows. <em>GEO gets chosen.</em>"
+    },
+    "scale": {
+      "eyebrow": "Scale",
+      "title": "Across by the numbers",
+      "metrics": {
+        "aiModel": {
+          "unit": "AI models",
+          "detail": "5 global + 5 in China, monitored weekly via API"
+        },
+        "learning": {
+          "unit": "Training sites",
+          "detail": "Trusted distribution network the AI learns from"
+        },
+        "customers": {
+          "unit": "Customers",
+          "detail": "Performance data transparently managed, KR and abroad"
+        },
+        "multilingual": {
+          "unit": "Languages",
+          "detail": "Including Korean, English, Chinese, Japanese"
+        }
+      },
+      "industriesLabel": "Top customer industries",
+      "industries": {
+        "retail": "Retail",
+        "healthcare": "Healthcare",
+        "media": "Media",
+        "fnb": "F&B",
+        "finance": "Finance",
+        "tech": "Tech"
+      }
+    },
+    "method": {
+      "eyebrow": "Method",
+      "title": "How we make AI talk about you",
+      "leadLine1": "Diagnose · Strategy · Execute. Three steps, repeated, build your position inside AI answers.",
+      "leadLine2": "Not by intuition but by data, we stack the reasons AI picks you.",
+      "steps": {
+        "diagnose": {
+          "title": "Diagnose",
+          "body": "We design the target questions for your industry and measure how the top 10 AI models answer them. Your brand and competitor mention rates come out as numbers, in context."
+        },
+        "strategy": {
+          "title": "Strategy",
+          "body": "From the diagnosis we design the optimization direction, expected outcomes, and timeline. We build the next six months' map from data, not gut feel."
+        },
+        "execute": {
+          "title": "Execute",
+          "body": "We distribute optimized content across networks the AI trains on, monitor weekly, and keep improving."
+        }
+      }
+    },
+    "ceo": {
+      "title": "Founder",
+      "photoAlt": "Across Inc. CEO Lee Jae-hong",
+      "quote": "AI is Decision Layer One.",
+      "name": "Lee Jae-hong",
+      "role": "Founder & CEO, Across Inc. · Creator of GPTO technology",
+      "bio": "Graduated from KAIST in Industrial Engineering, then worked as a Data Scientist and AE at Cheil Worldwide for three years.<br/>Spent the next six years on planning and marketing at startups.<br/>A full-stack operator who builds end-to-end, from planning to development.",
+      "achievements": {
+        "book": "Author of <cite>AEO·GEO Survival Strategy</cite> · #5 business bestseller",
+        "demoDay": "Speaker at Primer's 27th demo day",
+        "talks": "Conference speaker at Kyobo Book Centre HQ",
+        "consulting": "GEO seminars and consulting for major VCs and corporations, KR and abroad"
+      }
+    },
+    "partnersClients": {
+      "eyebrow": "Ecosystem",
+      "title": "The names that chose Across",
+      "leadLine1": "Capital and the field made the same call.",
+      "leadLine2": "Investors and partners moving the AI-answer era first stand with Across.",
+      "items": {
+        "hankyung": {
+          "name": "Hankyung",
+          "field": "Economic media"
+        },
+        "medigoround": {
+          "name": "MediGoRound",
+          "field": "Healthcare platform"
+        },
+        "kimteamlead": {
+          "name": "Kim Team-Lead",
+          "field": "Expert network"
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Start now",
+      "title": "Claim your spot inside AI's answer",
+      "leadLine1": "Just as SEO became the standard, GEO will too.",
+      "leadLine2": "Brands that move first land first in AI's answer.",
+      "link": "Send a message"
+    }
+  },
+  "services": {
+    "metadata": {
+      "description": "Our own solutions — GPTO, GenRank, and NAEO — together with partner services Hankyung GPTO, MediGPTO, and Customer's Eye GPTO."
+    },
+    "subtitle": "Products Across runs directly, and solutions built with partners."
+  },
+  "contact": {
+    "metadata": {
+      "description": "Reach out to Across directly for product adoption, partnerships, media, or hiring."
+    },
+    "subtitle": "Get in touch",
+    "leadIntro": "Product adoption, partnerships, media, hiring —",
+    "leadInvite": "tell us anything, we're listening.",
+    "form": {
+      "fields": {
+        "name": {
+          "label": "Name",
+          "required": "Please enter your name"
+        },
+        "company": {
+          "label": "Company"
+        },
+        "email": {
+          "label": "Email",
+          "required": "Please enter your email",
+          "invalid": "Please enter a valid email address"
+        },
+        "inquiryType": {
+          "label": "Inquiry type",
+          "placeholder": "Please select"
+        },
+        "message": {
+          "label": "Message",
+          "required": "Please enter your message",
+          "tooShort": "Please enter at least 20 characters"
+        }
+      },
+      "inquiryTypes": {
+        "product": "Product inquiry",
+        "partnership": "Partnership",
+        "press": "Media & press",
+        "careers": "Careers",
+        "other": "Other"
+      },
+      "privacy": {
+        "agreement": "I agree to the <link>collection and use of personal information</link>.",
+        "required": "Please agree to the collection and use of personal information"
+      },
+      "submit": {
+        "idle": "Send inquiry",
+        "busy": "Sending…"
+      },
+      "toasts": {
+        "validation": "Please check your input.",
+        "success": "Your message has been received.",
+        "rateLimit": "Please try again in a moment.",
+        "transmitError": "Couldn't send. Please email ask@across.center directly."
+      }
+    }
+  },
+  "contents": {
+    "metadata": {
+      "description": "All of Across's videos, press, and blog — in one place."
+    },
+    "emptyCategory": "No content in this category yet.",
+    "viewAll": "View all",
+    "filters": {
+      "ariaLabel": "Contents filter",
+      "all": "All",
+      "video": "Video",
+      "news": "News",
+      "blog": "Blog"
+    },
+    "badge": {
+      "blog": "Blog",
+      "news": "News",
+      "video": "Video"
+    },
+    "video": {
+      "subscribe": "Subscribe to Across House",
+      "viewOnChannel": "Watch on the original channel",
+      "fallback": "This video opens on YouTube."
+    }
+  },
+  "nav": {
+    "minimap": {
+      "label": "Sitemap",
+      "goTo": "Go to {label}"
+    },
+    "sectionIndex": {
+      "label": "Section index"
+    },
+    "constellation": {
+      "label": "Menu",
+      "goTo": "Go to {label} section"
+    },
+    "backToTop": "Back to top",
+    "brand": {
+      "homeAria": "Across home"
+    },
+    "menu": {
+      "open": "Open menu",
+      "close": "Close menu",
+      "title": "Menu"
+    }
+  },
+  "intro": {
+    "constellationHint": "Click a star to navigate"
+  },
+  "legal": {
+    "terms": {
+      "metadata": {
+        "title": "Terms of Use"
+      },
+      "title": "Terms of Use",
+      "lastUpdatedLabel": "Last updated",
+      "purpose": {
+        "title": "1. Purpose",
+        "body": "These Terms set out the conditions for using the information and inquiry channels provided on the website operated by Across Inc. (the \"Company\")."
+      },
+      "service": {
+        "title": "2. Provision of Service",
+        "body": "The Company provides company information, product and service descriptions, content, and an inquiry submission feature through the website. Service contents may change without prior notice."
+      },
+      "userObligations": {
+        "title": "3. User Obligations",
+        "items": [
+          "Comply with applicable laws and these Terms.",
+          "Do not infringe on others' rights or interfere with operations.",
+          "Do not use false information or impersonate others."
+        ]
+      },
+      "ip": {
+        "title": "4. Intellectual Property",
+        "body": "All content posted on the website (text, images, videos, logos, etc.) is owned by the Company or its rightful owners and may not be reproduced, transmitted, or distributed without prior written consent."
+      },
+      "disclaimer": {
+        "title": "5. Disclaimer",
+        "body": "The Company is not responsible for service interruptions caused by force majeure such as natural disasters or network failures. The Company is also not responsible for the accuracy or legality of third-party services linked from the website."
+      },
+      "governingLaw": {
+        "title": "6. Governing Law and Jurisdiction",
+        "body": "These Terms are interpreted under the laws of the Republic of Korea. In the event of a dispute, the competent court under the Civil Procedure Act shall have jurisdiction as the court of first instance."
+      },
+      "amendment": {
+        "title": "7. Amendments",
+        "body": "These Terms take effect from {date}. Amendments will be announced on the website."
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "Privacy Policy"
+      },
+      "title": "Privacy Policy",
+      "lastUpdatedLabel": "Last updated",
+      "intro": "Across Inc. (the \"Company\") protects users' personal information in accordance with the Personal Information Protection Act and related laws. This policy applies to the Company's website and inquiry channels.",
+      "items": {
+        "title": "1. Personal Information Collected",
+        "lines": [
+          "Required: name, email, inquiry type, message",
+          "Optional: company name",
+          "Automatically collected: IP address, User-Agent, access time"
+        ]
+      },
+      "purpose": {
+        "title": "2. Purpose of Collection and Use",
+        "lines": [
+          "Responding to inquiries",
+          "Statistical analysis to improve service quality"
+        ]
+      },
+      "retention": {
+        "title": "3. Retention Period",
+        "body": "Collected personal information is retained for <emphasis>1 year</emphasis> after the inquiry is resolved, then promptly destroyed. If retention is required by relevant laws, it will be kept for that period."
+      },
+      "thirdParty": {
+        "title": "4. Third-Party Disclosure",
+        "body": "The Company does not provide users' personal information to third parties."
+      },
+      "processors": {
+        "title": "5. Processing Delegation",
+        "lines": [
+          "Resend, Inc. — inquiry email delivery. Delegated items: name, email, message contents."
+        ]
+      },
+      "rights": {
+        "title": "6. User Rights",
+        "body": "Users may at any time request access to, correction of, deletion of, or suspension of processing of their personal information, and such requests will be handled without delay. Send requests to <email>ask@across.center</email>."
+      },
+      "security": {
+        "title": "7. Security Measures",
+        "body": "We apply transport encryption (HTTPS/TLS), access control, and storage minimization principles."
+      },
+      "company": {
+        "title": "8. Company Information",
+        "labels": {
+          "name": "Name",
+          "ceo": "CEO",
+          "registrationNumber": "Business Registration Number",
+          "address": "Headquarters Address",
+          "email": "Email"
+        },
+        "values": {
+          "name": "Across Inc.",
+          "ceo": "Jae-hong Lee",
+          "registrationNumber": "288-86-03687"
+        }
+      },
+      "amendment": {
+        "title": "9. Amendment History",
+        "body": "This policy takes effect from {date}."
+      }
+    }
+  },
+  "article": {
+    "post": {
+      "prevNext": "Previous and next posts",
+      "prev": "Previous",
+      "next": "Next"
     }
   }
 }

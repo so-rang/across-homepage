@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -18,7 +19,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import {
   ContactPayloadSchema,
-  INQUIRY_LABEL,
   INQUIRY_TYPES,
   type ContactPayload,
   type InquiryType,
@@ -46,6 +46,7 @@ const FIELD_CLS =
   "h-9 rounded-[10px] border-border-subtle bg-bg-elev-1 px-3 text-[14px] transition-colors hover:border-border-strong focus-visible:border-signal-blue focus-visible:ring-signal-blue/30";
 
 export function ContactForm() {
+  const t = useTranslations("contact.form");
   const mountedAt = useRef<number>(Date.now());
   const [submitting, setSubmitting] = useState(false);
   const {
@@ -66,6 +67,7 @@ export function ContactForm() {
   }, []);
 
   const inquiryType = watch("inquiryType");
+  const inquiryLabel = (type: InquiryType) => t(`inquiryTypes.${type}`);
 
   const onSubmit = handleSubmit(async (values) => {
     const payload = {
@@ -89,7 +91,7 @@ export function ContactForm() {
           });
         }
       }
-      toast.error("입력 내용을 확인해 주세요.");
+      toast.error(t("toasts.validation"));
       return;
     }
 
@@ -101,18 +103,16 @@ export function ContactForm() {
         body: JSON.stringify(parsed.data),
       });
       if (res.ok) {
-        toast.success("접수되었습니다.");
+        toast.success(t("toasts.success"));
         reset(DEFAULTS);
         mountedAt.current = Date.now();
       } else if (res.status === 429) {
-        toast.error("잠시 후 다시 시도해 주세요.");
+        toast.error(t("toasts.rateLimit"));
       } else {
-        toast.error(
-          "전송에 문제가 있습니다. ask@across.center로 직접 보내주세요."
-        );
+        toast.error(t("toasts.transmitError"));
       }
     } catch {
-      toast.error("전송에 문제가 있습니다. ask@across.center로 직접 보내주세요.");
+      toast.error(t("toasts.transmitError"));
     } finally {
       setSubmitting(false);
     }
@@ -125,15 +125,15 @@ export function ContactForm() {
       className="space-y-4 rounded-2xl border border-border-subtle bg-[rgba(6,6,11,0.55)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-[10px] light:bg-white/85 light:shadow-[0_20px_60px_-24px_rgba(18,25,51,0.18)] sm:p-6"
     >
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label="이름" error={errors.name?.message} required>
+        <Field label={t("fields.name.label")} error={errors.name?.message} required>
           <Input
-            {...register("name", { required: "이름을 입력해 주세요" })}
+            {...register("name", { required: t("fields.name.required") })}
             aria-invalid={errors.name ? "true" : undefined}
             autoComplete="name"
             className={FIELD_CLS}
           />
         </Field>
-        <Field label="회사명" error={errors.company?.message}>
+        <Field label={t("fields.company.label")} error={errors.company?.message}>
           <Input
             {...register("company")}
             autoComplete="organization"
@@ -142,10 +142,10 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field label="이메일" error={errors.email?.message} required>
+      <Field label={t("fields.email.label")} error={errors.email?.message} required>
         <Input
           type="email"
-          {...register("email", { required: "이메일을 입력해 주세요" })}
+          {...register("email", { required: t("fields.email.required") })}
           aria-invalid={errors.email ? "true" : undefined}
           autoComplete="email"
           inputMode="email"
@@ -153,7 +153,7 @@ export function ContactForm() {
         />
       </Field>
 
-      <Field label="문의 유형" error={errors.inquiryType?.message} required>
+      <Field label={t("fields.inquiryType.label")} error={errors.inquiryType?.message} required>
         <Select
           value={inquiryType === "" ? undefined : inquiryType}
           onValueChange={(v) =>
@@ -166,26 +166,36 @@ export function ContactForm() {
             aria-invalid={errors.inquiryType ? "true" : undefined}
             className={cn(FIELD_CLS, "w-full data-[size=default]:h-9")}
           >
-            <SelectValue placeholder="선택해 주세요">
+            <SelectValue placeholder={t("fields.inquiryType.placeholder")}>
               {(value: string) =>
-                INQUIRY_LABEL[value as InquiryType] ?? "선택해 주세요"
+                value ? inquiryLabel(value as InquiryType) : t("fields.inquiryType.placeholder")
               }
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            {INQUIRY_TYPES.map((t) => (
-              <SelectItem key={t} value={t}>
-                {INQUIRY_LABEL[t]}
+            {INQUIRY_TYPES.map((type) => (
+              <SelectItem key={type} value={type}>
+                {inquiryLabel(type)}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </Field>
 
-      <Field label="메시지" error={errors.message?.message} required>
+      <Field
+        label={t("fields.message.label")}
+        error={errors.message?.message}
+        required={inquiryType === "other"}
+      >
         <Textarea
           rows={3}
-          {...register("message", { required: "메시지를 입력해 주세요" })}
+          {...register("message", {
+            validate: (value) =>
+              inquiryType !== "other" ||
+              (value && value.trim().length > 0)
+                ? true
+                : t("fields.message.required"),
+          })}
           aria-invalid={errors.message ? "true" : undefined}
           className="min-h-[72px] resize-none rounded-[10px] border-border-subtle bg-bg-elev-1 px-3 py-2 text-[15px] leading-[1.55] transition-colors hover:border-border-strong focus-visible:border-signal-blue focus-visible:ring-signal-blue/30 md:text-sm"
         />
@@ -201,13 +211,16 @@ export function ContactForm() {
           className="mt-0.5 size-[18px] rounded-[5px] border-border-strong bg-bg-elev-1 transition-colors hover:border-signal-blue/60 focus-visible:border-signal-blue focus-visible:ring-2 focus-visible:ring-signal-blue/40 data-checked:border-signal-blue data-checked:bg-signal-blue data-checked:text-bg"
         />
         <span>
-          <a
-            href="/privacy"
-            className="underline decoration-border-strong underline-offset-2 transition-colors hover:text-text hover:decoration-signal-blue"
-          >
-            개인정보 수집·이용
-          </a>
-          에 동의합니다.
+          {t.rich("privacy.agreement", {
+            link: (chunks) => (
+              <a
+                href="/privacy"
+                className="underline decoration-border-strong underline-offset-2 transition-colors hover:text-text hover:decoration-signal-blue"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
         </span>
       </label>
       {errors.privacyAgreed ? (
@@ -231,7 +244,7 @@ export function ContactForm() {
         className="group/submit mt-1 h-11 w-full rounded-[10px] bg-text text-[14px] font-medium tracking-[0.02em] text-bg shadow-[0_0_0_1px_rgba(127,163,212,0.0),0_0_24px_-10px_rgba(127,163,212,0.0)] transition-[box-shadow,background-color,transform] hover:bg-text/90 hover:shadow-[0_0_0_1px_rgba(18,25,51,0.2),0_10px_32px_-12px_rgba(18,25,51,0.35)] disabled:opacity-40"
       >
         <span className="inline-flex items-center gap-2">
-          {submitting ? "전송 중…" : "문의 보내기"}
+          {submitting ? t("submit.busy") : t("submit.idle")}
           {submitting ? null : (
             <span
               aria-hidden

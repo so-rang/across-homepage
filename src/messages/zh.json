@@ -2,7 +2,9 @@
   "metadata": {
     "title": "Across · 在 AI 作答的世界,让你的品牌被选中。",
     "titleTemplate": "%s | Across",
-    "description": "Across 公司 — 通过 GEO·AEO 答案引擎优化,让你的品牌在 AI 给出的答案中被选择。"
+    "description": "Across 公司 — 通过 GEO·AEO 答案引擎优化,让你的品牌在 AI 给出的答案中被选择。",
+    "organizationName": "Across 公司",
+    "websiteName": "Across"
   },
   "ui": {
     "themeToggle": {
@@ -41,6 +43,471 @@
       "titleLine1": "在 AI 作答的世界,",
       "titleLine2": "让你的品牌",
       "titleLine3": "被选中。"
+    },
+    "position": {
+      "eyebrow": "About · Across",
+      "titleLine1": "Across 是 AI 答案优化的",
+      "titleLine2": "GEO·AEO 公司",
+      "lead": "当搜索时代让位于答案时代,我们设计 AI 如何提及和选择品牌。我们直接运营自有产品,并向合作伙伴产品<nowrap>提供核心技术。</nowrap>",
+      "logoAlt": "Across 标识"
+    },
+    "method": {
+      "eyebrow": "Services · Own products",
+      "title": "AI 答案中的品牌策略",
+      "leadLine1": "追踪曝光,解读排名,贴合韩语语境和行业脉络。",
+      "leadLine2": "自有产品各就其位。"
+    },
+    "practice": {
+      "eyebrow": "Contents · Latest",
+      "titleLine1": "Across 这样",
+      "titleLine2": "与世界相遇",
+      "leadLine1": "我们所看见的,世界所映射的我们。",
+      "leadLine2": "在博客、新闻和视频中遇见我们。"
+    },
+    "partners": {
+      "eyebrow": "Ecosystem · Backed & trusted",
+      "titleLine1": "共同制定标准的",
+      "titleLine2": "伙伴们",
+      "lead": "在资本与战略两条轴线上信任 Across 的伙伴们,正与我们一起塑造 AI 答案优化的标准。"
+    },
+    "invitation": {
+      "eyebrow": "Contact · Work with us",
+      "titleLine1": "我们等待你的提案",
+      "titleLine2": "并快速回复",
+      "lead": "欢迎产品合作、伙伴关系、媒体采访和招聘咨询。直接邮件联系也可以。",
+      "cta": "发送咨询"
+    },
+    "cta": {
+      "viewAbout": "了解公司",
+      "viewServices": "了解服务",
+      "viewContents": "查看内容",
+      "viewPartners": "了解伙伴与投资方"
+    },
+    "ownCards": {
+      "gpto": {
+        "tagline": "统一 AEO GEO 平台",
+        "blurb": "诊断并改善 AI 答案中品牌的呈现方式。"
+      },
+      "genrank": {
+        "tagline": "AI 答案比对",
+        "blurb": "按模型与时点交叉比对生成式 AI 给出的答案。"
+      },
+      "naeo": {
+        "tagline": "Naver AI 诊断",
+        "blurb": "分析在 Naver 生成式答案环境中的曝光位置。"
+      }
+    },
+    "partnerRow": {
+      "heading": "合作伙伴服务",
+      "hkgpto": {
+        "tagline": "韩国经济 × Across",
+        "blurb": "凭借韩经的权威内容,将 B2B 品牌植入 AI 答案。"
+      },
+      "medigpto": {
+        "tagline": "MediGoRound × Across",
+        "blurb": "以医院与医疗专属 GEO,抢占地区 AI 推荐。"
+      },
+      "customereye": {
+        "tagline": "Kim Team-Lead × Across",
+        "blurb": "为专家与个体经营者设计进入 AI 推荐列表的路径。"
+      }
+    },
+    "scale": {
+      "aiModel": {
+        "unit": "AI 模型",
+        "detail": "全球 5 + 中国 5"
+      },
+      "learning": {
+        "unit": "训练站点",
+        "detail": "AI 所学习的网络"
+      },
+      "customers": {
+        "unit": "客户",
+        "detail": "国内外业绩数据"
+      },
+      "multilingual": {
+        "unit": "多语言",
+        "detail": "包含韩、英、中、日"
+      }
+    },
+    "partnersStrip": {
+      "hankyung": {
+        "name": "韩国经济",
+        "field": "经济媒体"
+      },
+      "medigoround": {
+        "name": "MediGoRound",
+        "field": "医疗健康平台"
+      },
+      "kimteamlead": {
+        "name": "Kim Team-Lead",
+        "field": "专家网络"
+      }
+    },
+    "contents": {
+      "sectionLabel": "最新内容",
+      "empty": "首条记录即将上线。",
+      "prev": "上一条内容",
+      "next": "下一条内容",
+      "goToSlide": "前往第 {n} 条内容"
+    }
+  },
+  "about": {
+    "metadata": {
+      "description": "Across 是一家 GEO·AEO(AI 答案优化)公司。从搜索时代走向 AI 答案时代。在这里了解我们的代表、投资方与合作伙伴。"
+    },
+    "across": {
+      "homeAria": "Across 主页",
+      "logoAlt": "Across 标识",
+      "title": "Across 是一家专注 AI 答案优化的 GEO·AEO 公司",
+      "p1": "在 ChatGPT、Claude、Gemini 给出答案的瞬间,让你的品牌率先被引用。",
+      "p2": "先用自有产品验证,再把同一套技术供应给合作伙伴产品。我们只交付已被验证的方法。"
+    },
+    "marketShift": {
+      "eyebrow": "Market shift",
+      "title": "从曝光的时代,迈向选择的时代",
+      "leadLine1": "AI 生成答案并引用来源的机制,与搜索优化截然不同。",
+      "leadLine2": "标准变了,创造成果的方式也必须随之变化。",
+      "tableHeader": {
+        "seo": "SEO",
+        "geo": "GEO · AEO"
+      },
+      "rows": {
+        "target": {
+          "axis": "优化对象",
+          "seo": "Google 算法",
+          "geo": "AI 模型(ChatGPT · Claude · Gemini 等)"
+        },
+        "kpi": {
+          "axis": "成果指标",
+          "seo": "关键词排名、CTR",
+          "geo": "AI 引用频率、品牌提及率"
+        },
+        "content": {
+          "axis": "内容策略",
+          "seo": "关键词密度、外链",
+          "geo": "Semantic HTML、Schema、权威性内容"
+        },
+        "competition": {
+          "axis": "竞争格局",
+          "seo": "在 10 条结果中竞争",
+          "geo": "AI 所选的少数品牌"
+        }
+      },
+      "closing": "SEO 展示,<em>GEO 被选中。</em>"
+    },
+    "scale": {
+      "eyebrow": "Scale",
+      "title": "用数字看 Across",
+      "metrics": {
+        "aiModel": {
+          "unit": "AI 模型",
+          "detail": "全球 5 + 中国 5,每周 API 监控"
+        },
+        "learning": {
+          "unit": "训练站点",
+          "detail": "AI 所学习的高可信度分发网络"
+        },
+        "customers": {
+          "unit": "客户",
+          "detail": "国内外业绩数据透明管理"
+        },
+        "multilingual": {
+          "unit": "多语言",
+          "detail": "包含韩语、英语、中文、日语"
+        }
+      },
+      "industriesLabel": "主要客户行业",
+      "industries": {
+        "retail": "零售",
+        "healthcare": "医疗健康",
+        "media": "媒体",
+        "fnb": "餐饮",
+        "finance": "金融",
+        "tech": "科技"
+      }
+    },
+    "method": {
+      "eyebrow": "Method",
+      "title": "让 AI 说出你的方法",
+      "leadLine1": "诊断 · 战略 · 执行。重复这三个步骤,在 AI 答案中建立位置。",
+      "leadLine2": "不靠直觉,以数据累积 AI 选择你的理由。",
+      "steps": {
+        "diagnose": {
+          "title": "诊断",
+          "body": "为贵公司所在行业设计目标问题,测量十大 AI 模型如何回答。把自家与竞争对手的提及率和语境转化为数字。"
+        },
+        "strategy": {
+          "title": "战略",
+          "body": "基于诊断,设计优化方向、预期成果与时间线。不靠直觉,凭数据描绘未来六个月的地图。"
+        },
+        "execute": {
+          "title": "执行",
+          "body": "把优化内容投放到 AI 易于学习的网络,每周监控并持续改进。"
+        }
+      }
+    },
+    "ceo": {
+      "title": "创始人",
+      "photoAlt": "Across 公司代表 李在弘",
+      "quote": "AI 即 Decision Layer One。",
+      "name": "李在弘",
+      "role": "Across 公司 Founder & CEO · GPTO 技术创始人",
+      "bio": "毕业于 KAIST 工业工程,先在第一企划(Cheil)担任 Data Scientist 与 AE 三年。<br/>随后在创业公司从事企划与营销六年。<br/>从企划到开发亲自动手的全栈型运营者。",
+      "achievements": {
+        "book": "<cite>《AEO·GEO 生存战略》</cite>作者 · 经济经营畅销榜第 5",
+        "demoDay": "Primer 第 27 期路演演讲",
+        "talks": "教保文库总部大会演讲嘉宾",
+        "consulting": "面向国内外主要 VC 与企业的 GEO 研讨与咨询"
+      }
+    },
+    "partnersClients": {
+      "eyebrow": "Ecosystem",
+      "title": "选择了 Across 的名字",
+      "leadLine1": "资本与现场作出了同样的判断。",
+      "leadLine2": "率先推动 AI 答案时代的投资方与合作伙伴,正与 Across 同行。",
+      "items": {
+        "hankyung": {
+          "name": "韩国经济",
+          "field": "经济媒体"
+        },
+        "medigoround": {
+          "name": "MediGoRound",
+          "field": "医疗健康平台"
+        },
+        "kimteamlead": {
+          "name": "Kim Team-Lead",
+          "field": "专家网络"
+        }
+      }
+    },
+    "cta": {
+      "eyebrow": "Start now",
+      "title": "现在就抢占 AI 答案中的位置",
+      "leadLine1": "正如 SEO 曾经成为标准,GEO 也即将如此。",
+      "leadLine2": "率先行动的品牌,会率先出现在 AI 的答案里。",
+      "link": "发送咨询"
+    }
+  },
+  "services": {
+    "metadata": {
+      "description": "自有解决方案 GPTO、GenRank、NAEO,以及合作伙伴服务韩经 GPTO、MediGPTO、Customer's Eye GPTO。"
+    },
+    "subtitle": "Across 直接运营的产品,与合作伙伴共同打造的解决方案"
+  },
+  "contact": {
+    "metadata": {
+      "description": "产品合作、伙伴关系、媒体与招聘咨询,直接发给 Across。"
+    },
+    "subtitle": "联系我们",
+    "leadIntro": "产品合作、伙伴关系、媒体、招聘:",
+    "leadInvite": "任何话题都欢迎告诉我们。",
+    "form": {
+      "fields": {
+        "name": {
+          "label": "姓名",
+          "required": "请输入您的姓名"
+        },
+        "company": {
+          "label": "公司名称"
+        },
+        "email": {
+          "label": "邮箱",
+          "required": "请输入邮箱地址",
+          "invalid": "请输入有效的邮箱地址"
+        },
+        "inquiryType": {
+          "label": "咨询类型",
+          "placeholder": "请选择"
+        },
+        "message": {
+          "label": "留言",
+          "required": "请输入留言内容",
+          "tooShort": "请至少输入 20 个字符"
+        }
+      },
+      "inquiryTypes": {
+        "product": "产品咨询",
+        "partnership": "合作",
+        "press": "媒体与采访",
+        "careers": "招聘咨询",
+        "other": "其他"
+      },
+      "privacy": {
+        "agreement": "我同意<link>个人信息收集与使用</link>条款。",
+        "required": "请同意个人信息收集与使用条款"
+      },
+      "submit": {
+        "idle": "发送咨询",
+        "busy": "发送中…"
+      },
+      "toasts": {
+        "validation": "请检查您的输入内容。",
+        "success": "已收到您的留言。",
+        "rateLimit": "请稍后再试。",
+        "transmitError": "发送失败。请直接发送邮件至 ask@across.center。"
+      }
+    }
+  },
+  "contents": {
+    "metadata": {
+      "description": "在这里可以看到 Across 的视频、媒体报道与博客。"
+    },
+    "emptyCategory": "该分类下还没有内容。",
+    "viewAll": "查看全部",
+    "filters": {
+      "ariaLabel": "内容筛选",
+      "all": "全部",
+      "video": "视频",
+      "news": "新闻",
+      "blog": "博客"
+    },
+    "badge": {
+      "blog": "博客",
+      "news": "新闻",
+      "video": "视频"
+    },
+    "video": {
+      "subscribe": "订阅 Across House",
+      "viewOnChannel": "在原频道观看",
+      "fallback": "该视频将在 YouTube 中打开。"
+    }
+  },
+  "nav": {
+    "minimap": {
+      "label": "导航图",
+      "goTo": "前往 {label}"
+    },
+    "sectionIndex": {
+      "label": "章节索引"
+    },
+    "constellation": {
+      "label": "菜单",
+      "goTo": "前往 {label} 部分"
+    },
+    "backToTop": "返回顶部",
+    "brand": {
+      "homeAria": "Across 主页"
+    },
+    "menu": {
+      "open": "打开菜单",
+      "close": "关闭菜单",
+      "title": "菜单"
+    }
+  },
+  "intro": {
+    "constellationHint": "点击星星导航"
+  },
+  "legal": {
+    "terms": {
+      "metadata": {
+        "title": "使用条款"
+      },
+      "title": "使用条款",
+      "lastUpdatedLabel": "最后更新",
+      "purpose": {
+        "title": "1. 目的",
+        "body": "本条款规定了 Across Inc.(以下简称\"公司\")运营的网站所提供的信息及咨询渠道的使用条件。"
+      },
+      "service": {
+        "title": "2. 服务的提供",
+        "body": "公司通过网站提供公司介绍、产品与服务介绍、内容以及咨询接收功能。服务内容可能不经预告而变更。"
+      },
+      "userObligations": {
+        "title": "3. 用户义务",
+        "items": [
+          "应遵守相关法律法规及本条款的规定。",
+          "不得侵害他人权利或妨碍业务运营。",
+          "不得使用虚假信息或冒用他人信息。"
+        ]
+      },
+      "ip": {
+        "title": "4. 知识产权",
+        "body": "网站上发布的所有内容(文字、图片、视频、徽标等)的著作权归公司或其合法权利人所有,未经事先书面同意不得复制、传输或分发。"
+      },
+      "disclaimer": {
+        "title": "5. 免责声明",
+        "body": "对于天灾、线路故障等不可抗力导致的服务中断,公司不承担责任。对于外部链接所指向的第三方服务的准确性与合法性,公司亦不承担责任。"
+      },
+      "governingLaw": {
+        "title": "6. 适用法律与管辖",
+        "body": "本条款依据大韩民国法律解释,如发生争议,以民事诉讼法规定的管辖法院作为一审管辖法院。"
+      },
+      "amendment": {
+        "title": "7. 修订",
+        "body": "本条款自 {date} 起施行。修订时将于网站公告。"
+      }
+    },
+    "privacy": {
+      "metadata": {
+        "title": "隐私政策"
+      },
+      "title": "隐私政策",
+      "lastUpdatedLabel": "最后更新",
+      "intro": "Across Inc.(以下简称\"公司\")遵守《个人信息保护法》及相关法律,保护用户的个人信息。本政策适用于公司的网站及咨询渠道。",
+      "items": {
+        "title": "1. 收集的个人信息项",
+        "lines": [
+          "必填:姓名、邮箱、咨询类型、留言",
+          "选填:公司名称",
+          "自动收集:访问 IP、User-Agent、访问时间"
+        ]
+      },
+      "purpose": {
+        "title": "2. 收集与使用目的",
+        "lines": [
+          "对咨询事项的答复与处理",
+          "用于服务质量改进的统计分析"
+        ]
+      },
+      "retention": {
+        "title": "3. 保留期限",
+        "body": "收集的个人信息在咨询处理完成后保留 <emphasis>1 年</emphasis>,之后立即销毁。若相关法律要求保存,则在规定期限内保留。"
+      },
+      "thirdParty": {
+        "title": "4. 第三方提供",
+        "body": "公司不向第三方提供用户的个人信息。"
+      },
+      "processors": {
+        "title": "5. 处理委托",
+        "lines": [
+          "Resend, Inc. — 用于发送咨询邮件。委托项目:姓名、邮箱、留言内容。"
+        ]
+      },
+      "rights": {
+        "title": "6. 用户权利",
+        "body": "用户可以随时要求查阅、更正、删除或停止处理其个人信息,公司将在收到要求后立即处理。请将请求发送至 <email>ask@across.center</email>。"
+      },
+      "security": {
+        "title": "7. 安全保障措施",
+        "body": "我们采用传输加密(HTTPS/TLS)、访问控制及存储最小化原则。"
+      },
+      "company": {
+        "title": "8. 公司信息",
+        "labels": {
+          "name": "公司名称",
+          "ceo": "代表理事",
+          "registrationNumber": "营业执照编号",
+          "address": "总部地址",
+          "email": "邮箱"
+        },
+        "values": {
+          "name": "Across Inc.(주식회사 어크로스)",
+          "ceo": "李宰泓",
+          "registrationNumber": "288-86-03687"
+        }
+      },
+      "amendment": {
+        "title": "9. 修订历史",
+        "body": "本政策自 {date} 起施行。"
+      }
+    }
+  },
+  "article": {
+    "post": {
+      "prevNext": "上一篇与下一篇",
+      "prev": "上一篇",
+      "next": "下一篇"
     }
   }
 }

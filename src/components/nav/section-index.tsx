@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,7 @@ type Props = {
  * <lg: top horizontal scroll tabs.
  */
 export function SectionIndex({ sections }: Props) {
+  const t = useTranslations("nav.sectionIndex");
   const [active, setActive] = useState<string>(sections[0]?.id ?? "");
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export function SectionIndex({ sections }: Props) {
   return (
     <>
       <nav
-        aria-label="섹션 인덱스"
+        aria-label={t("label")}
         className="sticky top-20 z-20 hidden h-fit lg:block"
       >
         <ul className="space-y-6">
@@ -75,7 +77,7 @@ export function SectionIndex({ sections }: Props) {
       </nav>
 
       <nav
-        aria-label="섹션 인덱스"
+        aria-label={t("label")}
         className="sticky top-0 z-20 -mx-6 flex gap-2 overflow-x-auto bg-bg/70 px-6 py-3 backdrop-blur-[8px] [scroll-snap-type:x_mandatory] lg:hidden"
       >
         {sections.map((s) => (

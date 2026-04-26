@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils";
  * Fades in after the user has scrolled past the Hero, hides while in Hero.
  */
 export function BackToTop() {
+  const t = useTranslations("nav");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export function BackToTop() {
   return (
     <button
       type="button"
-      aria-label="페이지 맨 위로"
+      aria-label={t("backToTop")}
       onClick={onClick}
       className={cn(
         "fixed bottom-6 right-6 z-40 grid h-11 w-11 place-items-center rounded-full border border-border-strong bg-bg-elev-1/80 text-text-muted backdrop-blur-[8px] transition-[opacity,transform,color,border-color] duration-[var(--d-base)] ease-[var(--ease-soft)] hover:text-text hover:border-text sm:bottom-10 sm:right-10 sm:h-12 sm:w-12",

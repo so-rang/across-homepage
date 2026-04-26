@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/brand/page-header";
 import { Footer } from "@/components/footer";
 import { ZoomOutGesture } from "@/components/nav/zoom-out-gesture";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 import { Toaster } from "@/components/ui/sonner";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "제품 도입·파트너십·미디어·채용 문의는 어크로스에 바로 보내주세요.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("contact.metadata");
+  return {
+    title: "Contact",
+    description: t("description"),
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const t = await getTranslations("contact");
   return (
     <>
       <ZoomOutGesture backHref="/" />
@@ -25,11 +29,12 @@ export default function ContactPage() {
                 Contact
               </h1>
               <p className="mt-2 text-[15px] font-light leading-[1.2] tracking-[-0.005em] text-text-muted sm:mt-2 sm:text-[18px]">
-                문의하기
+                {t("subtitle")}
               </p>
               <p className="mt-3 text-[14px] leading-[1.6] text-text-muted sm:mt-4 sm:text-[15px] lg:mt-5 lg:max-w-[360px]">
-                제품 도입·파트너십·미디어·채용 —<br className="hidden lg:block" />{" "}
-                어떤 이야기든 편하게 들려주세요.
+                {t("leadIntro")}
+                <br className="hidden lg:block" />{" "}
+                {t("leadInvite")}
               </p>
               <div className="mt-4 hidden lg:block">
                 <div className="h-px w-12 bg-border-subtle" aria-hidden />

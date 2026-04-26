@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -8,11 +9,6 @@ type ImageLogo = {
   width: number;
   height: number;
   heightClass: string;
-  /**
-   * Source PNG is a pure-white wordmark designed for dark backgrounds.
-   * In light mode we darken it so it renders as ink on the Dawn gradient.
-   * Omit for logos whose brand color is in the asset itself (e.g., NAEO green).
-   */
   whiteOnDark?: boolean;
 };
 
@@ -23,18 +19,16 @@ type TextLogo = {
 };
 
 type Service = {
+  id: "gpto" | "genrank" | "naeo";
   name: string;
-  tagline: string;
-  blurb: string;
   href: string;
   logo: ImageLogo | TextLogo;
 };
 
 const OWN: Service[] = [
   {
+    id: "gpto",
     name: "GPTO",
-    tagline: "통합 AEO GEO 플랫폼",
-    blurb: "브랜드가 AI 답변에서 어떻게 불리는지 진단하고 개선합니다.",
     href: "https://gpto.kr",
     logo: {
       kind: "image",
@@ -46,9 +40,8 @@ const OWN: Service[] = [
     },
   },
   {
+    id: "genrank",
     name: "GenRank",
-    tagline: "AI 답변 비교",
-    blurb: "생성형 AI가 내놓는 답을 모델·시점별로 교차 비교합니다.",
     href: "https://genrank.com",
     logo: {
       kind: "text",
@@ -58,9 +51,8 @@ const OWN: Service[] = [
     },
   },
   {
+    id: "naeo",
     name: "NAEO",
-    tagline: "네이버 AI 진단",
-    blurb: "네이버 생성형 답변 환경에서의 노출 위치를 분석합니다.",
     href: "https://www.naeo.kr",
     logo: {
       kind: "image",
@@ -73,10 +65,11 @@ const OWN: Service[] = [
 ];
 
 export function OwnCards() {
+  const t = useTranslations("home.ownCards");
   return (
     <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {OWN.map((s) => (
-        <li key={s.name}>
+        <li key={s.id}>
           <a
             href={s.href}
             target={s.href.startsWith("http") ? "_blank" : undefined}
@@ -107,11 +100,11 @@ export function OwnCards() {
                 />
               </div>
               <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
-                {s.tagline}
+                {t(`${s.id}.tagline`)}
               </p>
             </div>
             <p className="mt-2 text-[14px] leading-[1.55] text-text-muted">
-              {s.blurb}
+              {t(`${s.id}.blurb`)}
             </p>
           </a>
         </li>

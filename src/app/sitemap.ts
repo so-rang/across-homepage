@@ -3,7 +3,7 @@ import { getAllBlogSlugs } from "@/lib/content";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://across.center";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const staticRoutes = [
     "",
@@ -15,7 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
   ];
 
-  const blogRoutes = getAllBlogSlugs().map((slug) => ({
+  const slugs = await getAllBlogSlugs();
+  const blogRoutes = slugs.map((slug) => ({
     url: `${SITE_URL}/contents/posts/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { usePathname } from "@/i18n/navigation";
 
 /**
  * Layout-level Footer that skips routes which render their own Footer

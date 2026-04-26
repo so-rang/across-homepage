@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import { EarthBackdrop } from "@/components/background/earth-backdrop";
 import { HeroStars } from "@/components/background/hero-stars";
@@ -13,6 +14,31 @@ import { LanguageToggle } from "@/components/ui/language-toggle";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 /**
+ * Per-character shimmer stagger.
+ * Each glyph in the H1 lights up briefly in sequence after the intro,
+ * giving the impression of one beam of light traveling letter by letter
+ * through the whole title. `Array.from` (not `text.split("")`) handles
+ * Hangul and any future surrogate-pair characters correctly.
+ */
+const HERO_CHAR_STAGGER_MS = 50;
+
+function renderShimmerChars(text: string, startIndex: number) {
+  return Array.from(text).map((ch, i) => (
+    <span
+      key={i}
+      className="hero-char"
+      style={
+        {
+          "--char-delay": `${(startIndex + i) * HERO_CHAR_STAGGER_MS}ms`,
+        } as CSSProperties
+      }
+    >
+      {ch === " " ? "\u00A0" : ch}
+    </span>
+  ));
+}
+
+/**
  * Hero + scroll narrative layout.
  * Hero is a plain h-dvh section — no sticky pin. As the user scrolls, the
  * whole Hero dissolves (HeroFade ScrollTrigger) and the next screen fades
@@ -21,6 +47,11 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
  */
 export function Hero() {
   const t = useTranslations("home.hero");
+  const titleLine1 = t("titleLine1");
+  const titleLine2 = t("titleLine2");
+  const titleLine3 = t("titleLine3");
+  const line1Length = Array.from(titleLine1).length;
+  const line2Length = Array.from(titleLine2).length;
   return (
     <>
       <IntroRunner />
@@ -28,9 +59,9 @@ export function Hero() {
       <ConstellationHint />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-[48] h-[14vh] bg-gradient-to-b from-bg via-bg/45 to-transparent"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[48] h-[18vh] bg-gradient-to-b from-bg via-bg/80 to-transparent supports-backdrop-filter:backdrop-blur-md"
       />
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 py-5 pl-3 pr-6 sm:py-6 sm:pl-5 sm:pr-10 lg:pl-8 lg:pr-16">
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 px-4 py-5 sm:py-6 sm:pl-5 sm:pr-10 lg:pl-8 lg:pr-16">
         <ScrollAcrossMark />
         <div className="flex items-center gap-3 sm:gap-5">
           <ScrollMinimap />
@@ -54,7 +85,8 @@ export function Hero() {
                 className="mb-5 text-[13px] font-medium tracking-[0.16em] text-text-muted [word-break:keep-all] sm:mb-6 sm:text-[15px] sm:tracking-[0.18em]"
               >
                 <span className="text-text">{t("eyebrowBrand")}</span>
-                <span className="mx-2 text-text-muted/60">·</span>
+                <span className="mx-2 hidden text-text-muted/60 sm:inline">·</span>
+                <br className="sm:hidden" />
                 {t("eyebrowTagline")}
               </p>
               <h1
@@ -63,15 +95,15 @@ export function Hero() {
                 style={{ transform: "scaleX(1.04)" }}
               >
                 <span data-intro-item="copy-1" className="inline-block">
-                  {t("titleLine1")}
+                  {renderShimmerChars(titleLine1, 0)}
                 </span>
                 <br />
                 <span data-intro-item="copy-2" className="inline-block">
-                  {t("titleLine2")}
+                  {renderShimmerChars(titleLine2, line1Length)}
                 </span>
                 <br />
                 <span data-intro-item="copy-3" className="inline-block">
-                  {t("titleLine3")}
+                  {renderShimmerChars(titleLine3, line1Length + line2Length)}
                 </span>
               </h1>
             </div>

@@ -25,6 +25,9 @@
   --color-gpto-blue: #5f7dae;
   --color-earth-cyan: #9dc5d9;
   --color-star-warm: #f8efd6;
+  /* Hero title gleam peak — pure white sits clearly above the cream
+   * body text (#f3ecde) so the traveling highlight reads as a flash. */
+  --color-hero-gleam: #ffffff;
 
   /* ── Font families (Pretendard everywhere for unity) ── */
   --font-sans:
@@ -71,6 +74,8 @@ html.light {
   --color-gpto-blue: #3355a8;
   --color-earth-cyan: #6ab0d8;
   --color-star-warm: #b3894a;
+  /* Light mode gleam — Horizon Magenta catches navy text like dawn light. */
+  --color-hero-gleam: #e63b7a;
   color-scheme: light;
 }
 
@@ -276,16 +281,24 @@ select {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* Hero copy reveal — left-to-right ink wipe + rise + deblur.
+ * `clip-path` insets use negative top/bottom so the blur halo and any
+ * descenders are not cropped while the wipe runs. */
 @keyframes intro-copy-in {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(22px);
-    filter: blur(8px);
+    transform: translateY(28px);
+    filter: blur(10px);
+    clip-path: inset(-30% 100% -30% 0);
   }
-  to {
+  60% {
+    filter: blur(0);
+  }
+  100% {
     opacity: 1;
     transform: none;
     filter: blur(0);
+    clip-path: inset(-30% 0 -30% 0);
   }
 }
 @keyframes intro-mark-in {
@@ -371,11 +384,8 @@ html[data-intro="short"] [data-intro-item] {
 }
 
 /* ── Hero ambient breathe ─────────────────────────────
- * After the intro timeline, the eyebrow + 3-line hero title
- * pulse together with a slow brightness/glow breathe synced
- * to the constellation chase, so the whole hero feels like
- * one breathing organism. Filter-only keeps the H1's inline
- * `transform: scaleX(1.04)` intact (no layout cost either). */
+ * Eyebrow keeps its slow brightness/glow pulse — a quiet pedal-tone under
+ * the H1's gleam sweep. Filter-only keeps any inline transforms intact. */
 @keyframes hero-copy-breathe {
   0%, 100% {
     filter: brightness(1) drop-shadow(0 0 0 rgba(248, 239, 214, 0));
@@ -384,15 +394,50 @@ html[data-intro="short"] [data-intro-item] {
     filter: brightness(1.08) drop-shadow(0 0 22px rgba(248, 239, 214, 0.24));
   }
 }
-html[data-intro="done"] #hero-title,
 html[data-intro="done"] [data-intro-item="eyebrow"] {
   animation: hero-copy-breathe 6.4s var(--ease-soft) infinite;
   will-change: filter;
 }
+
+/* ── Hero title per-character shimmer ─────────────────
+ * Each glyph in the H1 (split into `.hero-char` spans server-side in
+ * `<Hero>`) lights up briefly in sequence — left-to-right, line 1 →
+ * line 3 — so it reads as one beam of light traveling letter by letter
+ * through the whole title. The `--char-delay` custom property on each
+ * char span carries its place in the global stagger.
+ *
+ * Each char's lit window is ~6% of the cycle (~540ms at 9s) — short
+ * enough that only a few neighbours are simultaneously bright, giving
+ * the wavefront a clean leading edge. Color + a `color-mix`'d
+ * `text-shadow` halo make the flash readable in both themes. */
+@keyframes hero-char-shimmer {
+  0%,
+  6%,
+  100% {
+    color: var(--color-text);
+    text-shadow:
+      0 0 0 transparent,
+      0 0 0 transparent;
+  }
+  3% {
+    color: var(--color-hero-gleam);
+    text-shadow:
+      0 0 12px color-mix(in srgb, var(--color-hero-gleam) 65%, transparent),
+      0 0 28px color-mix(in srgb, var(--color-hero-gleam) 35%, transparent);
+  }
+}
+
+html[data-intro="done"] .hero-char {
+  animation: hero-char-shimmer 9s linear infinite;
+  animation-delay: var(--char-delay, 0ms);
+  will-change: color, text-shadow;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html[data-intro="done"] #hero-title,
-  html[data-intro="done"] [data-intro-item="eyebrow"] {
+  html[data-intro="done"] .hero-char {
     animation: none;
+    color: var(--color-text);
+    text-shadow: none;
   }
 }
 
@@ -510,6 +555,15 @@ html.home-snap {
   isolation: isolate;
 }
 
+/* ── Across mark mask shape ──
+ * Reusable silhouette derived from the cream PNG so any element can be
+ * painted as the Across glyph by choosing a `background-color`. Single
+ * source guarantees identical proportions across themes. */
+.across-mark {
+  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+}
+
 /* Light traveling along the logo silhouette. The PNG is used as a mask
  * so the moving gradient only paints inside the glyph shape. A narrow
  * hot core with a brief trail reads as a razor-sharp specular highlight
@@ -520,27 +574,57 @@ html.home-snap {
   pointer-events: none;
   background: linear-gradient(
     115deg,
-    transparent 38%,
-    rgba(255, 252, 235, 0.85) 50%,
-    transparent 62%
+    transparent 35%,
+    rgba(255, 252, 235, 0.55) 44%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 252, 235, 0.55) 56%,
+    transparent 65%
   );
-  background-size: 220% 100%;
+  background-size: 200% 100%;
   background-repeat: no-repeat;
   -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
   mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
   mix-blend-mode: plus-lighter;
-  animation: across-glyph-shimmer-sweep 4.6s ease-in-out infinite;
+  animation: across-glyph-shimmer-sweep 2.2s linear infinite;
 }
 
 @keyframes across-glyph-shimmer-sweep {
-  0% { background-position: -60% 0; opacity: 0; }
-  10% { opacity: 1; }
-  60% { opacity: 1; }
-  70%, 100% { background-position: 160% 0; opacity: 0; }
+  0% { background-position: -55% 0; opacity: 0; }
+  4% { background-position: -55% 0; opacity: 1; }
+  42% { background-position: 155% 0; opacity: 1; }
+  48%, 100% { background-position: 155% 0; opacity: 0; }
+}
+
+/* Ambient shimmer — a soft, low-alpha highlight that drifts diagonally
+ * across the silhouette continuously. Layered beneath the sharp sweep so
+ * the logo always feels lit, with the periodic sweep punctuating it. */
+.across-glyph-ambient-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 40% at 50% 50%,
+    rgba(255, 252, 235, 0.4) 0%,
+    rgba(255, 252, 235, 0.18) 45%,
+    transparent 80%
+  );
+  background-size: 280% 280%;
+  background-repeat: no-repeat;
+  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  mix-blend-mode: plus-lighter;
+  animation: across-glyph-ambient-drift 6s ease-in-out infinite alternate;
+}
+
+@keyframes across-glyph-ambient-drift {
+  0% { background-position: 18% 28%; }
+  50% { background-position: 50% 50%; }
+  100% { background-position: 82% 72%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .across-glyph-shimmer {
+  .across-glyph-shimmer,
+  .across-glyph-ambient-shimmer {
     animation: none;
     opacity: 0;
   }
@@ -585,20 +669,21 @@ html.home-snap {
 }
 
 /* ── View transitions (plan T12 / DESIGN.md §7.2) ──── */
-@keyframes zoom-in {
-  from { opacity: 0; transform: scale(1.3); }
-  to   { opacity: 1; transform: none; }
-}
-@keyframes zoom-out {
-  from { opacity: 1; transform: none; }
-  to   { opacity: 0; transform: scale(0.7); }
+/* Single-layer fade: only the outgoing page fades; the home page sits at
+ * full opacity underneath from frame zero. No cross-fade between two
+ * semi-transparent layers, so there is no mid-transition darkening. */
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 ::view-transition-old(root) {
-  animation: zoom-out 600ms var(--ease-soft) both;
+  animation: vt-fade-out 220ms ease-out both;
+  z-index: 2;
 }
 ::view-transition-new(root) {
-  animation: zoom-in 800ms var(--ease-snap) both;
+  animation: none;
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -676,6 +761,21 @@ html.home-snap {
   border-left: 2px solid var(--color-signal-blue);
   color: var(--color-text);
   font-style: italic;
+}
+
+.prose-across img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.prose-across img.ProseMirror-selectednode,
+.prose-across .ProseMirror-selectednode > img {
+  outline: 3px solid var(--color-signal-blue);
+  outline-offset: 2px;
 }
 
 /*
