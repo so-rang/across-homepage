@@ -21,8 +21,14 @@ type AcrossMarkProps = {
  * mode, so the mark sits at identical size and position across themes.
  * Clicking the mark while already on `href` scrolls smoothly to the top
  * instead of doing nothing (Next's Link short-circuits same-path nav).
+ *
+ * Height is responsive: mobile shrinks the mark a step so it doesn't crowd
+ * the header band; aspect ratio is locked to the source 589×758 crop.
  */
-const ASPECT = 589 / 758;
+const MARK_HEIGHT_CLASS = {
+  sm: "h-4 sm:h-6",
+  md: "h-5 sm:h-7",
+} as const;
 
 export function AcrossMark({
   className,
@@ -32,8 +38,6 @@ export function AcrossMark({
   showWordmark = true,
 }: AcrossMarkProps) {
   const t = useTranslations("nav.brand");
-  const h = size === "sm" ? 28 : 34;
-  const w = Math.round(h * ASPECT);
   const pathname = usePathname();
   const ariaLabel = label ?? t("homeAria");
 
@@ -63,8 +67,10 @@ export function AcrossMark({
     >
       <span
         aria-hidden
-        className="across-mark block shrink-0 select-none bg-white/85 light:bg-black/85"
-        style={{ height: h, width: w }}
+        className={cn(
+          "across-mark block shrink-0 select-none aspect-[589/758] bg-white/85 light:bg-black/85",
+          MARK_HEIGHT_CLASS[size]
+        )}
       />
       {showWordmark ? (
         <span className="ml-1 hidden whitespace-nowrap text-[17px] font-medium tracking-[0.01em] sm:inline">

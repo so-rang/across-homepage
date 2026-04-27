@@ -6,6 +6,7 @@ import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
 import ImageExtension from "@tiptap/extension-image";
+import { ArrowLeft } from "lucide-react";
 import { PageHeader } from "@/components/brand/page-header";
 import { getAllBlogSlugs, getAllContents, getBlogPost } from "@/lib/content";
 
@@ -69,27 +70,34 @@ export default async function PostPage({ params }: PageProps) {
 
   return (
     <>
-      <PageHeader back={{ href: "/contents", label: "← Contents" }} />
+      <PageHeader />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       <article className="mx-auto max-w-[760px] px-6 pb-24 pt-20 sm:px-10">
-        <header className="mb-10 rounded-3xl border border-border-subtle bg-[rgba(6,6,11,0.55)] p-8 backdrop-blur-[8px] sm:p-10">
+        <Link
+          href="/contents"
+          aria-label={t("back")}
+          className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-border-subtle text-text-muted transition-colors hover:border-border-strong hover:text-text"
+        >
+          <ArrowLeft className="h-4 w-4" aria-hidden />
+        </Link>
+        <header className="mb-10 rounded-3xl border border-border-subtle bg-[rgba(6,6,11,0.55)] p-6 backdrop-blur-[8px] sm:p-8">
           {post.category ? (
-            <p className="mb-4 font-mono text-xs uppercase tracking-[0.24em] text-text-muted">
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-text-muted">
               {post.category}
             </p>
           ) : null}
-          <h1 className="font-display text-[32px] font-light leading-[1.35] tracking-[0.01em] sm:text-[44px]">
+          <h1 className="font-display text-[28px] font-light leading-[1.3] tracking-[0.01em] sm:text-[38px]">
             {post.title}
           </h1>
           {post.excerpt ? (
-            <p className="mt-4 text-[16px] leading-[1.65] text-text-muted">
+            <p className="mt-3 text-[15px] leading-[1.6] text-text-muted">
               {post.excerpt}
             </p>
           ) : null}
-          <p className="mt-6 font-mono text-sm text-text-muted">
+          <p className="mt-4 font-mono text-sm text-text-muted">
             {post.date}
             {post.author ? ` · ${post.author}` : ""}
           </p>

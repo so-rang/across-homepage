@@ -31,7 +31,7 @@ export function LanguageToggle() {
   };
 
   return (
-    <Menu.Root>
+    <Menu.Root modal={false}>
       <Menu.Trigger
         aria-label={t("label")}
         className="inline-flex h-8 w-8 items-center justify-center rounded-full text-text-muted transition-colors hover:bg-bg-elev-2 hover:text-text disabled:opacity-60"

@@ -9,7 +9,7 @@ export function Footer() {
   const t = useTranslations("footer");
   return (
     <footer className="relative z-30 border-t border-border-subtle bg-transparent dark:bg-bg">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-10 text-text-muted sm:px-10 md:grid-cols-[1fr_auto] md:items-end">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-10 text-text-muted sm:px-10 md:grid-cols-[1fr_auto] md:items-end lg:px-20">
         <div>
           <AcrossMark />
           <dl className="mt-3 space-y-0.5 text-sm">

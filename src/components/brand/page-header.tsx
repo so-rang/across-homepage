@@ -17,7 +17,7 @@ type Props = {
  */
 export function PageHeader({ back }: Props) {
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-4 py-4 sm:pl-5 sm:pr-10">
+    <header className="sticky top-0 z-30 flex items-center justify-between gap-4 px-6 py-2.5 sm:py-4 sm:pl-5 sm:pr-10">
       {/* Soft wash that fades into the page so the bar reads as part of the
        * background. Single gradient without an extra mask — the gradient
        * itself carries the fade, which keeps the visual band tight around
@@ -30,7 +30,7 @@ export function PageHeader({ back }: Props) {
             "linear-gradient(to bottom, color-mix(in oklab, var(--color-bg) 95%, transparent) 0%, color-mix(in oklab, var(--color-bg) 75%, transparent) 70%, transparent 100%)",
         }}
       />
-      <span data-zoom-out className="min-w-0 shrink-0">
+      <span data-zoom-out className="flex min-w-0 shrink-0 items-center">
         <AcrossMark />
       </span>
       <div className="flex items-center gap-2 sm:gap-5">
@@ -45,8 +45,10 @@ export function PageHeader({ back }: Props) {
             {back.label}
           </Link>
         ) : null}
-        <ThemeToggle />
-        <LanguageToggle />
+        <div className="hidden items-center gap-2 sm:flex sm:gap-5">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
         <div className="sm:hidden">
           <MobileNav />
         </div>

@@ -6,10 +6,9 @@ import { MobileNav } from "@/components/nav/mobile-nav";
 import { cn } from "@/lib/utils";
 
 /**
- * Shows the Minimap only after the user has scrolled past the Hero.
- * On the first screen the header stays quiet (logo only); as soon as the
- * user starts moving into the narrative, the nav slides in from above.
- * Mobile (`<sm`) swaps the inline minimap for a hamburger drawer.
+ * Both viewports gate the secondary nav by scroll so the hero stays quiet:
+ * desktop reveals the Minimap, mobile reveals the hamburger — both ride in
+ * with the same fade/slide as ScrollAcrossMark for a synchronized header.
  */
 export function ScrollMinimap() {
   const [visible, setVisible] = useState(false);
@@ -24,21 +23,29 @@ export function ScrollMinimap() {
   }, []);
 
   return (
-    <div
-      aria-hidden={!visible}
-      className={cn(
-        "transition-[opacity,transform] duration-300 ease-out",
-        visible
-          ? "opacity-100 translate-y-0"
-          : "pointer-events-none -translate-y-2 opacity-0"
-      )}
-    >
-      <div className="hidden sm:block">
+    <>
+      <div
+        aria-hidden={!visible}
+        className={cn(
+          "hidden transition-[opacity,transform] duration-300 ease-out sm:block",
+          visible
+            ? "opacity-100 translate-y-0"
+            : "pointer-events-none -translate-y-2 opacity-0"
+        )}
+      >
         <Minimap />
       </div>
-      <div className="sm:hidden">
+      <div
+        aria-hidden={!visible}
+        className={cn(
+          "overflow-hidden transition-[width,opacity] duration-300 ease-out sm:hidden",
+          visible
+            ? "w-7 opacity-100"
+            : "pointer-events-none w-0 opacity-0"
+        )}
+      >
         <MobileNav />
       </div>
-    </div>
+    </>
   );
 }

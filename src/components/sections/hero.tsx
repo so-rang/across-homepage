@@ -57,16 +57,24 @@ export function Hero() {
       <IntroRunner />
       <HomeSnap />
       <ConstellationHint />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-[48] h-[18vh] bg-gradient-to-b from-bg via-bg/80 to-transparent supports-backdrop-filter:backdrop-blur-md"
-      />
-      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 px-4 py-5 sm:py-6 sm:pl-5 sm:pr-10 lg:pl-8 lg:pr-16">
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 pl-6 pr-3 py-2.5 sm:py-4 sm:pl-5 sm:pr-10">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 supports-backdrop-filter:backdrop-blur-md"
+          style={{
+            background:
+              "linear-gradient(to bottom, color-mix(in oklab, var(--color-bg) 95%, transparent) 0%, color-mix(in oklab, var(--color-bg) 75%, transparent) 70%, transparent 100%)",
+          }}
+        />
         <ScrollAcrossMark />
-        <div className="flex items-center gap-3 sm:gap-5">
-          <ScrollMinimap />
-          <ThemeToggle />
-          <LanguageToggle />
+        <div className="flex items-center gap-1 sm:gap-5">
+          <div className="order-last sm:order-none">
+            <ScrollMinimap />
+          </div>
+          <div className="flex items-center gap-1 sm:gap-5">
+            <ThemeToggle />
+            <LanguageToggle />
+          </div>
         </div>
       </header>
 
@@ -78,8 +86,8 @@ export function Hero() {
           <EarthBackdrop />
           <HeroStars />
 
-          <div className="relative z-20 mx-auto grid h-full max-w-[1200px] grid-cols-1 items-start gap-12 px-6 pb-24 pt-24 sm:px-10 sm:pt-28 md:grid-cols-2 md:gap-10 md:pt-32 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-36">
-            <div className="relative mt-[4vh] md:mt-[12vh] lg:mt-[18vh]">
+          <div className="relative z-20 mx-auto grid h-full max-w-[1200px] grid-cols-1 items-start gap-12 px-6 pb-24 pt-24 sm:px-10 sm:pt-28 md:grid-cols-2 md:gap-10 md:pt-32 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:px-20 lg:pt-36">
+            <div className="relative ml-2 mt-[4vh] sm:ml-0 md:mt-[12vh] lg:mt-[18vh]">
               <p
                 data-intro-item="eyebrow"
                 className="mb-5 text-[13px] font-medium tracking-[0.16em] text-text-muted [word-break:keep-all] sm:mb-6 sm:text-[15px] sm:tracking-[0.18em]"
@@ -91,8 +99,7 @@ export function Hero() {
               </p>
               <h1
                 id="hero-title"
-                className="origin-left text-[27px] font-normal leading-[1.65] tracking-[0.02em] text-text sm:text-[34px] lg:text-[46px] lg:leading-[1.55]"
-                style={{ transform: "scaleX(1.04)" }}
+                className="origin-left text-[27px] font-normal leading-[1.65] tracking-[0.02em] text-text sm:text-[34px] sm:[transform:scaleX(1.04)] lg:text-[46px] lg:leading-[1.55]"
               >
                 <span data-intro-item="copy-1" className="inline-block">
                   {renderShimmerChars(titleLine1, 0)}

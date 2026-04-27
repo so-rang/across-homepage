@@ -59,6 +59,8 @@ export function ScrollReveal({
           : { opacity: 0, y: distance };
       const toVars = axis === "x" ? { x: 0 } : { y: 0 };
 
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
       gsap.fromTo(
         targets,
         fromVars,
@@ -73,7 +75,8 @@ export function ScrollReveal({
             trigger: rootRef.current,
             start: "top 82%",
             end: "top 35%",
-            toggleActions: "play none none reverse",
+            toggleActions: isMobile ? "play none none none" : "play none none reverse",
+            once: isMobile,
           },
         }
       );
