@@ -5,13 +5,13 @@ import { cn } from "@/lib/utils";
 const INVESTORS = [
   {
     name: "Primer",
-    src: "/logo/primer_logo.png",
+    src: "/logo/logo_primer.png",
     width: 691,
     height: 201,
   },
   {
     name: "Hashed",
-    src: "/logo/hashed_logo.png",
+    src: "/logo/logo_hashed.png",
     width: 1862,
     height: 472,
   },
@@ -30,7 +30,7 @@ const PARTNERS: {
 }[] = [
   {
     id: "hankyung",
-    src: "/logo/hkgpto_hk.svg",
+    src: "/logo/logo_hkgpto_hk.svg",
     width: 80,
     height: 20,
     invertOnDark: true,
@@ -39,7 +39,7 @@ const PARTNERS: {
   },
   {
     id: "medigoround",
-    src: "/logo/medi_trans_logo.png",
+    src: "/logo/logo_medi_trans.png",
     width: 750,
     height: 728,
     invertOnDark: false,
@@ -48,7 +48,7 @@ const PARTNERS: {
   },
   {
     id: "kimteamlead",
-    src: "/logo/client_eye_logo.png",
+    src: "/logo/logo_client_eye.png",
     width: 508,
     height: 136,
     invertOnDark: false,

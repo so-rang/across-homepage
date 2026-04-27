@@ -18,7 +18,7 @@ export const PARTNERS: readonly Partner[] = [
     name: "한경GPTO",
     href: "https://www.hkgpto.com",
     logo: {
-      src: "/logo/hkgpto_hk.svg",
+      src: "/logo/logo_hkgpto_hk.svg",
       width: 80,
       height: 20,
       className: "dark:brightness-0 dark:invert",
@@ -29,7 +29,7 @@ export const PARTNERS: readonly Partner[] = [
     name: "MediGPTO",
     href: "https://medigpto.com",
     logo: {
-      src: "/logo/medi_trans_logo.png",
+      src: "/logo/logo_medi_trans.png",
       width: 750,
       height: 728,
     },
@@ -39,7 +39,7 @@ export const PARTNERS: readonly Partner[] = [
     name: "고객의눈 GPTO",
     href: "https://client-gpto.com",
     logo: {
-      src: "/logo/client_eye_logo.png",
+      src: "/logo/logo_client_eye.png",
       width: 508,
       height: 136,
       className: "-mr-2 -translate-y-px",

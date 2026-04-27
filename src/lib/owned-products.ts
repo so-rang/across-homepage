@@ -27,7 +27,7 @@ export const OWNED_PRODUCTS: readonly OwnedProduct[] = [
     href: "https://gpto.kr",
     logo: {
       kind: "image",
-      src: "/logo/gpto_logo_white.png",
+      src: "/logo/logo_gpto_white.png",
       width: 9600,
       height: 4000,
       whiteOnDark: true,
@@ -48,7 +48,7 @@ export const OWNED_PRODUCTS: readonly OwnedProduct[] = [
     href: "https://www.naeo.kr",
     logo: {
       kind: "image",
-      src: "/logo/naeo_logo_cutout.png",
+      src: "/logo/logo_naeo_cutout.png",
       width: 740,
       height: 192,
     },

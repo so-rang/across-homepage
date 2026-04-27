@@ -28,11 +28,11 @@ async function cutout(input, output, { threshold, feather }) {
   console.log(`wrote ${output}`);
 }
 
-await cutout("naeo_logo.png", "naeo_logo_cutout.png", {
+await cutout("logo/logo_naeo.png", "logo/logo_naeo_cutout.png", {
   threshold: 30,
   feather: 25,
 });
-await cutout("GenRank.png", "genrank_logo_cutout.png", {
+await cutout("logo/logo_genrank.png", "logo/logo_genrank_cutout.png", {
   threshold: 70,
   feather: 30,
 });
