@@ -37,7 +37,7 @@ export function Stage() {
         <Antigravity quality={quality} />
       </div>
       <div data-intro-item="stage-border">
-        <BorderGlow quality={quality} />
+        <BorderGlow />
       </div>
     </>
   );

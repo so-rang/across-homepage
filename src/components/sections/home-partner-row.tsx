@@ -1,60 +1,14 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { PARTNERS, type Partner, type PartnerId } from "@/lib/partners";
 import { cn } from "@/lib/utils";
 
-type PartnerId = "hkgpto" | "medigpto" | "customereye";
-
-type Partner = {
-  id: PartnerId;
-  name: string;
-  href?: string;
-  logo: {
-    src: string;
-    width: number;
-    height: number;
-    heightClass: string;
-    className?: string;
-  };
+const HEIGHT: Record<PartnerId, string> = {
+  hkgpto: "h-4",
+  medigpto: "h-7",
+  customereye: "h-5",
 };
-
-const PARTNERS: Partner[] = [
-  {
-    id: "hkgpto",
-    name: "한경GPTO",
-    href: "https://www.hkgpto.com",
-    logo: {
-      src: "/logo/hkgpto_hk.svg",
-      width: 80,
-      height: 20,
-      heightClass: "h-4",
-      className: "dark:brightness-0 dark:invert",
-    },
-  },
-  {
-    id: "medigpto",
-    name: "MediGPTO",
-    href: "https://medigpto.com",
-    logo: {
-      src: "/logo/medi_trans_logo.png",
-      width: 750,
-      height: 728,
-      heightClass: "h-7",
-    },
-  },
-  {
-    id: "customereye",
-    name: "고객의눈 GPTO",
-    href: "https://client-gpto.com",
-    logo: {
-      src: "/logo/client_eye_logo.png",
-      width: 508,
-      height: 136,
-      heightClass: "h-5",
-      className: "-mr-2 -translate-y-px",
-    },
-  },
-];
 
 const BASE_CARD =
   "group flex h-full flex-col rounded-2xl border border-border-subtle bg-bg-elev-1 px-5 py-4 transition-all duration-[var(--d-base)] ease-[var(--ease-snap)]";
@@ -68,7 +22,7 @@ function PartnerMark({ partner }: { partner: Partner }) {
         width={partner.logo.width}
         height={partner.logo.height}
         className={cn(
-          `${partner.logo.heightClass} w-auto max-w-[100px] object-contain object-left`,
+          `${HEIGHT[partner.id]} w-auto max-w-[100px] object-contain object-left`,
           partner.logo.className
         )}
       />

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -213,12 +214,12 @@ export function ContactForm() {
         <span>
           {t.rich("privacy.agreement", {
             link: (chunks) => (
-              <a
+              <Link
                 href="/privacy"
                 className="underline decoration-border-strong underline-offset-2 transition-colors hover:text-text hover:decoration-signal-blue"
               >
                 {chunks}
-              </a>
+              </Link>
             ),
           })}
         </span>

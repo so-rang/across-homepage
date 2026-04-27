@@ -1,10 +1,8 @@
-import type { LayerProps } from "./types";
-
 /**
  * Layer 4 — minimal corner falloff.
  * Very low-opacity violet wash in corners, nothing more.
  */
-export function BorderGlow({ quality: _quality }: LayerProps) {
+export function BorderGlow() {
   return (
     <svg
       aria-hidden

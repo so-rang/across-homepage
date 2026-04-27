@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { PageHeader } from "@/components/brand/page-header";
 import { ContentCard } from "@/components/contents/content-card";
 import { ZoomOutGesture } from "@/components/nav/zoom-out-gesture";
@@ -49,12 +50,12 @@ export default async function ContentsPage({
         {items.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border-subtle bg-bg-elev-1 p-10 text-center">
             <p className="text-text-muted">{t("emptyCategory")}</p>
-            <a
+            <Link
               href="/contents"
               className="mt-4 inline-block text-sm text-signal-blue hover:underline"
             >
               {t("viewAll")}
-            </a>
+            </Link>
           </div>
         ) : (
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

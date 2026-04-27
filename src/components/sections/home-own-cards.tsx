@@ -1,74 +1,24 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import {
+  OWNED_PRODUCTS,
+  type ProductId,
+} from "@/lib/owned-products";
 import { cn } from "@/lib/utils";
 
-type ImageLogo = {
-  kind: "image";
-  src: string;
-  width: number;
-  height: number;
-  heightClass: string;
-  whiteOnDark?: boolean;
+const LOGO_CLASS: Record<ProductId, string> = {
+  gpto: "h-10",
+  genrank:
+    "font-[family-name:var(--font-cormorant)] text-[26px] font-medium leading-[0.85] tracking-[-0.015em] text-text",
+  naeo: "h-5",
 };
-
-type TextLogo = {
-  kind: "text";
-  text: string;
-  className: string;
-};
-
-type Service = {
-  id: "gpto" | "genrank" | "naeo";
-  name: string;
-  href: string;
-  logo: ImageLogo | TextLogo;
-};
-
-const OWN: Service[] = [
-  {
-    id: "gpto",
-    name: "GPTO",
-    href: "https://gpto.kr",
-    logo: {
-      kind: "image",
-      src: "/logo/gpto_logo_white.png",
-      width: 9600,
-      height: 4000,
-      heightClass: "h-10",
-      whiteOnDark: true,
-    },
-  },
-  {
-    id: "genrank",
-    name: "GenRank",
-    href: "https://genrank.com",
-    logo: {
-      kind: "text",
-      text: "GenRank",
-      className:
-        "font-[family-name:var(--font-cormorant)] text-[26px] font-medium leading-[0.85] tracking-[-0.015em] text-text",
-    },
-  },
-  {
-    id: "naeo",
-    name: "NAEO",
-    href: "https://www.naeo.kr",
-    logo: {
-      kind: "image",
-      src: "/logo/naeo_logo_cutout.png",
-      width: 740,
-      height: 192,
-      heightClass: "h-5",
-    },
-  },
-];
 
 export function HomeOwnCards() {
   const t = useTranslations("home.ownCards");
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {OWN.map((s) => (
+      {OWNED_PRODUCTS.map((s) => (
         <li key={s.id}>
           <a
             href={s.href}
@@ -85,13 +35,13 @@ export function HomeOwnCards() {
                   width={s.logo.width}
                   height={s.logo.height}
                   className={cn(
-                    s.logo.heightClass,
+                    LOGO_CLASS[s.id],
                     "w-auto max-w-[140px] object-contain object-left",
                     s.logo.whiteOnDark && "brightness-0 dark:brightness-100"
                   )}
                 />
               ) : (
-                <span className={s.logo.className}>{s.logo.text}</span>
+                <span className={LOGO_CLASS[s.id]}>{s.logo.text}</span>
               )}
               <ExternalLink
                 aria-hidden
