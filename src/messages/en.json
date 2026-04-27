@@ -72,9 +72,9 @@
     },
     "invitation": {
       "eyebrow": "Contact · Work with us",
-      "titleLine1": "We're waiting for your proposal,",
-      "titleLine2": "and we reply fast",
-      "lead": "Product adoption, partnerships, media inquiries, and hiring questions are all welcome. A quick email works too.",
+      "titleLine1": "Send us anything, anytime",
+      "titleLine2": "We'll read it first, and reply fast",
+      "lead": "Product adoption, partnerships, media inquiries, hiring questions — or anything you'd like to share with us. Just send an email.",
       "cta": "Send a message"
     },
     "cta": {
@@ -507,7 +507,8 @@
     "post": {
       "prevNext": "Previous and next posts",
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "back": "← Contents"
     }
   }
 }
