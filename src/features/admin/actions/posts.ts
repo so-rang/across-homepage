@@ -232,8 +232,15 @@ export async function deletePostAction(id: string): Promise<void> {
     .select("slug")
     .eq("id", id)
     .maybeSingle();
-  const { error } = await supabase.from("posts").delete().eq("id", id);
+  const { data: deleted, error } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", id)
+    .select("id");
   if (error) throw new Error(error.message);
+  if (!deleted || deleted.length === 0) {
+    throw new Error("삭제 권한이 없거나 글을 찾을 수 없어요.");
+  }
   revalidatePath("/admin/posts");
   revalidatePath("/contents");
   if (row?.slug) revalidatePath(`/contents/posts/${row.slug}`);
@@ -248,8 +255,21 @@ export async function deletePostsAction(ids: string[]): Promise<void> {
     .from("posts")
     .select("slug")
     .in("id", ids);
-  const { error } = await supabase.from("posts").delete().in("id", ids);
+  const { data: deleted, error } = await supabase
+    .from("posts")
+    .delete()
+    .in("id", ids)
+    .select("id");
   if (error) throw new Error(error.message);
+  const deletedCount = deleted?.length ?? 0;
+  if (deletedCount === 0) {
+    throw new Error("삭제 권한이 없거나 글을 찾을 수 없어요.");
+  }
+  if (deletedCount < ids.length) {
+    throw new Error(
+      `${ids.length}개 중 ${deletedCount}개만 삭제됐어요. 권한을 확인해주세요.`,
+    );
+  }
   revalidatePath("/admin/posts");
   revalidatePath("/contents");
   for (const row of (rows ?? []) as { slug: string | null }[]) {

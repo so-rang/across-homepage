@@ -8,8 +8,22 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { deletePostsAction } from "@/features/admin/actions/posts";
 import type { PostStatus } from "@/features/admin/types/post";
+
+export type AdminPostAuthor = {
+  display_name: string | null;
+  email: string;
+  avatar_url: string | null;
+};
 
 export type AdminPostListItem = {
   id: string;
@@ -19,6 +33,7 @@ export type AdminPostListItem = {
   cover_image: string | null;
   published_at: string | null;
   updated_at: string;
+  author: AdminPostAuthor | null;
 };
 
 type View = "gallery" | "list";
@@ -35,15 +50,26 @@ const STATUS_BADGE: Record<PostStatus, string> = {
   published: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
 };
 
+function authorLabel(author: AdminPostAuthor | null): string {
+  if (!author) return "—";
+  if (author.display_name) return author.display_name;
+  return author.email.split("@")[0] ?? "—";
+}
+
 export function PostsView({ posts }: { posts: AdminPostListItem[] }) {
   const [view, setView] = useState<View>("gallery");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
   const allSelected = posts.length > 0 && selected.size === posts.length;
   const partiallySelected = selected.size > 0 && !allSelected;
 
   const allIds = useMemo(() => posts.map((p) => p.id), [posts]);
+  const selectedPosts = useMemo(
+    () => posts.filter((p) => selected.has(p.id)),
+    [posts, selected],
+  );
 
   const toggle = (id: string) => {
     setSelected((prev) => {
@@ -59,14 +85,12 @@ export function PostsView({ posts }: { posts: AdminPostListItem[] }) {
     else setSelected(new Set(allIds));
   };
 
-  const handleDelete = () => {
-    if (selected.size === 0) return;
-    if (!confirm(`${selected.size}개 글을 삭제할까요? 되돌릴 수 없습니다.`))
-      return;
+  const confirmDelete = () => {
     startTransition(async () => {
       try {
         await deletePostsAction(Array.from(selected));
         setSelected(new Set());
+        setConfirmOpen(false);
         toast.success("삭제 완료");
       } catch (e) {
         toast.error((e as Error).message);
@@ -95,11 +119,11 @@ export function PostsView({ posts }: { posts: AdminPostListItem[] }) {
               variant="ghost"
               size="sm"
               className="text-destructive hover:text-destructive"
-              onClick={handleDelete}
+              onClick={() => setConfirmOpen(true)}
               disabled={pending}
             >
               <Trash2 className="mr-1 h-3.5 w-3.5" aria-hidden />
-              {pending ? "삭제 중…" : "선택 삭제"}
+              선택 삭제
             </Button>
           ) : null}
         </div>
@@ -129,7 +153,96 @@ export function PostsView({ posts }: { posts: AdminPostListItem[] }) {
       ) : (
         <ListView posts={posts} selected={selected} onToggle={toggle} />
       )}
+
+      <DeleteConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        posts={selectedPosts}
+        pending={pending}
+        onConfirm={confirmDelete}
+      />
     </div>
+  );
+}
+
+function DeleteConfirmDialog({
+  open,
+  onOpenChange,
+  posts,
+  pending,
+  onConfirm,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  posts: AdminPostListItem[];
+  pending: boolean;
+  onConfirm: () => void;
+}) {
+  const count = posts.length;
+  const preview = posts.slice(0, 5);
+  const overflow = count - preview.length;
+  const hasPublished = posts.some((p) => p.status === "published");
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{count}개 글을 삭제할까요?</DialogTitle>
+          <DialogDescription>
+            삭제한 글은 되돌릴 수 없습니다.
+            {hasPublished
+              ? " 공개된 글은 사이트에서 즉시 사라집니다."
+              : ""}
+          </DialogDescription>
+        </DialogHeader>
+
+        {preview.length > 0 ? (
+          <ul className="max-h-48 space-y-1.5 overflow-y-auto rounded-md border border-border bg-muted/30 p-3 text-sm">
+            {preview.map((p) => (
+              <li
+                key={p.id}
+                className="flex items-center gap-2 truncate text-foreground/90"
+              >
+                <span
+                  className={cn(
+                    "shrink-0 rounded-full px-1.5 py-0.5 text-[10px]",
+                    STATUS_BADGE[p.status],
+                  )}
+                >
+                  {STATUS_LABEL[p.status]}
+                </span>
+                <span className="truncate">{p.title}</span>
+              </li>
+            ))}
+            {overflow > 0 ? (
+              <li className="pt-1 text-xs text-muted-foreground">
+                …외 {overflow}개
+              </li>
+            ) : null}
+          </ul>
+        ) : null}
+
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={pending}
+          >
+            취소
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={onConfirm}
+            disabled={pending}
+          >
+            <Trash2 className="mr-1.5 h-3.5 w-3.5" aria-hidden />
+            {pending ? "삭제 중…" : `${count}개 삭제`}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -232,6 +345,10 @@ function GalleryView({
                 {p.title}
               </Link>
               <p className="text-xs text-muted-foreground">
+                <span className="text-foreground/70">
+                  {authorLabel(p.author)}
+                </span>
+                <span className="mx-1.5">·</span>
                 {p.published_at
                   ? `발행 ${formatDate(p.published_at)}`
                   : `수정 ${formatDate(p.updated_at)}`}
@@ -260,6 +377,7 @@ function ListView({
           <tr>
             <th className="w-10 px-4 py-3" />
             <th className="px-4 py-3 font-medium">제목</th>
+            <th className="px-4 py-3 font-medium">작성자</th>
             <th className="px-4 py-3 font-medium">상태</th>
             <th className="px-4 py-3 font-medium">발행일</th>
             <th className="px-4 py-3 font-medium">수정일</th>
@@ -286,6 +404,9 @@ function ListView({
                 >
                   {p.title}
                 </Link>
+              </td>
+              <td className="px-4 py-3 text-muted-foreground">
+                {authorLabel(p.author)}
               </td>
               <td className="px-4 py-3">
                 <span

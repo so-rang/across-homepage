@@ -14,11 +14,11 @@ export default async function AdminPostsPage() {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "id, slug, title, status, cover_image, published_at, updated_at",
+      "id, slug, title, status, cover_image, published_at, updated_at, author:profiles!posts_author_id_fkey(display_name, email, avatar_url)",
     )
     .order("updated_at", { ascending: false });
 
-  const posts = (data ?? []) as AdminPostListItem[];
+  const posts = (data ?? []) as unknown as AdminPostListItem[];
 
   return (
     <section>
