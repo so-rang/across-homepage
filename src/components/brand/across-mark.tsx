@@ -16,7 +16,7 @@ type AcrossMarkProps = {
 
 /**
  * Across brand mark — Warm Cream in dark, Ink Black in light (DESIGN.md §3.1.1).
- * Single source asset (`across_logo_cream.png`, 589×758 tightly cropped) is
+ * Single source asset (`logo_across_cream.png`, 589×758 tightly cropped) is
  * rendered cream in dark mode and forced black via `brightness(0)` in light
  * mode, so the mark sits at identical size and position across themes.
  * Clicking the mark while already on `href` scrolls smoothly to the top

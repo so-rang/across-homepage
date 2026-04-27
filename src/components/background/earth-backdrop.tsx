@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import { useIsMobile } from "@/lib/device/use-is-mobile";
 
 /**
  * Earth-from-orbit accent for Hero.
@@ -68,6 +69,7 @@ const STARS: Star[] = [
 export function EarthBackdrop() {
   const v1Ref = useRef<HTMLVideoElement>(null);
   const v2Ref = useRef<HTMLVideoElement>(null);
+  const isMobile = useIsMobile();
 
   // Very soft edge vignette — only the extreme outer 15% fades to bg so the
   // video rectangle never shows as a line, but the vast majority of the
@@ -101,7 +103,7 @@ export function EarthBackdrop() {
   useEffect(() => {
     const v1 = v1Ref.current;
     const v2 = v2Ref.current;
-    if (!v1 || !v2) return;
+    if (!v1) return;
 
     let rafId = 0;
     let started = false;
@@ -113,7 +115,7 @@ export function EarthBackdrop() {
     };
 
     const tick = () => {
-      if (v2.duration) {
+      if (v2 && v2.duration) {
         v2.style.opacity = String(fadeIn(v2.currentTime, v2.duration));
       }
       rafId = requestAnimationFrame(tick);
@@ -124,28 +126,31 @@ export function EarthBackdrop() {
       const duration = v1.duration;
       if (!duration || Number.isNaN(duration)) return;
       started = true;
+      v1.playbackRate = PLAYBACK_RATE;
+      void v1.play().catch(() => {});
+      if (!v2) return;
       try {
         v2.currentTime = duration / 2;
       } catch {
         // Some browsers throw if currentTime set before metadata; ignore.
       }
-      v1.playbackRate = PLAYBACK_RATE;
       v2.playbackRate = PLAYBACK_RATE;
-      void v1.play().catch(() => {});
+      v2.preload = "auto";
+      v2.load();
       void v2.play().catch(() => {});
       tick();
     };
 
     if (v1.readyState >= 1) start();
     v1.addEventListener("loadedmetadata", start);
-    v2.addEventListener("loadedmetadata", start);
+    if (v2) v2.addEventListener("loadedmetadata", start);
 
     return () => {
       cancelAnimationFrame(rafId);
       v1.removeEventListener("loadedmetadata", start);
-      v2.removeEventListener("loadedmetadata", start);
+      if (v2) v2.removeEventListener("loadedmetadata", start);
     };
-  }, []);
+  }, [isMobile]);
 
   const videoClass =
     "absolute inset-0 h-full w-full select-none object-cover object-[50%_50%]";
@@ -173,7 +178,6 @@ export function EarthBackdrop() {
         <video
           ref={v1Ref}
           src="/earth_2.mp4"
-          poster="/earth.jpg"
           muted
           loop
           playsInline
@@ -182,18 +186,19 @@ export function EarthBackdrop() {
           disablePictureInPicture
           className={videoClass}
         />
-        <video
-          ref={v2Ref}
-          src="/earth_2.mp4"
-          muted
-          loop
-          playsInline
-          autoPlay
-          preload="auto"
-          disablePictureInPicture
-          className={videoClass}
-          style={{ opacity: 0 }}
-        />
+        {!isMobile && (
+          <video
+            ref={v2Ref}
+            src="/earth_2.mp4"
+            muted
+            loop
+            playsInline
+            preload="none"
+            disablePictureInPicture
+            className={videoClass}
+            style={{ opacity: 0 }}
+          />
+        )}
         <div className="absolute inset-0" style={{ background: overlay }} />
         <svg
           viewBox="0 0 100 100"

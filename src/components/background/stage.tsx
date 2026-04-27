@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsMobile } from "@/lib/device/use-is-mobile";
 import { useLowEndDevice } from "@/lib/device/use-low-end-device";
 import { useReducedMotion } from "@/lib/device/use-reduced-motion";
 import { Antigravity } from "./antigravity";
@@ -24,8 +25,13 @@ import type { RenderQuality } from "./types";
 export function Stage() {
   const reduced = useReducedMotion();
   const lowEnd = useLowEndDevice();
+  const isMobile = useIsMobile();
 
-  const quality: RenderQuality = reduced ? "static" : lowEnd ? "low" : "full";
+  const quality: RenderQuality = reduced
+    ? "static"
+    : lowEnd || isMobile
+      ? "low"
+      : "full";
 
   return (
     <>

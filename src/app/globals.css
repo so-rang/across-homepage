@@ -560,8 +560,8 @@ html.home-snap {
  * painted as the Across glyph by choosing a `background-color`. Single
  * source guarantees identical proportions across themes. */
 .across-mark {
-  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
-  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  -webkit-mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
+  mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
 }
 
 /* Light traveling along the logo silhouette. The PNG is used as a mask
@@ -582,8 +582,8 @@ html.home-snap {
   );
   background-size: 200% 100%;
   background-repeat: no-repeat;
-  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
-  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  -webkit-mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
+  mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
   mix-blend-mode: plus-lighter;
   animation: across-glyph-shimmer-sweep 2.2s linear infinite;
 }
@@ -610,8 +610,8 @@ html.home-snap {
   );
   background-size: 280% 280%;
   background-repeat: no-repeat;
-  -webkit-mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
-  mask: url("/logo/across_logo_cream.png") center / contain no-repeat;
+  -webkit-mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
+  mask: url("/logo/logo_across_cream.png") center / contain no-repeat;
   mix-blend-mode: plus-lighter;
   animation: across-glyph-ambient-drift 6s ease-in-out infinite alternate;
 }
