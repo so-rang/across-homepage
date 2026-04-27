@@ -7,7 +7,10 @@ const ACHIEVEMENT_IDS = ["book", "demoDay", "talks", "consulting"] as const;
 export function CeoSection() {
   const t = useTranslations("about.ceo");
   return (
-    <section id="ceo" className="scroll-mt-24 py-24 sm:py-32">
+    <section
+      id="ceo"
+      className="home-snap-section flex min-h-dvh flex-col justify-center py-24 sm:py-32"
+    >
       <ScrollReveal distance={16}>
         <h2 className="mb-8 text-[32px] font-medium leading-[1.4] tracking-[0.01em] text-text sm:text-[44px] sm:leading-[1.3] lg:text-[56px]">
           {t("title")}

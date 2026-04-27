@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { ClientsMarquee } from "@/components/sections/clients-marquee";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { cn } from "@/lib/utils";
 
@@ -9,12 +10,14 @@ const INVESTORS = [
     src: "/logo/logo_primer.png",
     width: 691,
     height: 201,
+    monochrome: false,
   },
   {
     name: "Hashed",
     src: "/logo/logo_hashed.png",
     width: 1862,
     height: 472,
+    monochrome: true,
   },
 ] as const;
 
@@ -86,7 +89,10 @@ export function PartnersClientsSection() {
                     alt={inv.name}
                     width={inv.width}
                     height={inv.height}
-                    className="h-full w-auto opacity-80 brightness-0 transition-opacity hover:opacity-100 dark:invert"
+                    className={cn(
+                      "h-full w-auto opacity-80 transition-opacity hover:opacity-100",
+                      inv.monochrome && "brightness-0 dark:invert"
+                    )}
                     sizes="(min-width: 640px) 180px, 140px"
                   />
                 </li>
@@ -133,6 +139,13 @@ export function PartnersClientsSection() {
                 );
               })}
             </ul>
+          </div>
+
+          <div data-reveal-item className="border-t border-border-subtle pt-10">
+            <h3 className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-text-muted">
+              {t("clients.eyebrow")}
+            </h3>
+            <ClientsMarquee ariaLabel={t("clients.eyebrow")} />
           </div>
         </div>
       </ScrollReveal>

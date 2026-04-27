@@ -84,6 +84,10 @@ html {
   color-scheme: dark;
   /* Keep sticky PageHeader from overlapping anchor targets / landing titles. */
   scroll-padding-top: 5rem;
+  /* Hash-anchor navigation (Constellation stars, Minimap, footer) glides to
+   * the section instead of jumping. `prefers-reduced-motion` is honored by
+   * the browser automatically. */
+  scroll-behavior: smooth;
 }
 /* Must stay unlayered — unlayered declarations outrank anything inside
  * `@layer utilities`, so the snap override below would otherwise lose
@@ -665,6 +669,62 @@ html.home-snap {
     filter:
       drop-shadow(0 0 1.5px rgba(255, 250, 230, 0.9))
       drop-shadow(0 0 4px rgba(248, 239, 214, 0.7));
+  }
+}
+
+/* ── Clients marquee ──────────────────────────────────
+ * Two-row band of customer logos that drifts horizontally in opposite
+ * directions. Each row contains the same item set rendered twice; the
+ * track translates -50% so the loop is seamless. Edge fade mask keeps
+ * the in/out points soft. Hover anywhere on the band pauses both rows.
+ * Reduced-motion users see a static, manually-scrollable version. */
+.clients-marquee {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+}
+.clients-marquee-track {
+  width: max-content;
+  will-change: transform;
+}
+.clients-marquee-track--left {
+  animation: clients-marquee-left 60s linear infinite;
+}
+.clients-marquee-track--right {
+  animation: clients-marquee-right 70s linear infinite;
+}
+.clients-marquee:hover .clients-marquee-track,
+.clients-marquee:focus-within .clients-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes clients-marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes clients-marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clients-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .clients-marquee-track {
+    animation: none !important;
+    transform: none !important;
   }
 }
 

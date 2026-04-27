@@ -142,6 +142,9 @@
       "kimteamlead": {
         "name": "Kim Team-Lead",
         "field": "Expert network"
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "contents": {
@@ -279,6 +282,9 @@
           "name": "Kim Team-Lead",
           "field": "Expert network"
         }
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "cta": {

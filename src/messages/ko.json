@@ -142,6 +142,9 @@
       "kimteamlead": {
         "name": "김팀장",
         "field": "전문가 네트워크"
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "contents": {
@@ -279,6 +282,9 @@
           "name": "김팀장",
           "field": "전문가 네트워크"
         }
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "cta": {

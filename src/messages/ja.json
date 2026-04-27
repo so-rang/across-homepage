@@ -142,6 +142,9 @@
       "kimteamlead": {
         "name": "キム・チームリーダー",
         "field": "専門家ネットワーク"
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "contents": {
@@ -279,6 +282,9 @@
           "name": "キム・チームリーダー",
           "field": "専門家ネットワーク"
         }
+      },
+      "clients": {
+        "eyebrow": "Clients"
       }
     },
     "cta": {

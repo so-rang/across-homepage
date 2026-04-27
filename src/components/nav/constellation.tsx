@@ -1,9 +1,10 @@
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
+type SectionId = "about" | "services" | "contents" | "contact";
+
 type Star = {
-  readonly href: "/about" | "/services" | "/contents" | "/contact";
+  readonly id: SectionId;
   readonly label: string;
   readonly pos: string;
   readonly xPct: number;
@@ -12,28 +13,28 @@ type Star = {
 
 const STARS: readonly Star[] = [
   {
-    href: "/about",
+    id: "about",
     label: "About",
     pos: "sm:left-[28%] sm:top-[14%]",
     xPct: 28,
     yPct: 14,
   },
   {
-    href: "/services",
+    id: "services",
     label: "Services",
     pos: "sm:left-[72%] sm:top-[34%]",
     xPct: 72,
     yPct: 34,
   },
   {
-    href: "/contents",
+    id: "contents",
     label: "Contents",
     pos: "sm:left-[30%] sm:top-[62%]",
     xPct: 30,
     yPct: 62,
   },
   {
-    href: "/contact",
+    id: "contact",
     label: "Contact",
     pos: "sm:left-[74%] sm:top-[84%]",
     xPct: 74,
@@ -89,15 +90,15 @@ export function Constellation() {
       <ul className="grid h-full grid-cols-2 grid-rows-2 place-items-center gap-4 sm:block">
         {STARS.map((star, idx) => (
           <li
-            key={star.href}
+            key={star.id}
             data-intro-item={`star-${idx + 1}`}
             className={cn(
               "sm:absolute sm:-translate-x-1/2 sm:-translate-y-1/2",
               star.pos
             )}
           >
-            <Link
-              href={star.href}
+            <a
+              href={`#${star.id}`}
               aria-label={t("goTo", { label: star.label })}
               className="group inline-flex min-h-11 flex-col items-center gap-2.5 rounded-full px-3 py-1.5 sm:gap-3"
             >
@@ -115,7 +116,7 @@ export function Constellation() {
               <span className="text-[16px] font-medium tracking-[0.01em] text-text transition-[color,transform] duration-[var(--d-base)] ease-[var(--ease-soft)] group-hover:-translate-y-0.5 group-hover:text-star-warm group-focus-visible:-translate-y-0.5 group-focus-visible:text-star-warm">
                 {star.label}
               </span>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
