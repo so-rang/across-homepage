@@ -36,7 +36,7 @@ const PARTNERS: {
     src: "/logo/logo_hkgpto_hk.svg",
     width: 80,
     height: 20,
-    invertOnDark: false,
+    invertOnDark: true,
     heightClass: "h-5 sm:h-6",
   },
   {
