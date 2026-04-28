@@ -489,7 +489,7 @@ export const CLIENTS: readonly Client[] = [
     darkSrc: "/logo/dark/logo_specter.png",
     width: 226,
     height: 86,
-    displayHeight: 76,
+    displayHeight: 50,
     href: "https://www.specter.co.kr",
   },
   {
