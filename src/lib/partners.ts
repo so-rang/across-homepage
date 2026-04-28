@@ -21,7 +21,6 @@ export const PARTNERS: readonly Partner[] = [
       src: "/logo/logo_hkgpto_hk.svg",
       width: 80,
       height: 20,
-      className: "dark:brightness-0 dark:invert",
     },
   },
   {
