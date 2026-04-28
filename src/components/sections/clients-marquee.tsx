@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
 import { CLIENTS, type Client } from "@/lib/clients";
 import { cn } from "@/lib/utils";
 
@@ -128,13 +125,11 @@ function Row({
 }
 
 export function ClientsMarquee({ ariaLabel }: Props) {
-  const [force, setForce] = useState<"left" | "right" | null>(null);
   return (
     <div
       className="clients-marquee relative"
       role="region"
       aria-label={ariaLabel ?? "Clients"}
-      data-force={force ?? undefined}
     >
       <div className="hidden space-y-6 md:block">
         <Row items={ROW_TOP} direction="left" />
@@ -145,18 +140,6 @@ export function ClientsMarquee({ ariaLabel }: Props) {
         <Row items={ROW_M_MID} direction="right" />
         <Row items={ROW_M_BOTTOM} direction="left" />
       </div>
-      <div
-        aria-hidden
-        className="absolute inset-y-0 left-0 z-10 w-12 cursor-w-resize sm:w-20"
-        onMouseEnter={() => setForce("right")}
-        onMouseLeave={() => setForce(null)}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-y-0 right-0 z-10 w-12 cursor-e-resize sm:w-20"
-        onMouseEnter={() => setForce("left")}
-        onMouseLeave={() => setForce(null)}
-      />
     </div>
   );
 }
