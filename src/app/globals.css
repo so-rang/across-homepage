@@ -716,6 +716,13 @@ html.home-snap {
 .clients-marquee:focus-within .clients-marquee-track {
   animation-play-state: paused;
 }
+.clients-marquee[data-force] .clients-marquee-track {
+  animation-play-state: running;
+}
+.clients-marquee[data-force="right"] .clients-marquee-track--left,
+.clients-marquee[data-force="left"] .clients-marquee-track--right {
+  animation-direction: reverse;
+}
 @keyframes clients-marquee-left {
   from { transform: translate3d(0, 0, 0); }
   to   { transform: translate3d(-50%, 0, 0); }
