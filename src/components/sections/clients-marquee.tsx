@@ -6,6 +6,12 @@ const MID = Math.ceil(CLIENTS.length / 2);
 const ROW_TOP = CLIENTS.slice(0, MID);
 const ROW_BOTTOM = CLIENTS.slice(MID);
 
+const T1 = Math.ceil(CLIENTS.length / 3);
+const T2 = Math.ceil((CLIENTS.length * 2) / 3);
+const ROW_M_TOP = CLIENTS.slice(0, T1);
+const ROW_M_MID = CLIENTS.slice(T1, T2);
+const ROW_M_BOTTOM = CLIENTS.slice(T2);
+
 type Props = {
   ariaLabel?: string;
 };
@@ -121,12 +127,19 @@ function Row({
 export function ClientsMarquee({ ariaLabel }: Props) {
   return (
     <div
-      className="clients-marquee relative space-y-6"
+      className="clients-marquee relative"
       role="region"
       aria-label={ariaLabel ?? "Clients"}
     >
-      <Row items={ROW_TOP} direction="left" />
-      <Row items={ROW_BOTTOM} direction="right" />
+      <div className="hidden space-y-6 md:block">
+        <Row items={ROW_TOP} direction="left" />
+        <Row items={ROW_BOTTOM} direction="right" />
+      </div>
+      <div className="space-y-5 md:hidden">
+        <Row items={ROW_M_TOP} direction="left" />
+        <Row items={ROW_M_MID} direction="right" />
+        <Row items={ROW_M_BOTTOM} direction="left" />
+      </div>
     </div>
   );
 }

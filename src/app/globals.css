@@ -704,6 +704,14 @@ html.home-snap {
 .clients-marquee-track--right {
   animation: clients-marquee-right 70s linear infinite;
 }
+@media (max-width: 767px) {
+  .clients-marquee-track--left {
+    animation-duration: 110s;
+  }
+  .clients-marquee-track--right {
+    animation-duration: 130s;
+  }
+}
 .clients-marquee:hover .clients-marquee-track,
 .clients-marquee:focus-within .clients-marquee-track {
   animation-play-state: paused;
