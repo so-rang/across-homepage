@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useIsMobile } from "@/lib/device/use-is-mobile";
 
 /**
@@ -70,6 +70,10 @@ export function EarthBackdrop() {
   const v1Ref = useRef<HTMLVideoElement>(null);
   const v2Ref = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
+  // Hide both videos until the first frame is actually decoded.
+  // Otherwise iOS Safari (and some Android browsers) paint the native gray
+  // video placeholder while the 11MB asset is still streaming in.
+  const [ready, setReady] = useState(false);
 
   // Very soft edge vignette — only the extreme outer 15% fades to bg so the
   // video rectangle never shows as a line, but the vast majority of the
@@ -141,13 +145,20 @@ export function EarthBackdrop() {
       tick();
     };
 
+    // Reveal once the first frame is decoded — earlier than `canplay` and
+    // hides the native gray placeholder even on slow mobile networks.
+    const reveal = () => setReady(true);
+
     if (v1.readyState >= 1) start();
+    if (v1.readyState >= 2) reveal();
     v1.addEventListener("loadedmetadata", start);
+    v1.addEventListener("loadeddata", reveal);
     if (v2) v2.addEventListener("loadedmetadata", start);
 
     return () => {
       cancelAnimationFrame(rafId);
       v1.removeEventListener("loadedmetadata", start);
+      v1.removeEventListener("loadeddata", reveal);
       if (v2) v2.removeEventListener("loadedmetadata", start);
     };
   }, [isMobile]);
@@ -175,30 +186,47 @@ export function EarthBackdrop() {
       }}
     >
       <div className="relative h-full w-full">
-        <video
-          ref={v1Ref}
-          src="/earth_2.mp4"
-          muted
-          loop
-          playsInline
-          autoPlay
-          preload="auto"
-          disablePictureInPicture
-          className={videoClass}
-        />
-        {!isMobile && (
+        <div
+          className="absolute inset-0 transition-opacity duration-500 ease-out"
+          style={{
+            opacity: ready ? 1 : 0,
+            // Force transparent so neither the wrapper nor the <video>
+            // shows the native gray placeholder while buffering.
+            backgroundColor: "transparent",
+          }}
+        >
           <video
-            ref={v2Ref}
-            src="/earth_2.mp4"
+            ref={v1Ref}
             muted
             loop
             playsInline
-            preload="none"
+            autoPlay
+            preload="auto"
             disablePictureInPicture
             className={videoClass}
-            style={{ opacity: 0 }}
-          />
-        )}
+            style={{ backgroundColor: "transparent" }}
+          >
+            <source
+              media="(max-width: 767px)"
+              src="/earth_2.mobile.mp4"
+              type="video/mp4"
+            />
+            <source src="/earth_2.mp4" type="video/mp4" />
+          </video>
+          {!isMobile && (
+            <video
+              ref={v2Ref}
+              src="/earth_2.mp4"
+              muted
+              loop
+              playsInline
+              preload="none"
+              disablePictureInPicture
+              className={videoClass}
+              style={{ opacity: 0, backgroundColor: "transparent" }}
+            />
+          )}
+        </div>
         <div className="absolute inset-0" style={{ background: overlay }} />
         <svg
           viewBox="0 0 100 100"
