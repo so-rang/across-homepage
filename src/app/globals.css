@@ -509,13 +509,19 @@ html[data-intro="done"] .hero-char {
   }
 }
 
-/* ── Home scroll-snap (attached/detached by HomeSnap client component) ── */
-html.home-snap {
-  scroll-snap-type: y mandatory;
-}
-.home-snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+/* ── Home scroll-snap (attached/detached by HomeSnap client component) ──
+ * Desktop only. Mobile keeps natural scrolling because:
+ *   - dynamic URL bar (100dvh shifts) fights mandatory snap
+ *   - content-heavy sections taller than the viewport trap the user
+ *   - `scroll-snap-stop: always` blocks momentum flicks the user expects
+ */
+@media (min-width: 768px) {
+  html.home-snap {
+    scroll-snap-type: y proximity;
+  }
+  .home-snap-section {
+    scroll-snap-align: start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -987,47 +993,48 @@ html.home-snap {
 }
 
 @layer utilities {
-  html.snap-page {
-    scroll-snap-type: y mandatory;
-    /* scroll-padding-top is set unlayered near the base `html` rule — the
-     * layer cascade would otherwise sink that override under the base. */
-  }
-  html.snap-page main > section[id] {
-    scroll-snap-align: start;
-    /* Neutralize per-section `scroll-mt-*`; in snap mode the section box
-     * itself aligns with the viewport edge. A non-zero scroll-margin-top
-     * pushed content downward and made every snap land low. */
-    scroll-margin-top: 0;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    /* Center content in the viewport. Padding must stay 0 — any vertical
-     * padding here inflates tall sections past 100dvh, so mandatory snap
-     * fights the user's mid-section scroll. */
-    justify-content: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  /* First section — biased below center so the hero group sits visually
-   * anchored, not hugging the top edge. */
-  html.snap-page main > section:first-of-type {
-    justify-content: flex-start;
-    padding-top: 31vh;
-    padding-bottom: 0;
-  }
+  /* Snap-page rules apply on tablet/desktop only. Mobile (<768px) keeps
+   * natural scrolling — mandatory snap on a phone with a dynamic URL bar
+   * traps the user mid-section and clips content taller than 100dvh. */
+  @media (min-width: 768px) {
+    html.snap-page {
+      scroll-snap-type: y proximity;
+      /* scroll-padding-top is set unlayered near the base `html` rule — the
+       * layer cascade would otherwise sink that override under the base. */
+    }
+    html.snap-page main > section[id] {
+      scroll-snap-align: start;
+      /* Neutralize per-section `scroll-mt-*`; in snap mode the section box
+       * itself aligns with the viewport edge. A non-zero scroll-margin-top
+       * pushed content downward and made every snap land low. */
+      scroll-margin-top: 0;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      /* Center content in the viewport. Padding must stay 0 — any vertical
+       * padding here inflates tall sections past 100dvh, so mandatory snap
+       * fights the user's mid-section scroll. */
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    /* First section — biased below center so the hero group sits visually
+     * anchored, not hugging the top edge. */
+    html.snap-page main > section:first-of-type {
+      justify-content: flex-start;
+      padding-top: 31vh;
+      padding-bottom: 0;
+    }
 
-  /* Last section (About's #cta) packs CTA + Footer together. With
-   * `justify-content: center` the CTA card centered vertically steals
-   * space from the Footer; combined with `scroll-snap-stop: always` the
-   * user gets trapped at the section top so the Footer's bottom half
-   * gets clipped when total content exceeds 100vh.
-   *   - `justify-content: flex-start` lets CTA sit at the top and the
-   *     Footer at the bottom of the flex container.
-   *   - `scroll-snap-stop: normal` lets the user pass through and see
-   *     the Footer fully when the section is taller than the viewport. */
-  html.snap-page main > section#cta {
-    justify-content: flex-start;
-    scroll-snap-stop: normal;
+    /* Last section (About's #cta) packs CTA + Footer together. With
+     * `justify-content: center` the CTA card centered vertically steals
+     * space from the Footer, so the Footer's bottom half gets clipped
+     * when total content exceeds 100vh.
+     *   - `justify-content: flex-start` lets CTA sit at the top and the
+     *     Footer at the bottom of the flex container. */
+    html.snap-page main > section#cta {
+      justify-content: flex-start;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     html.snap-page {
