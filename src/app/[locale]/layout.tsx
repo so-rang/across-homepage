@@ -2,6 +2,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import {
   cormorant,
@@ -76,6 +77,7 @@ export default async function LocaleLayout({
       <body className="min-h-full font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: INTRO_BOOTSTRAP }} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
