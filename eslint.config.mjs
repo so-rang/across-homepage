@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored skill resources — protected SSOT, do not lint.
+    ".agents/**",
   ]),
 ]);
 
