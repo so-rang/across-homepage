@@ -27,9 +27,13 @@ export function Stage() {
   const lowEnd = useLowEndDevice();
   const isMobile = useIsMobile();
 
-  const quality: RenderQuality = reduced
+  // Mobile drops to static: WebGL fragment shader + canvas particle rAF
+  // pegged the GPU on phones even at "low" (half framerate, lower DPR).
+  // Static path is a CSS gradient + pre-baked SVG starfield — zero per-frame
+  // cost — and visually close enough at the smaller viewport.
+  const quality: RenderQuality = reduced || isMobile
     ? "static"
-    : lowEnd || isMobile
+    : lowEnd
       ? "low"
       : "full";
 

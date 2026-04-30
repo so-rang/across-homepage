@@ -21,6 +21,10 @@ export function HeroFade({ children }: { children: React.ReactNode }) {
     () => {
       if (!rootRef.current) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      // Mobile inertia scroll fires events at very high rate; a scrubbed
+      // ScrollTrigger on the hero thrashes layout on every tick. Skip the
+      // fade entirely on mobile — the next section just stacks underneath.
+      if (window.matchMedia("(max-width: 767px)").matches) return;
 
       gsap.to(rootRef.current, {
         opacity: 0,
