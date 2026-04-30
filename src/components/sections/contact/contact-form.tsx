@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -48,7 +48,7 @@ const FIELD_CLS =
 
 export function ContactForm() {
   const t = useTranslations("contact.form");
-  const mountedAt = useRef<number>(Date.now());
+  const [mountedAt, setMountedAt] = useState<number>(0);
   const [submitting, setSubmitting] = useState(false);
   const {
     register,
@@ -56,7 +56,7 @@ export function ContactForm() {
     reset,
     setValue,
     setError,
-    watch,
+    control,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: DEFAULTS,
@@ -64,10 +64,14 @@ export function ContactForm() {
   });
 
   useEffect(() => {
-    mountedAt.current = Date.now();
+    // Honeypot mount timestamp — captured once after hydration so the server
+    // can reject submissions that fire faster than a human could fill the form.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMountedAt(Date.now());
   }, []);
 
-  const inquiryType = watch("inquiryType");
+  const inquiryType = useWatch({ control, name: "inquiryType" });
+  const privacyAgreed = useWatch({ control, name: "privacyAgreed" });
   const inquiryLabel = (type: InquiryType) => t(`inquiryTypes.${type}`);
 
   const onSubmit = handleSubmit(async (values) => {
@@ -79,7 +83,7 @@ export function ContactForm() {
       message: values.message,
       privacyAgreed: values.privacyAgreed === true ? true : undefined,
       _hp: "",
-      _ts: mountedAt.current,
+      _ts: mountedAt,
     };
     const parsed = ContactPayloadSchema.safeParse(payload);
     if (!parsed.success) {
@@ -106,7 +110,8 @@ export function ContactForm() {
       if (res.ok) {
         toast.success(t("toasts.success"));
         reset(DEFAULTS);
-        mountedAt.current = Date.now();
+        // eslint-disable-next-line react-hooks/purity
+        setMountedAt(Date.now());
       } else if (res.status === 429) {
         toast.error(t("toasts.rateLimit"));
       } else {
@@ -204,7 +209,7 @@ export function ContactForm() {
 
       <label className="flex items-start gap-2.5 text-[13px] leading-[1.5] text-text">
         <Checkbox
-          checked={watch("privacyAgreed")}
+          checked={privacyAgreed}
           onCheckedChange={(c) =>
             setValue("privacyAgreed", c === true, { shouldValidate: true })
           }

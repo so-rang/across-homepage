@@ -59,15 +59,18 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = getResendClient();
-  const to = process.env.CONTACT_TO ?? "ask@across.center";
-  const from = process.env.RESEND_FROM ?? "어크로스 <no-reply@across.send>";
+  const to = process.env.CONTACT_TO;
+  const from = process.env.RESEND_FROM;
 
-  if (!resend) {
-    console.warn(
-      "[contact] RESEND_API_KEY missing — logging payload and returning 200",
-      payload
+  if (!resend || !to || !from) {
+    console.error(
+      "[contact] mail relay misconfigured",
+      { hasResend: !!resend, hasTo: !!to, hasFrom: !!from }
     );
-    return NextResponse.json({ ok: true, relayed: false });
+    return NextResponse.json(
+      { ok: false, error: "MAIL_NOT_CONFIGURED" },
+      { status: 500 }
+    );
   }
 
   try {
