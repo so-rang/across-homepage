@@ -199,13 +199,6 @@ export function HomeScroll() {
                   {t("invitation.titleLine2")}
                 </h2>
                 <p className={leadClass}>{t("invitation.lead")}</p>
-                <a
-                  href="mailto:ask@across.center"
-                  className="mt-10 inline-flex items-center gap-2 font-mono text-sm tracking-[0.02em] text-text-muted underline-offset-4 transition-colors hover:text-text hover:underline"
-                >
-                  <span aria-hidden className="text-signal-blue/80">↗</span>
-                  ask@across.center
-                </a>
               </ScrollReveal>
 
               <ScrollReveal delay={0.1} axis="x" distance={24}>

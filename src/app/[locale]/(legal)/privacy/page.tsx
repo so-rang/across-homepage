@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 const LAST_UPDATED = "2026-04-23";
 const OFFICE_ADDRESS = "[B05 — 본점 도로명 주소 (juso.go.kr 확정 후 반영)]";
@@ -66,9 +67,7 @@ export default async function PrivacyPage() {
         <h2>{t("rights.title")}</h2>
         <p>
           {t.rich("rights.body", {
-            email: (chunks) => (
-              <a href="mailto:ask@across.center">{chunks}</a>
-            ),
+            form: (chunks) => <Link href="/#contact">{chunks}</Link>,
           })}
         </p>
 
@@ -91,8 +90,8 @@ export default async function PrivacyPage() {
             {t("company.labels.address")}: {OFFICE_ADDRESS}
           </li>
           <li>
-            {t("company.labels.email")}:{" "}
-            <a href="mailto:ask@across.center">ask@across.center</a>
+            {t("company.labels.contact")}:{" "}
+            <Link href="/#contact">{t("company.values.contact")}</Link>
           </li>
         </ul>
 

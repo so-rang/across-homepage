@@ -21,7 +21,6 @@ export default async function HomePage() {
     alternateName: "Across Inc.",
     url: SITE_URL,
     logo: `${SITE_URL}/brand/across-mark.svg`,
-    email: "ask@across.center",
     sameAs: [
       "https://www.youtube.com/@acrosshouse",
       "https://www.instagram.com/across.house",

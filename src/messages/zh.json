@@ -351,7 +351,7 @@
         "validation": "请检查您的输入内容。",
         "success": "已收到您的留言。",
         "rateLimit": "请稍后再试。",
-        "transmitError": "发送失败。请直接发送邮件至 ask@across.center。"
+        "transmitError": "发送失败,请稍后再试。"
       }
     }
   },
@@ -482,7 +482,7 @@
       },
       "rights": {
         "title": "6. 用户权利",
-        "body": "用户可以随时要求查阅、更正、删除或停止处理其个人信息,公司将在收到要求后立即处理。请将请求发送至 <email>ask@across.center</email>。"
+        "body": "用户可以随时要求查阅、更正、删除或停止处理其个人信息,公司将在收到要求后立即处理。请通过<form>联系表单</form>提交请求。"
       },
       "security": {
         "title": "7. 安全保障措施",
@@ -495,12 +495,13 @@
           "ceo": "代表理事",
           "registrationNumber": "营业执照编号",
           "address": "总部地址",
-          "email": "邮箱"
+          "contact": "联系方式"
         },
         "values": {
           "name": "Across Inc.(주식회사 어크로스)",
           "ceo": "李宰泓",
-          "registrationNumber": "288-86-03687"
+          "registrationNumber": "288-86-03687",
+          "contact": "联系表单"
         }
       },
       "amendment": {

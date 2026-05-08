@@ -351,7 +351,7 @@
         "validation": "Please check your input.",
         "success": "Your message has been received.",
         "rateLimit": "Please try again in a moment.",
-        "transmitError": "Couldn't send. Please email ask@across.center directly."
+        "transmitError": "Couldn't send. Please try again in a moment."
       }
     }
   },
@@ -482,7 +482,7 @@
       },
       "rights": {
         "title": "6. User Rights",
-        "body": "Users may at any time request access to, correction of, deletion of, or suspension of processing of their personal information, and such requests will be handled without delay. Send requests to <email>ask@across.center</email>."
+        "body": "Users may at any time request access to, correction of, deletion of, or suspension of processing of their personal information, and such requests will be handled without delay. Submit requests via the <form>contact form</form>."
       },
       "security": {
         "title": "7. Security Measures",
@@ -495,12 +495,13 @@
           "ceo": "CEO",
           "registrationNumber": "Business Registration Number",
           "address": "Headquarters Address",
-          "email": "Email"
+          "contact": "Contact"
         },
         "values": {
           "name": "Across Inc.",
           "ceo": "Jae-hong Lee",
-          "registrationNumber": "288-86-03687"
+          "registrationNumber": "288-86-03687",
+          "contact": "Contact form"
         }
       },
       "amendment": {

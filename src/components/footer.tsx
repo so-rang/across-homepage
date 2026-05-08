@@ -15,11 +15,6 @@ export function Footer() {
           <dl className="mt-3 space-y-0.5 text-sm">
             <dt className="sr-only">{t("companyInfoLabel")}</dt>
             <dd>{t("companyLine")}</dd>
-            <dd>
-              <a href="mailto:ask@across.center" className="hover:text-text">
-                ask@across.center
-              </a>
-            </dd>
           </dl>
         </div>
 

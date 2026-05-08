@@ -351,7 +351,7 @@
         "validation": "入力内容をご確認ください。",
         "success": "受け付けました。",
         "rateLimit": "しばらくしてから再度お試しください。",
-        "transmitError": "送信に問題が発生しました。ask@across.center まで直接ご連絡ください。"
+        "transmitError": "送信に問題が発生しました。しばらくしてからもう一度お試しください。"
       }
     }
   },
@@ -482,7 +482,7 @@
       },
       "rights": {
         "title": "6. 利用者の権利",
-        "body": "利用者はいつでも自身の個人情報の閲覧・訂正・削除・処理停止を要求でき、要求を受けた場合は遅滞なく対応します。ご要望は <email>ask@across.center</email> までご連絡ください。"
+        "body": "利用者はいつでも自身の個人情報の閲覧・訂正・削除・処理停止を要求でき、要求を受けた場合は遅滞なく対応します。ご要望は<form>お問い合わせフォーム</form>からご連絡ください。"
       },
       "security": {
         "title": "7. 安全性確保措置",
@@ -495,12 +495,13 @@
           "ceo": "代表取締役",
           "registrationNumber": "事業者登録番号",
           "address": "本店所在地",
-          "email": "メールアドレス"
+          "contact": "お問い合わせ"
         },
         "values": {
           "name": "株式会社アクロス (Across Inc.)",
           "ceo": "イ・ジェホン",
-          "registrationNumber": "288-86-03687"
+          "registrationNumber": "288-86-03687",
+          "contact": "お問い合わせフォーム"
         }
       },
       "amendment": {

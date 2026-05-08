@@ -351,7 +351,7 @@
         "validation": "입력 내용을 확인해 주세요.",
         "success": "접수되었습니다.",
         "rateLimit": "잠시 후 다시 시도해 주세요.",
-        "transmitError": "전송에 문제가 있습니다. ask@across.center로 직접 보내주세요."
+        "transmitError": "전송에 문제가 있습니다. 잠시 후 다시 시도해 주세요."
       }
     }
   },
@@ -482,7 +482,7 @@
       },
       "rights": {
         "title": "6. 이용자의 권리",
-        "body": "이용자는 언제든지 자신의 개인정보에 대한 열람·정정·삭제·처리정지를 요구할 수 있으며, 요청 시 지체 없이 처리합니다. 요청은 <email>ask@across.center</email>로 보내주세요."
+        "body": "이용자는 언제든지 자신의 개인정보에 대한 열람·정정·삭제·처리정지를 요구할 수 있으며, 요청 시 지체 없이 처리합니다. 요청은 <form>문의 폼</form>으로 보내주세요."
       },
       "security": {
         "title": "7. 안전성 확보 조치",
@@ -495,12 +495,13 @@
           "ceo": "대표이사",
           "registrationNumber": "사업자등록번호",
           "address": "본점 주소",
-          "email": "이메일"
+          "contact": "문의 채널"
         },
         "values": {
           "name": "주식회사 어크로스 (Across Inc.)",
           "ceo": "이재홍",
-          "registrationNumber": "288-86-03687"
+          "registrationNumber": "288-86-03687",
+          "contact": "문의 폼"
         }
       },
       "amendment": {
