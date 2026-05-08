@@ -54,6 +54,38 @@ export function Hero() {
   const line2Length = Array.from(titleLine2).length;
   return (
     <>
+      {/* Earth backdrop assets — hoisted into <head> by React 19 so download
+          starts during HTML parse, before client hydration. */}
+      <link
+        rel="preload"
+        as="image"
+        href="/earth_2.poster.jpg"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="video"
+        type="video/mp4"
+        media="(max-width: 767px)"
+        href="/earth_2.mobile.mp4"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="video"
+        type="video/mp4"
+        media="(min-width: 768px) and (max-width: 1199px)"
+        href="/earth_2.v2.tablet.mp4"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="video"
+        type="video/mp4"
+        media="(min-width: 1200px)"
+        href="/earth_2.v2.mp4"
+        fetchPriority="high"
+      />
       <IntroRunner />
       <HomeSnap />
       <ConstellationHint />

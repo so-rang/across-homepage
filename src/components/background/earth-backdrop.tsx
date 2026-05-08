@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useIsMobile } from "@/lib/device/use-is-mobile";
 
 /**
@@ -12,6 +12,12 @@ import { useIsMobile } from "@/lib/device/use-is-mobile";
  * Seamless loop: two <video> elements offset by duration/2. The top one's
  * opacity is animated around its loop seam so the switch between loops is
  * hidden by the element that's mid-playback at that moment.
+ *
+ * Cold-start: a 30KB first-frame JPEG (`earth_2.poster.jpg`) is set as the
+ * <video poster>, so the sphere is visible immediately on cold loads while
+ * the MP4 streams in. This also suppresses the native gray placeholder iOS
+ * Safari paints during buffering. Three resolution-tiered MP4s (mobile
+ * ~124KB, tablet ~503KB, desktop ~1.5MB) are picked via `<source media>`.
  *
  * Starfield overlay: deterministic scattered dots that never overlap the
  * central sphere area (radial mask with a transparent center + hand-picked
@@ -70,10 +76,6 @@ export function EarthBackdrop() {
   const v1Ref = useRef<HTMLVideoElement>(null);
   const v2Ref = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile();
-  // Hide both videos until the first frame is actually decoded.
-  // Otherwise iOS Safari (and some Android browsers) paint the native gray
-  // video placeholder while the 11MB asset is still streaming in.
-  const [ready, setReady] = useState(false);
 
   // Very soft edge vignette — only the extreme outer 15% fades to bg so the
   // video rectangle never shows as a line, but the vast majority of the
@@ -145,20 +147,13 @@ export function EarthBackdrop() {
       tick();
     };
 
-    // Reveal once the first frame is decoded — earlier than `canplay` and
-    // hides the native gray placeholder even on slow mobile networks.
-    const reveal = () => setReady(true);
-
     if (v1.readyState >= 1) start();
-    if (v1.readyState >= 2) reveal();
     v1.addEventListener("loadedmetadata", start);
-    v1.addEventListener("loadeddata", reveal);
     if (v2) v2.addEventListener("loadedmetadata", start);
 
     return () => {
       cancelAnimationFrame(rafId);
       v1.removeEventListener("loadedmetadata", start);
-      v1.removeEventListener("loadeddata", reveal);
       if (v2) v2.removeEventListener("loadedmetadata", start);
     };
   }, [isMobile]);
@@ -186,15 +181,7 @@ export function EarthBackdrop() {
       }}
     >
       <div className="relative h-full w-full">
-        <div
-          className="absolute inset-0 transition-opacity duration-500 ease-out"
-          style={{
-            opacity: ready ? 1 : 0,
-            // Force transparent so neither the wrapper nor the <video>
-            // shows the native gray placeholder while buffering.
-            backgroundColor: "transparent",
-          }}
-        >
+        <div className="absolute inset-0">
           <video
             ref={v1Ref}
             muted
@@ -202,6 +189,7 @@ export function EarthBackdrop() {
             playsInline
             autoPlay
             preload="auto"
+            poster="/earth_2.poster.jpg"
             disablePictureInPicture
             className={videoClass}
             style={{ backgroundColor: "transparent" }}
@@ -211,12 +199,16 @@ export function EarthBackdrop() {
               src="/earth_2.mobile.mp4"
               type="video/mp4"
             />
-            <source src="/earth_2.mp4" type="video/mp4" />
+            <source
+              media="(max-width: 1199px)"
+              src="/earth_2.v2.tablet.mp4"
+              type="video/mp4"
+            />
+            <source src="/earth_2.v2.mp4" type="video/mp4" />
           </video>
           {!isMobile && (
             <video
               ref={v2Ref}
-              src="/earth_2.mp4"
               muted
               loop
               playsInline
@@ -224,7 +216,14 @@ export function EarthBackdrop() {
               disablePictureInPicture
               className={videoClass}
               style={{ opacity: 0, backgroundColor: "transparent" }}
-            />
+            >
+              <source
+                media="(max-width: 1199px)"
+                src="/earth_2.v2.tablet.mp4"
+                type="video/mp4"
+              />
+              <source src="/earth_2.v2.mp4" type="video/mp4" />
+            </video>
           )}
         </div>
         <div className="absolute inset-0" style={{ background: overlay }} />

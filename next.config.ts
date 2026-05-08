@@ -42,11 +42,23 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    const longCache = [
+      {
+        key: "Cache-Control",
+        value: "public, max-age=31536000, immutable",
+      },
+    ];
     return [
       {
         source: "/(.*)",
         headers: SECURITY_HEADERS,
       },
+      // Earth hero assets — versioned filenames (.v2 / fixed names), so
+      // immutable caching is safe. Bump the suffix when re-encoding.
+      { source: "/earth_2.v2.mp4", headers: longCache },
+      { source: "/earth_2.v2.tablet.mp4", headers: longCache },
+      { source: "/earth_2.mobile.mp4", headers: longCache },
+      { source: "/earth_2.poster.jpg", headers: longCache },
     ];
   },
 };
