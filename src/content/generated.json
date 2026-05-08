@@ -1,6 +1,19 @@
 {
-  "fetchedAt": "2026-04-26T15:45:36.714Z",
+  "fetchedAt": "2026-05-08T07:43:46.126Z",
   "items": [
+    {
+      "id": "video-ycygoAoMylc",
+      "type": "video",
+      "channelName": "어크로스 하우스",
+      "ownedByUs": true,
+      "youtubeId": "ycygoAoMylc",
+      "thumbnail": "https://i.ytimg.com/vi/ycygoAoMylc/maxresdefault.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "[제로클릭 시대의 브랜딩] 세미나 VLOG",
+      "excerpt": "\"검색 너머, AI가 브랜드를 선택하는 시대가 왔습니다.\" 지난 프리뷰 영상에 이어, 드디어 세미나 본편을 공유합니다. 검색창에 키워드를 입력하기보다 AI에게 해답을 듣는 '제로클릭(Zero-click)' 트렌드 이 거대한 변화 속에서 마케터와 기획…",
+      "date": "2026-05-04",
+      "durationSec": 1022
+    },
     {
       "id": "video-tTMYOgwrR-Y",
       "type": "video",
@@ -156,6 +169,30 @@
       "excerpt": "어크로스 피플 : 어크로스가 만나는 다양한 사람들의 이야기 그 첫번째 주인공은 바로 어크로스의 '이재홍' 대표님 입니다. 그가 어떤 삶을 살아왔고, 왜 어떻게 창업을 시작하게 되었을지 다음 이야기도 궁금하시다면 구독 댓글 좋아요 부탁드립니다. @gp…",
       "date": "2026-02-13",
       "durationSec": 709
+    },
+    {
+      "id": "press-2026-04-30-111ex25",
+      "type": "news",
+      "sourceName": "머니투데이",
+      "sourceLogo": "",
+      "url": "https://www.mt.co.kr/industry/2026/04/30/2026043015275173886",
+      "thumbnail": "/content/news/og/press-2026-04-30-111ex25.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "어크로스 , 해시드 데모데이서 GPTO 성과 공개",
+      "excerpt": "머니투데이 보도 · 2026-04-30",
+      "date": "2026-04-30"
+    },
+    {
+      "id": "press-2026-04-28-1em76by",
+      "type": "news",
+      "sourceName": "v.daum.net",
+      "sourceLogo": "",
+      "url": "https://v.daum.net/v/20260428173010106",
+      "thumbnail": "/content/news/og/press-2026-04-28-1em76by.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "[신간] “AI가 진실을 선택하는 시대”… 『AEO·GEO 생존전략』 출간",
+      "excerpt": "v.daum.net 보도 · 2026-04-28",
+      "date": "2026-04-28"
     },
     {
       "id": "press-2026-04-16-h3l1aq",

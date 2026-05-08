@@ -1,3 +1,16 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "press-2026-04-28-1em76by",
+      "type": "news",
+      "sourceName": "v.daum.net",
+      "sourceLogo": "",
+      "url": "https://v.daum.net/v/20260428173010106",
+      "thumbnail": "/content/news/aeo-geo-cover.jpg",
+      "thumbnailAspect": "1:1",
+      "title": "[신간] \"AI가 진실을 선택하는 시대\"… 『AEO·GEO 생존전략』 출간",
+      "excerpt": "v.daum.net 보도 · 2026-04-28",
+      "date": "2026-04-28"
+    }
+  ]
 }
