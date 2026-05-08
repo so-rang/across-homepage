@@ -29,6 +29,9 @@ export type VideoItem = {
   type: "video";
   id: string;
   channelName: string;
+  // Owned-channel handle (e.g., "acrosshouse", "gpt-optimizer"). Drives the
+  // per-card Subscribe CTA. Optional so older feed entries stay valid.
+  channelHandle?: string;
   ownedByUs: boolean;
   youtubeId: string;
   thumbnail: string | null;

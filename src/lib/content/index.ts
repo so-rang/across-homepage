@@ -22,6 +22,7 @@ const VideoSchema = z.object({
   id: z.string(),
   type: z.literal("video"),
   channelName: z.string(),
+  channelHandle: z.string().optional(),
   ownedByUs: z.boolean(),
   youtubeId: z.string(),
   thumbnail: z.string().nullable(),

@@ -51,8 +51,11 @@ export function VideoModal({ video, children, triggerClassName }: Props) {
     setOpen(next);
   };
 
+  // Owned videos point Subscribe to whichever channel actually hosts the
+  // upload (acrosshouse / gpt-optimizer / …). Fall back to acrosshouse for
+  // legacy entries that pre-date the per-channel handle.
   const ctaHref = video.ownedByUs
-    ? "https://www.youtube.com/@acrosshouse?sub_confirmation=1"
+    ? `https://www.youtube.com/@${video.channelHandle ?? "acrosshouse"}?sub_confirmation=1`
     : `https://www.youtube.com/watch?v=${video.youtubeId}`;
   const ctaLabel = video.ownedByUs ? t("subscribe") : t("viewOnChannel");
 

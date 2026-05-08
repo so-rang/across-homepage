@@ -1,4 +1,4 @@
-// Build-time fetch: @acrosshouse YouTube uploads + Google News coverage of 어크로스.
+// Build-time fetch: Across-owned YouTube uploads + Google News coverage of 어크로스.
 // Output: src/content/generated.json — consumed by src/lib/content/index.ts.
 //
 // Runs via `pnpm prebuild`. Network failures fall back to the previous
@@ -14,8 +14,23 @@ const OUT = path.join(ROOT, "src", "content", "generated.json");
 const NEWS_IMG_DIR = path.join(ROOT, "public", "content", "news", "og");
 const NEWS_IMG_PUBLIC = "/content/news/og";
 
-const YT_CHANNEL_ID = "UCdKZrSV0Klr9WkbnFw9eWZg"; // @acrosshouse
-const YT_FEED = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
+// Owned channels — both feed into the same Contents stream, sorted by date.
+// `handle` drives the per-video Subscribe CTA in VideoModal so each card
+// links to the channel that actually hosts the upload.
+const YT_CHANNELS = [
+  {
+    id: "UCdKZrSV0Klr9WkbnFw9eWZg",
+    handle: "acrosshouse",
+    name: "어크로스하우스",
+  },
+  {
+    id: "UCD5U0kPu0E85lc041KmV1rg",
+    handle: "gpt-optimizer",
+    name: "GPTO (GPT Optimizer)",
+  },
+];
+const YT_FEED = (channelId) =>
+  `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
 
 // External appearances — videos not on our channel but featuring our CEO or
 // otherwise owned by Across narratively. Metadata (title, channel, date,
@@ -114,8 +129,8 @@ function truncate(s, n) {
   return t.length > n ? `${t.slice(0, n - 1)}…` : t;
 }
 
-async function loadYouTubeViaRss() {
-  const xml = await fetchText(YT_FEED);
+async function loadYouTubeViaRssForChannel(channel) {
+  const xml = await fetchText(YT_FEED(channel.id));
   const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) ?? [];
   const items = [];
   for (const e of entries) {
@@ -132,7 +147,8 @@ async function loadYouTubeViaRss() {
     items.push({
       id: `video-${videoId}`,
       type: "video",
-      channelName: "어크로스하우스",
+      channelName: channel.name,
+      channelHandle: channel.handle,
       ownedByUs: true,
       youtubeId: videoId,
       thumbnail: thumb || null,
@@ -146,6 +162,23 @@ async function loadYouTubeViaRss() {
   return items;
 }
 
+async function loadYouTubeViaRss() {
+  const all = [];
+  for (const channel of YT_CHANNELS) {
+    try {
+      const items = await loadYouTubeViaRssForChannel(channel);
+      all.push(...items);
+    } catch (err) {
+      console.warn(
+        `[fetch-content] RSS failed for ${channel.handle}:`,
+        err.message
+      );
+    }
+  }
+  all.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return all;
+}
+
 // ISO 8601 duration (PT#H#M#S) → seconds.
 function parseIsoDuration(iso) {
   const m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso);
@@ -153,9 +186,9 @@ function parseIsoDuration(iso) {
   return (Number(m[1]) || 0) * 3600 + (Number(m[2]) || 0) * 60 + (Number(m[3]) || 0);
 }
 
-async function loadYouTubeViaApi(apiKey) {
+async function loadYouTubeViaApiForChannel(channel, apiKey) {
   // Every channel's uploads live in a playlist with id = UU + channel id suffix.
-  const uploadsId = `UU${YT_CHANNEL_ID.slice(2)}`;
+  const uploadsId = `UU${channel.id.slice(2)}`;
   const videoIds = [];
   let pageToken = "";
   do {
@@ -194,7 +227,8 @@ async function loadYouTubeViaApi(apiKey) {
       items.push({
         id: `video-${v.id}`,
         type: "video",
-        channelName: v.snippet?.channelTitle || "어크로스하우스",
+        channelName: v.snippet?.channelTitle || channel.name,
+        channelHandle: channel.handle,
         ownedByUs: true,
         youtubeId: v.id,
         thumbnail: thumb,
@@ -206,12 +240,30 @@ async function loadYouTubeViaApi(apiKey) {
       });
     }
   }
+  return items;
+}
+
+async function loadYouTubeViaApi(apiKey) {
+  const ownedItems = [];
+  for (const channel of YT_CHANNELS) {
+    try {
+      const items = await loadYouTubeViaApiForChannel(channel, apiKey);
+      ownedItems.push(...items);
+    } catch (err) {
+      console.warn(
+        `[fetch-content] API failed for ${channel.handle}:`,
+        err.message
+      );
+    }
+  }
 
   // Shorts can run up to 3 min, so a pure duration cutoff misses 61–180s shorts.
   // The only authoritative test: probe `/shorts/<id>` — YouTube returns 200 for
   // actual Shorts, 303 redirect to `/watch?v=` for midform. Only probe the
   // ambiguous window; anything over 3 min cannot be a Short.
-  const ambiguous = items.filter((i) => i.durationSec > 0 && i.durationSec <= 180);
+  const ambiguous = ownedItems.filter(
+    (i) => i.durationSec > 0 && i.durationSec <= 180
+  );
   const isShort = new Map();
   const batchSize = 5;
   for (let i = 0; i < ambiguous.length; i += batchSize) {
@@ -232,7 +284,7 @@ async function loadYouTubeViaApi(apiKey) {
       })
     );
   }
-  const midform = items.filter(
+  const midform = ownedItems.filter(
     (i) =>
       !isShort.get(i.youtubeId) &&
       !VIDEO_TITLE_BLOCKLIST.some((re) => re.test(i.title))
