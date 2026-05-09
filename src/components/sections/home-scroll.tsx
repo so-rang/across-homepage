@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Footer } from "@/components/footer";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { BackToTop } from "@/components/nav/back-to-top";
@@ -28,6 +29,21 @@ const quietClass =
 
 const eyebrowClass =
   "mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-text-muted";
+
+function HomeContentsSliderSkeleton() {
+  return (
+    <div aria-hidden className="relative">
+      <div className="relative mx-auto h-[420px] w-full max-w-[380px] rounded-2xl border border-border-subtle bg-bg-elev-1/40 sm:h-[440px] sm:max-w-[420px] lg:h-[460px] lg:max-w-[460px]" />
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <span className="inline-block h-10 w-10 rounded-full border border-border-subtle" />
+        <span className="inline-block h-1.5 w-6 rounded-full bg-text-muted/40" />
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-text-muted/20" />
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-text-muted/20" />
+        <span className="inline-block h-10 w-10 rounded-full border border-border-subtle" />
+      </div>
+    </div>
+  );
+}
 
 export function HomeScroll() {
   const t = useTranslations("home");
@@ -177,7 +193,9 @@ export function HomeScroll() {
                 distance={24}
                 className="md:mt-6 md:-ml-6 lg:mt-10 lg:-ml-12"
               >
-                <HomeContentsSlider />
+                <Suspense fallback={<HomeContentsSliderSkeleton />}>
+                  <HomeContentsSlider />
+                </Suspense>
               </ScrollReveal>
             </div>
           </div>

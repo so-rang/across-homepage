@@ -1,6 +1,8 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Hero } from "@/components/sections/hero";
 
+export const revalidate = 300;
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://across.center";
 
 const LANGUAGE_TAG: Record<string, string> = {

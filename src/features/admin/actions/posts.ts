@@ -162,6 +162,7 @@ export async function createPostAction(
 
   revalidatePath("/admin/posts");
   revalidatePath("/contents");
+  revalidatePath("/[locale]", "page");
   if (status !== "draft") {
     revalidatePath(`/contents/posts/${createdSlug}`);
   }
@@ -220,6 +221,7 @@ export async function updatePostAction(
   revalidatePath("/admin/posts");
   revalidatePath(`/admin/posts/${id}`);
   revalidatePath("/contents");
+  revalidatePath("/[locale]", "page");
   if (existing?.slug) revalidatePath(`/contents/posts/${existing.slug}`);
   return { ok: true };
 }
@@ -243,6 +245,7 @@ export async function deletePostAction(id: string): Promise<void> {
   }
   revalidatePath("/admin/posts");
   revalidatePath("/contents");
+  revalidatePath("/[locale]", "page");
   if (row?.slug) revalidatePath(`/contents/posts/${row.slug}`);
   redirect("/admin/posts");
 }
@@ -272,6 +275,7 @@ export async function deletePostsAction(ids: string[]): Promise<void> {
   }
   revalidatePath("/admin/posts");
   revalidatePath("/contents");
+  revalidatePath("/[locale]", "page");
   for (const row of (rows ?? []) as { slug: string | null }[]) {
     if (row.slug) revalidatePath(`/contents/posts/${row.slug}`);
   }
