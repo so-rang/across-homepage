@@ -28,19 +28,31 @@ export function ConstellationHint() {
     }
     if (seen === "1") return;
 
-    const appear = window.setTimeout(() => setPhase("visible"), APPEAR_AT_MS);
-    const hide = window.setTimeout(() => {
-      setPhase("done");
+    const markSeen = () => {
       try {
         sessionStorage.setItem(STORAGE_KEY, "1");
       } catch {
         /* storage blocked */
       }
-    }, APPEAR_AT_MS + HIDE_AFTER_MS);
+    };
+
+    const dismiss = () => {
+      setPhase("done");
+      markSeen();
+    };
+
+    const appear = window.setTimeout(() => setPhase("visible"), APPEAR_AT_MS);
+    const hide = window.setTimeout(dismiss, APPEAR_AT_MS + HIDE_AFTER_MS);
+
+    const onScroll = () => {
+      if (window.scrollY > 4) dismiss();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       window.clearTimeout(appear);
       window.clearTimeout(hide);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
