@@ -75,25 +75,42 @@ function mapPostRow(row: DbPostRow): BlogWithSource {
   };
 }
 
-const BLOG_SELECT =
+const BLOG_DETAIL_SELECT =
   "slug,title,excerpt,content,cover_image,cover_alt,category,read_time,author_name,author_bio,published_at";
 
-async function fetchPublishedPosts(): Promise<BlogWithSource[]> {
+const BLOG_LISTING_SELECT =
+  "slug,title,excerpt,cover_image,cover_alt,category,read_time,author_name,author_bio,published_at";
+
+type DbPostListingRow = Omit<DbPostRow, "content">;
+
+function mapPostListingRow(row: DbPostListingRow): BlogItem {
+  return {
+    type: "blog",
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt ?? "",
+    date: (row.published_at ?? new Date().toISOString()).slice(0, 10),
+    author: row.author_name ?? "",
+    authorBio: row.author_bio ?? "",
+    coverImage: row.cover_image ?? "",
+    coverAlt: row.cover_alt ?? "",
+    readTime: row.read_time ?? 0,
+    category: row.category ?? "",
+  };
+}
+
+async function fetchPublishedPostListings(): Promise<BlogItem[]> {
   const supabase = getSupabaseAnonClient();
   const { data } = await supabase
     .from("posts")
-    .select(BLOG_SELECT)
+    .select(BLOG_LISTING_SELECT)
     .eq("status", "published")
     .order("published_at", { ascending: false });
-  return (data ?? []).map((row) => mapPostRow(row as DbPostRow));
+  return (data ?? []).map((row) => mapPostListingRow(row as DbPostListingRow));
 }
 
 export async function getAllContents(): Promise<ContentsItem[]> {
-  const blogs: BlogItem[] = (await fetchPublishedPosts()).map((post) => {
-    const { content, ...rest } = post;
-    void content;
-    return rest;
-  });
+  const blogs = await fetchPublishedPostListings();
   const meta = MetaSchema.parse(metaJson);
   const generated = GeneratedSchema.parse(generatedJson);
   const byId = new Map<string, NewsItem | VideoItem>();
@@ -106,7 +123,7 @@ export async function getBlogPost(slug: string): Promise<BlogWithSource | null> 
   const supabase = getSupabaseAnonClient();
   const { data } = await supabase
     .from("posts")
-    .select(BLOG_SELECT)
+    .select(BLOG_DETAIL_SELECT)
     .eq("slug", slug)
     .in("status", ["published", "private"])
     .maybeSingle();

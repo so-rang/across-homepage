@@ -1,29 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import type { ContentsFilter } from "@/lib/content/types";
 
 const FILTER_IDS: ContentsFilter[] = ["all", "video", "news", "blog"];
 
-export function FilterChips({ active }: { active: ContentsFilter }) {
-  const t = useTranslations("contents.filters");
-  const router = useRouter();
-  const sp = useSearchParams();
+type Props = {
+  active: ContentsFilter;
+  onPick: (f: ContentsFilter) => void;
+};
 
-  const onPick = useCallback(
-    (f: ContentsFilter) => {
-      const next = new URLSearchParams(sp);
-      if (f === "all") next.delete("f");
-      else next.set("f", f);
-      router.replace(`/contents${next.toString() ? `?${next}` : ""}`, {
-        scroll: false,
-      });
-    },
-    [router, sp]
-  );
+export function FilterChips({ active, onPick }: Props) {
+  const t = useTranslations("contents.filters");
 
   return (
     <div
