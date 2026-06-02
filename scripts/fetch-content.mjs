@@ -630,11 +630,20 @@ async function loadNews() {
   const NAMED = /어크로스|Across|GPTO|GenRank|NAEO|이재홍|AEO[\s·]?GEO\s*생존전략/;
   const named = all.filter((i) => NAMED.test(i.title));
   // Syndicators republish primary articles verbatim; prefer the original
-  // publisher so 머니투데이 기사가 네이트로 둔갑하지 않도록.
-  const SYNDICATORS = /^(네이트|다음|Daum|Zum|네이버 뉴스)$/i;
+  // publisher so 머니투데이 기사가 네이트로 둔갑하지 않도록. Bare hostnames
+  // (news.foo.com) and curation sites (IT뉴스모아) are also syndicators.
+  const SYNDICATORS =
+    /^(네이트|다음|Daum|Zum|네이버 뉴스|IT뉴스모아|뉴스모아|[a-z0-9.-]+\.(com|net|org|kr|co\.kr))$/i;
+  // Strip trailing " — <republisher>" suffix before keying so syndicated
+  // copies collapse with the original.
+  const titleKey = (t) =>
+    t
+      .replace(/\s*[—\-–]\s*[^—\-–]+$/, "")
+      .replace(/\s+/g, "")
+      .toLowerCase();
   const byTitle = new Map();
   for (const item of named) {
-    const key = item.title.replace(/\s+/g, "").toLowerCase();
+    const key = titleKey(item.title);
     const existing = byTitle.get(key);
     if (!existing) {
       byTitle.set(key, item);

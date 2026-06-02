@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-02T08:43:48.645Z",
+  "fetchedAt": "2026-06-02T09:06:30.233Z",
   "items": [
     {
       "id": "video-b8ub6jEXkEg",
@@ -291,18 +291,6 @@
       "date": "2026-05-31"
     },
     {
-      "id": "press-2026-05-30-m9nyb6",
-      "type": "news",
-      "sourceName": "news.dlwlrmaon.com",
-      "sourceLogo": "",
-      "url": "https://news.dlwlrmaon.com/articles/38763",
-      "thumbnail": "/content/news/og/press-2026-05-30-m9nyb6.jpg",
-      "thumbnailAspect": "16:9",
-      "title": "네이버메이트 겨냥한 어크로스 ‘NAEO’…AI브리핑 인용 여부 확인 — IT뉴스모아",
-      "excerpt": "news.dlwlrmaon.com 보도 · 2026-05-30",
-      "date": "2026-05-30"
-    },
-    {
       "id": "press-2026-05-15-1xo2aj6",
       "type": "news",
       "sourceName": "AI포스트",
@@ -373,6 +361,18 @@
       "title": "'AEO·GEO 생존전략' 출간 기념 'AI 시대 생존전략 콘퍼런스' 열려",
       "excerpt": "머니투데이 보도 · 2026-03-19",
       "date": "2026-03-19"
+    },
+    {
+      "id": "press-2026-03-12-1ca1wkv",
+      "type": "news",
+      "sourceName": "머니투데이",
+      "sourceLogo": "",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBQNFNITVRMMVZqNDZXZXZTYUlDbG1zQ09nWEd2OXdOeUx5VndfTkpoVDlOQkJFVTdzMTVUUGtlenNLdFBpb2xDTzAyMW1aSXdmZHFpVUowYkU4YmQ4Uk4tcWxnNjBHSUhfenRLbdIBckFVX3lxTE9fSTN6UVlOeFM5WU9RUGVieExwZEVmTWF0elU1cTZHeFRxeU95MlNpOVQxZVJTNS1Hb0QzbEphNExJeHotNloyeEQ1anRTVktXZjVRZThVSGtBb1Fld29lbW5MR1pKRDhkd1ZPd3JCdHRVQQ?oc=5",
+      "thumbnail": "/content/news/placeholder.svg",
+      "thumbnailAspect": "1:1",
+      "title": "어크로스, 프라이머 데모데이서 AI 답변 최적화 'GPTO' 발표",
+      "excerpt": "머니투데이 보도 · 2026-03-12",
+      "date": "2026-03-12"
     }
   ]
 }
