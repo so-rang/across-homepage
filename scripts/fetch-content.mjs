@@ -41,6 +41,14 @@ const EXTERNAL_VIDEO_IDS = [
   "pVvd-xlUfOA",
 ];
 
+// Manual thumbnail overrides for articles where the Google News decoder or
+// the publisher's og:image consistently fails. The override file must live
+// under public/content/news/og/ and ship with the repo. Keyed by news id
+// (stable across runs as long as the underlying RSS link is stable).
+const NEWS_THUMB_OVERRIDES = {
+  "press-2026-05-15-1xo2aj6": "/content/news/og/press-2026-05-15-1xo2aj6.jpg",
+};
+
 // Multi-query union so we catch both brand mentions and GEO/AEO trade-press coverage.
 const NEWS_QUERIES = [
   '"어크로스" GEO',
@@ -551,6 +559,27 @@ function classifyAspect(size) {
 }
 
 async function enrichNewsItem(item, cache) {
+  // Step 0: manual override always wins. Lets us pin a known-good thumbnail
+  // for articles the auto-decoder can't resolve (e.g. AI포스트 NAEO coverage).
+  const override = NEWS_THUMB_OVERRIDES[item.id];
+  if (override) {
+    const overrideAbs = path.join(ROOT, "public", override.replace(/^\//, ""));
+    if (fs.existsSync(overrideAbs)) {
+      item.thumbnail = override;
+      try {
+        item.thumbnailAspect = classifyAspect(readImageSize(fs.readFileSync(overrideAbs)));
+      } catch {
+        item.thumbnailAspect = "1:1";
+      }
+      // Preserve any real (non-gnews) URL we resolved on a previous run so
+      // the card link doesn't degrade. Skip the live decode to keep this
+      // path fast and avoid spending rate-limit budget on already-pinned
+      // items.
+      const cachedUrl = cache.get(item.id)?.url;
+      if (cachedUrl && !extractGoogleNewsId(cachedUrl)) item.url = cachedUrl;
+      return item;
+    }
+  }
   // Step 1: fast path — reuse a prior enrichment when the image still exists
   // on disk. Skips expensive RPC/HTML fetches on every build.
   const cached = cache.get(item.id);
