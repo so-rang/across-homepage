@@ -71,10 +71,20 @@ export function HeroFade({ children }: { children: React.ReactNode }) {
         });
 
         // Re-arm scrub once the user is scrolled back near the top so
-        // reverse-scroll restores the hero.
+        // reverse-scroll restores the hero. Wait for the click-driven smooth
+        // scroll to carry the page past mid-viewport first — otherwise the
+        // very first scroll tick (y≈1) still satisfies the near-top guard
+        // and ScrollTrigger.refresh() calls window.scrollTo(0, 0), which
+        // cancels the browser's smooth-scroll-to-anchor.
         if (scrollHandler) window.removeEventListener("scroll", scrollHandler);
+        let scrolledAway = false;
         scrollHandler = () => {
-          if (window.scrollY < window.innerHeight * 0.05) {
+          const y = window.scrollY;
+          if (!scrolledAway) {
+            if (y > window.innerHeight * 0.5) scrolledAway = true;
+            return;
+          }
+          if (y < window.innerHeight * 0.05) {
             st?.enable();
             ScrollTrigger.refresh();
             if (scrollHandler) {
