@@ -1,6 +1,20 @@
 {
-  "fetchedAt": "2026-05-08T08:22:39.705Z",
+  "fetchedAt": "2026-06-02T08:43:48.645Z",
   "items": [
+    {
+      "id": "video-b8ub6jEXkEg",
+      "type": "video",
+      "channelName": "어크로스 하우스",
+      "channelHandle": "acrosshouse",
+      "ownedByUs": true,
+      "youtubeId": "b8ub6jEXkEg",
+      "thumbnail": "https://i.ytimg.com/vi/b8ub6jEXkEg/maxresdefault.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "🏁 Nitro Seoul Game Day - 해시드 데모데이 브이로그",
+      "excerpt": "Hashed와 함께한 8주간의 여정을 마무리하는 데모데이 현장입니다 🏁 발표 전에 가졌던 소소한 리프레시 타임부터 7개월간 100여 개 기업과 함께하며 쌓아온 GPTO의 비전 그리고 영상 마지막에 던진 '공개 100일 챌린지' 약속까지! 어크로스 …",
+      "date": "2026-05-12",
+      "durationSec": 384
+    },
     {
       "id": "video-eBbbyOj_mX0",
       "type": "video",
@@ -13,7 +27,7 @@
       "title": "[Full] AI 시대의 새로운 표준, AEO/GEO 생존 전략 - GPTO 이재홍 대표 (Nitro By Hashed)",
       "excerpt": "이제 검색 엔진 시대가 지나고, AI가 답을 직접 결정하는 'AI 답변' 시대가 도래했습니다. 우리 브랜드는 ChatGPT와 Claude에게 어떻게 추천되고 있을까요? 본 영상은 지난 4월 30일, Nitro By Hashed에서 진행된 AI 답변 …",
       "date": "2026-05-08",
-      "durationSec": 557
+      "durationSec": 542
     },
     {
       "id": "video-ycygoAoMylc",
@@ -265,6 +279,54 @@
       "durationSec": 286
     },
     {
+      "id": "press-2026-05-31-133p0me",
+      "type": "news",
+      "sourceName": "바이라인네트워크",
+      "sourceLogo": "",
+      "url": "https://byline.network/2026/05/0531-2/",
+      "thumbnail": "/content/news/og/press-2026-05-31-133p0me.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "네이버메이트 겨냥한 어크로스 ‘NAEO’…AI브리핑 인용 여부 확인",
+      "excerpt": "바이라인네트워크 보도 · 2026-05-31",
+      "date": "2026-05-31"
+    },
+    {
+      "id": "press-2026-05-30-m9nyb6",
+      "type": "news",
+      "sourceName": "news.dlwlrmaon.com",
+      "sourceLogo": "",
+      "url": "https://news.dlwlrmaon.com/articles/38763",
+      "thumbnail": "/content/news/og/press-2026-05-30-m9nyb6.jpg",
+      "thumbnailAspect": "16:9",
+      "title": "네이버메이트 겨냥한 어크로스 ‘NAEO’…AI브리핑 인용 여부 확인 — IT뉴스모아",
+      "excerpt": "news.dlwlrmaon.com 보도 · 2026-05-30",
+      "date": "2026-05-30"
+    },
+    {
+      "id": "press-2026-05-15-1xo2aj6",
+      "type": "news",
+      "sourceName": "AI포스트",
+      "sourceLogo": "",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFAwbFVrU3JFdTdIb0ExdEo3bi1NbS02OVdVY0MzZXVXcXpqS0wtTHYzeUpkZ0dJemo4QWdfdGhfU2NhdmZRZkhtd1R3M3BPT1Q5X0Q2eElXUWJHQWdhZEd4VXdiT24zeS16OWd4UmhB0gFyQVVfeXFMTU5NUUpBNWtiUHFCWTVKVDBkeTdiaDdUeGVDN0JmY0FXakFoWG11eW9JVWQxQTBCOVNlT0xnOHlUM0ptOFNic3g2S0FTRl9EcVFreWtuYkFSN0V5MG9TRndiZWRqYVk2a2ZNVWxhUEw1OGlB?oc=5",
+      "thumbnail": "/content/news/placeholder.svg",
+      "thumbnailAspect": "1:1",
+      "title": "어크로스, 정부 창업 프로젝트에 네이버 특화 AEO 서비스 ‘NAEO 솔루션’ 공급",
+      "excerpt": "AI포스트 보도 · 2026-05-15",
+      "date": "2026-05-15"
+    },
+    {
+      "id": "press-2026-05-13-1wva85d",
+      "type": "news",
+      "sourceName": "머니투데이",
+      "sourceLogo": "",
+      "url": "https://www.mt.co.kr/industry/2026/05/13/2026051312142026887",
+      "thumbnail": "/content/news/og/press-2026-05-13-1wva85d.jpg",
+      "thumbnailAspect": "1:1",
+      "title": "어크로스, '모두의 창업' AI 솔루션 공급기업 선정",
+      "excerpt": "머니투데이 보도 · 2026-05-13",
+      "date": "2026-05-13"
+    },
+    {
       "id": "press-2026-04-30-111ex25",
       "type": "news",
       "sourceName": "머니투데이",
@@ -311,18 +373,6 @@
       "title": "'AEO·GEO 생존전략' 출간 기념 'AI 시대 생존전략 콘퍼런스' 열려",
       "excerpt": "머니투데이 보도 · 2026-03-19",
       "date": "2026-03-19"
-    },
-    {
-      "id": "press-2026-03-12-1ca1wkv",
-      "type": "news",
-      "sourceName": "머니투데이",
-      "sourceLogo": "",
-      "url": "https://www.mt.co.kr/industry/2026/03/12/2026031110274421308",
-      "thumbnail": "/content/news/og/press-2026-03-12-1ca1wkv.jpg",
-      "thumbnailAspect": "1:1",
-      "title": "어크로스, 프라이머 데모데이서 AI 답변 최적화 'GPTO' 발표",
-      "excerpt": "머니투데이 보도 · 2026-03-12",
-      "date": "2026-03-12"
     }
   ]
 }

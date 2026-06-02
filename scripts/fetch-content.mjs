@@ -47,9 +47,13 @@ const NEWS_QUERIES = [
   '"어크로스" AEO',
   '"어크로스" 이재홍',
   '"어크로스" GPTO',
+  '"어크로스" NAEO',
   // CEO 이재홍 책 — 북토크·콘퍼런스 커버리지는 제목에 "어크로스"가 안 들어가기도 함.
   '"AEO·GEO 생존전략"',
   '"AEO GEO 생존전략"',
+  // 방송/프로그램 커버리지 — 정확한 코너명을 모를 때를 대비한 변형 union.
+  '"우리 모두의 창업 솔루션" 어크로스',
+  '"우리모두의 창업솔루션" 어크로스',
 ];
 const NEWS_FEED = (q) =>
   `https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=ko&gl=KR&ceid=KR:ko`;
