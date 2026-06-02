@@ -449,6 +449,27 @@ async function fetchOgImage(articleUrl) {
   }
 }
 
+// Fallback thumbnail when the publisher's og:image isn't reachable: hit the
+// /rss/articles variant of the Google News article page. It serves the same
+// preview thumbnail (lh3.googleusercontent.com) and has its own quota — so
+// it usually survives even when /articles is 429ing the decoder.
+async function fetchGoogleNewsThumb(id) {
+  try {
+    const res = await fetch(`https://news.google.com/rss/articles/${id}?oc=5`, {
+      headers: { "User-Agent": UA },
+      redirect: "follow",
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    return (
+      html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)?.[1] ??
+      null
+    );
+  } catch {
+    return null;
+  }
+}
+
 async function downloadImage(imgUrl, destPath) {
   try {
     const res = await fetch(imgUrl, { headers: { "User-Agent": UA } });
@@ -555,13 +576,13 @@ async function enrichNewsItem(item, cache) {
   const gnewsId = extractGoogleNewsId(item.url);
   if (!gnewsId) return item;
   const realUrl = await decodeGoogleNewsUrl(gnewsId);
-  if (!realUrl) {
-    // Decode failed (rate limit, etc.) — preserve any real URL we had before.
-    if (cached?.url && !extractGoogleNewsId(cached.url)) item.url = cached.url;
-    return item;
-  }
-  item.url = realUrl;
-  const og = await fetchOgImage(realUrl);
+  if (realUrl) item.url = realUrl;
+  else if (cached?.url && !extractGoogleNewsId(cached.url)) item.url = cached.url;
+  // Prefer publisher's own og:image; fall back to the Google News article
+  // preview thumbnail when the publisher serves none or the decoder failed.
+  const og =
+    (realUrl ? await fetchOgImage(realUrl) : null) ??
+    (await fetchGoogleNewsThumb(gnewsId));
   if (!og) return item;
   const ext = imgExtensionFromUrl(og);
   const filename = `${item.id}.${ext}`;
