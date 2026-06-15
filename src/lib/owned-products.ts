@@ -27,7 +27,7 @@ export const OWNED_PRODUCTS: readonly OwnedProduct[] = [
     href: "https://gpto.kr",
     logo: {
       kind: "image",
-      src: "/logo/logo_gpto_white.png",
+      src: "/logo/solutions/gpto_wh.png",
       width: 9600,
       height: 4000,
       whiteOnDark: true,

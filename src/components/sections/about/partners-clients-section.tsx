@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils";
 const INVESTORS = [
   {
     name: "Primer",
-    src: "/logo/logo_primer.png",
+    src: "/logo/backers/primer.png",
     width: 691,
     height: 201,
     monochrome: false,
   },
   {
     name: "Hashed",
-    src: "/logo/logo_hashed.png",
+    src: "/logo/backers/hashed.png",
     width: 1862,
     height: 472,
     monochrome: true,
