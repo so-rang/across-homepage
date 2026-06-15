@@ -225,8 +225,8 @@ export const CLIENTS: readonly Client[] = [
     name: "Makestar",
     src: "/logo/customers/makestar_bk.png",
     darkSrc: "/logo/customers/makestar_wh.png",
-    width: 2810,
-    height: 444,
+    width: 1100,
+    height: 174,
     href: "https://www.makestar.com",
   },
   {

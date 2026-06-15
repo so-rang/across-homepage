@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
     // content changes but its path stays the same). Bump in BOTH places together.
     localPatterns: [
       { pathname: "/**" },
-      { pathname: "/**", search: "?v=6" },
+      { pathname: "/**", search: "?v=7" },
     ],
     remotePatterns: [
       // YouTube thumbnails ship from i.ytimg.com AND i1-i4.ytimg.com
