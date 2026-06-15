@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 // Bump when logo asset CONTENT changes but the path stays the same — busts the
 // browser's cached `/_next/image` optimization (which keys on URL, not content).
-const ASSET_V = "?v=5";
+const ASSET_V = "?v=6";
 
 const MID = Math.ceil(CLIENTS.length / 2);
 const ROW_TOP = CLIENTS.slice(0, MID);
