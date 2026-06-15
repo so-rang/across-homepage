@@ -57,3 +57,14 @@ GEMINI.md
 *-handoff*.md
 main_handoff.md
 plan.md
+
+# oh-my-agent runtime (local artifacts — do not commit)
+.antigravitycli/
+.agents/results/
+.agents/state/
+.agents/backup/
+.migration-backup/
+
+# Working caches / temp artifacts (not used by the app)
+youtube-thumbnails/
+scripts/.tmp-shot-*.png

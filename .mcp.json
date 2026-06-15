@@ -2,11 +2,22 @@
   "mcpServers": {
     "supabase": {
       "type": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=mwcmktebidqwbpxjyzrd&features=storage"
+      "url": "https://mcp.supabase.com/mcp?project_ref=mwcmktebidqwbpxjyzrd&features=database,docs,development,functions,storage"
     },
-    "vercel": {
-      "type": "http",
-      "url": "https://mcp.vercel.com/"
+    "serena": {
+      "command": "serena",
+      "args": [
+        "start-mcp-server",
+        "--context",
+        "claude-code",
+        "--project",
+        ".",
+        "--open-web-dashboard",
+        "false"
+      ],
+      "env": {
+        "SERENA_LOG_LEVEL": "info"
+      }
     }
   }
 }
