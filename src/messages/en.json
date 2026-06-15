@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Across · Be the answer when AI answers.",
+    "title": "Across · AI Answer Optimization · AEO·GEO",
     "titleTemplate": "%s | Across",
-    "description": "Across Inc. — Generative & Answer Engine Optimization (GEO·AEO). We design your brand to be chosen inside the answers AI gives.",
+    "description": "Across Inc. — Answer & Generative Engine Optimization (AEO·GEO). We design your brand to be chosen inside the answers AI gives.",
     "organizationName": "Across Inc.",
     "websiteName": "Across"
   },
@@ -47,7 +47,7 @@
     "position": {
       "eyebrow": "About · Across",
       "titleLine1": "Across is an AI-answer optimization",
-      "titleLine2": "GEO·AEO company",
+      "titleLine2": "AEO·GEO company",
       "lead": "Search is giving way to answers. We design how AI calls on brands and chooses them. We run our own products directly and supply <nowrap>core tech to partner products.</nowrap>",
       "logoAlt": "Across logo"
     },
@@ -157,12 +157,12 @@
   },
   "about": {
     "metadata": {
-      "description": "Across is a GEO·AEO (AI-answer optimization) company. From the age of search to the age of AI answers. Meet our founder, investors, and partners."
+      "description": "Across is a AEO·GEO (AI-answer optimization) company. From the age of search to the age of AI answers. Meet our founder, investors, and partners."
     },
     "across": {
       "homeAria": "Across home",
       "logoAlt": "Across logo",
-      "title": "Across is an AI-answer optimization GEO·AEO company",
+      "title": "Across is an AI-answer optimization AEO·GEO company",
       "p1": "The moment ChatGPT, Claude, or Gemini answers, your brand gets cited first.",
       "p2": "We validate with our own products first, then supply the same tech to partner products. We deliver only what's proven."
     },
@@ -173,7 +173,7 @@
       "leadLine2": "The criteria changed, so the way you create results must change too.",
       "tableHeader": {
         "seo": "SEO",
-        "geo": "GEO · AEO"
+        "geo": "AEO · GEO"
       },
       "rows": {
         "target": {

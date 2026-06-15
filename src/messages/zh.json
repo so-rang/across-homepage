@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Across · 在 AI 作答的世界,让你的品牌被选中。",
+    "title": "Across · AI 答案优化 AEO·GEO",
     "titleTemplate": "%s | Across",
-    "description": "Across 公司 — 通过 GEO·AEO 答案引擎优化,让你的品牌在 AI 给出的答案中被选择。",
+    "description": "Across 公司 — 通过 AEO·GEO 答案引擎优化,让你的品牌在 AI 给出的答案中被选择。",
     "organizationName": "Across 公司",
     "websiteName": "Across"
   },
@@ -47,7 +47,7 @@
     "position": {
       "eyebrow": "About · Across",
       "titleLine1": "Across 是 AI 答案优化的",
-      "titleLine2": "GEO·AEO 公司",
+      "titleLine2": "AEO·GEO 公司",
       "lead": "当搜索时代让位于答案时代,我们设计 AI 如何提及和选择品牌。我们直接运营自有产品,并向合作伙伴产品<nowrap>提供核心技术。</nowrap>",
       "logoAlt": "Across 标识"
     },
@@ -157,12 +157,12 @@
   },
   "about": {
     "metadata": {
-      "description": "Across 是一家 GEO·AEO(AI 答案优化)公司。从搜索时代走向 AI 答案时代。在这里了解我们的代表、投资方与合作伙伴。"
+      "description": "Across 是一家 AEO·GEO(AI 答案优化)公司。从搜索时代走向 AI 答案时代。在这里了解我们的代表、投资方与合作伙伴。"
     },
     "across": {
       "homeAria": "Across 主页",
       "logoAlt": "Across 标识",
-      "title": "Across 是一家专注 AI 答案优化的 GEO·AEO 公司",
+      "title": "Across 是一家专注 AI 答案优化的 AEO·GEO 公司",
       "p1": "在 ChatGPT、Claude、Gemini 给出答案的瞬间,让你的品牌率先被引用。",
       "p2": "先用自有产品验证,再把同一套技术供应给合作伙伴产品。我们只交付已被验证的方法。"
     },
@@ -173,7 +173,7 @@
       "leadLine2": "标准变了,创造成果的方式也必须随之变化。",
       "tableHeader": {
         "seo": "SEO",
-        "geo": "GEO · AEO"
+        "geo": "AEO · GEO"
       },
       "rows": {
         "target": {

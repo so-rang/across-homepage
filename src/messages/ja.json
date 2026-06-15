@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "アクロス · AIが答える世界で、あなたのブランドが選ばれるように。",
+    "title": "アクロス · AI回答最適化 AEO·GEO",
     "titleTemplate": "%s | アクロス",
-    "description": "株式会社アクロス(Across Inc.)— GEO・AEO によるAI回答最適化で、AIの答えの中であなたのブランドが選ばれるよう設計します。",
+    "description": "株式会社アクロス(Across Inc.)— AEO・GEO によるAI回答最適化で、AIの答えの中であなたのブランドが選ばれるよう設計します。",
     "organizationName": "株式会社アクロス",
     "websiteName": "アクロス"
   },
@@ -47,7 +47,7 @@
     "position": {
       "eyebrow": "About · Across",
       "titleLine1": "アクロスはAI回答最適化",
-      "titleLine2": "GEO・AEOの会社です",
+      "titleLine2": "AEO・GEOの会社です",
       "lead": "検索の時代が答えの時代へ移り変わる今、AIがブランドをどう呼び、選ぶかを設計します。自社プロダクトを直接運営し、パートナープロダクトに<nowrap>コア技術を供給しています。</nowrap>",
       "logoAlt": "アクロスロゴ"
     },
@@ -157,12 +157,12 @@
   },
   "about": {
     "metadata": {
-      "description": "アクロスはGEO・AEO(AI回答最適化)の会社です。検索の時代からAI回答の時代へ。代表・投資家・パートナーをご紹介します。"
+      "description": "アクロスはAEO・GEO(AI回答最適化)の会社です。検索の時代からAI回答の時代へ。代表・投資家・パートナーをご紹介します。"
     },
     "across": {
       "homeAria": "アクロスのホームへ",
       "logoAlt": "アクロスロゴ",
-      "title": "アクロスはAI回答最適化のGEO・AEO会社です",
+      "title": "アクロスはAI回答最適化のAEO・GEO会社です",
       "p1": "ChatGPT・Claude・Geminiが答えを出す瞬間、あなたのブランドが最初に引用されるようにします。",
       "p2": "自社プロダクトで先に検証し、同じ技術をパートナープロダクトに供給します。実証された方法だけをお届けします。"
     },
@@ -173,7 +173,7 @@
       "leadLine2": "基準が変わったからこそ、成果の作り方も変える必要があります。",
       "tableHeader": {
         "seo": "SEO",
-        "geo": "GEO・AEO"
+        "geo": "AEO・GEO"
       },
       "rows": {
         "target": {
