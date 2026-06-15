@@ -16,5 +16,9 @@ export type IntroState = "first" | "short" | "reduced" | "done";
  * before first paint so CSS rules keyed off `html[data-intro]` apply without FOUC.
  * Always replays the full intro (sessionStorage shortcut disabled during
  * iteration per user feedback — the intro should always feel present).
+ *
+ * Also pins scroll to the top on a hard reload (so the intro always plays from
+ * the top instead of the browser restoring a mid-page scroll). Back/forward
+ * navigations keep native scroll restoration ("auto").
  */
-export const INTRO_BOOTSTRAP = `!function(){try{var d=document.documentElement;if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.intro="reduced";return}d.dataset.intro="first";try{performance.mark("${INTRO_PERF_START}")}catch(e){}}catch(e){}}();`;
+export const INTRO_BOOTSTRAP = `!function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{};if(n.type==="reload"){try{if(history.scrollRestoration)history.scrollRestoration="manual"}catch(e){}var t=function(){try{window.scrollTo(0,0)}catch(e){}};addEventListener("DOMContentLoaded",t);addEventListener("load",t)}else{try{if(history.scrollRestoration)history.scrollRestoration="auto"}catch(e){}}}catch(e){}try{var d=document.documentElement;if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.intro="reduced";return}d.dataset.intro="first";try{performance.mark("${INTRO_PERF_START}")}catch(e){}}catch(e){}}();`;
