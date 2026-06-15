@@ -156,21 +156,8 @@ export function LiquidEther({ quality }: LayerProps) {
     };
   }, [quality]);
 
-  if (quality === "static") {
-    return (
-      <div
-        aria-hidden
-        className="stage-layer z-0"
-        style={{
-          background: `
-            radial-gradient(1400px 1000px at 30% 25%, rgba(95, 70, 150, 0.14), transparent 60%),
-            radial-gradient(1000px 800px at 78% 72%, rgba(150, 100, 110, 0.08), transparent 55%),
-            #04040a
-          `,
-        }}
-      />
-    );
-  }
-
+  // The `static` tier never mounts this component — it is dynamically imported
+  // by Stage only for animated tiers, and Stage renders its own CSS fallback
+  // for static. So `quality` here is always "low" | "full".
   return <div ref={hostRef} aria-hidden className="stage-layer z-0" />;
 }

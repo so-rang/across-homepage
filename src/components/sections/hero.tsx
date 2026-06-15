@@ -55,7 +55,11 @@ export function Hero() {
   return (
     <>
       {/* Earth backdrop assets — hoisted into <head> by React 19 so download
-          starts during HTML parse, before client hydration. */}
+          starts during HTML parse, before client hydration.
+          Only the 30KB poster keeps high priority: it paints the sphere
+          immediately and feeds LCP. The decorative MP4s drop to low priority
+          so they don't contend with the hydration JS / hero copy — the poster
+          holds the frame until the video streams in a beat later. */}
       <link
         rel="preload"
         as="image"
@@ -68,7 +72,7 @@ export function Hero() {
         type="video/mp4"
         media="(max-width: 767px)"
         href="/earth_2.mobile.mp4"
-        fetchPriority="high"
+        fetchPriority="low"
       />
       <link
         rel="preload"
@@ -76,7 +80,7 @@ export function Hero() {
         type="video/mp4"
         media="(min-width: 768px) and (max-width: 1199px)"
         href="/earth_2.v2.tablet.mp4"
-        fetchPriority="high"
+        fetchPriority="low"
       />
       <link
         rel="preload"
@@ -84,7 +88,7 @@ export function Hero() {
         type="video/mp4"
         media="(min-width: 1200px)"
         href="/earth_2.v2.mp4"
-        fetchPriority="high"
+        fetchPriority="low"
       />
       <IntroRunner />
       <HomeSnap />

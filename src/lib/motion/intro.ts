@@ -3,7 +3,7 @@
  * Shared by the inline bootstrap script, IntroRunner, and globals.css.
  */
 export const INTRO_STORAGE_KEY = "across.introSeen";
-export const INTRO_FULL_DURATION_MS = 2720;
+export const INTRO_FULL_DURATION_MS = 2050;
 export const INTRO_SHORT_DURATION_MS = 400;
 export const INTRO_PERF_START = "across:intro:start";
 export const INTRO_PERF_END = "across:intro:end";

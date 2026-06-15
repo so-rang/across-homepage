@@ -144,33 +144,8 @@ export function Antigravity({ quality }: LayerProps) {
     };
   }, [quality]);
 
-  if (quality === "static") {
-    return (
-      <svg
-        aria-hidden
-        className="stage-layer z-20"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        {Array.from({ length: 70 }).map((_, i) => {
-          const x = ((i * 97) % 1440) + 10;
-          const y = ((i * 53) % 900) + 5;
-          const r = i % 20 === 0 ? 1.8 : i % 5 === 0 ? 1.0 : 0.55;
-          const a = ((i * 31) % 50) / 100 + 0.45;
-          return (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={r}
-              fill={i % 7 === 0 ? "#f8efd6" : "#ffffff"}
-              opacity={a}
-            />
-          );
-        })}
-      </svg>
-    );
-  }
-
+  // The `static` tier never mounts this component — it is dynamically imported
+  // by Stage only for animated tiers, and Stage renders its own SVG fallback
+  // for static. So `quality` here is always "low" | "full".
   return <canvas aria-hidden ref={canvasRef} className="stage-layer z-20" />;
 }
