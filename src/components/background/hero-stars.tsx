@@ -30,7 +30,7 @@ const STARS: Star[] = [
   { x: 11, y: 38, size: 2, opacity: 0.6, delay: 1.1, duration: 4.5 },
   { x: 17, y: 24, size: 4, opacity: 0.95, delay: 0.7, duration: 5.2 },
   { x: 23, y: 52, size: 2, opacity: 0.55, delay: 2.4, duration: 3.3 },
-  { x: 30, y: 34, size: 3, opacity: 0.8, delay: 0, duration: 4.1 },
+  { x: 48, y: 18, size: 3, opacity: 0.8, delay: 0, duration: 4.1 },
   { x: 38, y: 20, size: 2, opacity: 0.55, delay: 1.6, duration: 3.6 },
   { x: 9, y: 68, size: 4, opacity: 0.9, delay: 0.4, duration: 5.5 },
   { x: 27, y: 72, size: 2, opacity: 0.6, delay: 2, duration: 3.5 },
