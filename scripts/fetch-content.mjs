@@ -47,6 +47,7 @@ const EXTERNAL_VIDEO_IDS = [
 // (stable across runs as long as the underlying RSS link is stable).
 const NEWS_THUMB_OVERRIDES = {
   "press-2026-05-15-1xo2aj6": "/content/news/og/press-2026-05-15-1xo2aj6.jpg",
+  "press-2026-03-12-1ca1wkv": "/content/news/og/press-2026-03-12-1ca1wkv.jpg",
 };
 
 // Multi-query union so we catch both brand mentions and GEO/AEO trade-press coverage.
