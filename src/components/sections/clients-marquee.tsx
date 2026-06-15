@@ -2,6 +2,10 @@ import Image from "next/image";
 import { CLIENTS, type Client } from "@/lib/clients";
 import { cn } from "@/lib/utils";
 
+// Bump when logo asset CONTENT changes but the path stays the same — busts the
+// browser's cached `/_next/image` optimization (which keys on URL, not content).
+const ASSET_V = "?v=5";
+
 const MID = Math.ceil(CLIENTS.length / 2);
 const ROW_TOP = CLIENTS.slice(0, MID);
 const ROW_BOTTOM = CLIENTS.slice(MID);
@@ -19,10 +23,10 @@ type Props = {
 function logoHeight(c: Client): number {
   if (c.displayHeight != null) return c.displayHeight;
   const r = c.width / c.height;
-  if (r > 4) return 24;
-  if (r > 2.5) return 30;
-  if (r > 1.5) return 38;
-  if (r > 1.0) return 46;
+  if (r > 5) return 34;
+  if (r > 3.5) return 38;
+  if (r > 2) return 44;
+  if (r > 1.2) return 48;
   return 50;
 }
 
@@ -32,7 +36,7 @@ function LogoItem({ client }: { client: Client }) {
   const media = client.darkSrc ? (
     <>
       <Image
-        src={client.src}
+        src={client.src + ASSET_V}
         alt={client.name}
         width={client.width}
         height={client.height}
@@ -42,7 +46,7 @@ function LogoItem({ client }: { client: Client }) {
         sizes="(min-width: 640px) 200px, 140px"
       />
       <Image
-        src={client.darkSrc}
+        src={client.darkSrc + ASSET_V}
         alt=""
         width={client.width}
         height={client.height}
@@ -55,7 +59,7 @@ function LogoItem({ client }: { client: Client }) {
     </>
   ) : (
     <Image
-      src={client.src}
+      src={client.src + ASSET_V}
       alt={client.name}
       width={client.width}
       height={client.height}
