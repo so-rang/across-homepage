@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.youtube-nocookie.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.youtube-nocookie.com https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
@@ -32,6 +32,13 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Allow local images with no query (default) AND the ?v=N cache-bust used by
+    // the clients marquee (busts stale /_next/image cache when a logo asset's
+    // content changes but its path stays the same). Bump in BOTH places together.
+    localPatterns: [
+      { pathname: "/**" },
+      { pathname: "/**", search: "?v=5" },
+    ],
     remotePatterns: [
       // YouTube thumbnails ship from i.ytimg.com AND i1-i4.ytimg.com
       // depending on which CDN edge the RSS feed points to.
