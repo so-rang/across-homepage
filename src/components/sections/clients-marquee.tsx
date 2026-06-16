@@ -6,15 +6,13 @@ import { cn } from "@/lib/utils";
 // browser's cached `/_next/image` optimization (which keys on URL, not content).
 const ASSET_V = "?v=7";
 
-const MID = Math.ceil(CLIENTS.length / 2);
-const ROW_TOP = CLIENTS.slice(0, MID);
-const ROW_BOTTOM = CLIENTS.slice(MID);
-
+// Three rows on every breakpoint — splitting the roster into thirds makes the
+// client base read as larger/denser than a two-row split.
 const T1 = Math.ceil(CLIENTS.length / 3);
 const T2 = Math.ceil((CLIENTS.length * 2) / 3);
-const ROW_M_TOP = CLIENTS.slice(0, T1);
-const ROW_M_MID = CLIENTS.slice(T1, T2);
-const ROW_M_BOTTOM = CLIENTS.slice(T2);
+const ROW_TOP = CLIENTS.slice(0, T1);
+const ROW_MID = CLIENTS.slice(T1, T2);
+const ROW_BOTTOM = CLIENTS.slice(T2);
 
 type Props = {
   ariaLabel?: string;
@@ -135,14 +133,10 @@ export function ClientsMarquee({ ariaLabel }: Props) {
       role="region"
       aria-label={ariaLabel ?? "Clients"}
     >
-      <div className="hidden space-y-6 md:block">
+      <div className="space-y-5 md:space-y-6">
         <Row items={ROW_TOP} direction="left" />
-        <Row items={ROW_BOTTOM} direction="right" />
-      </div>
-      <div className="space-y-5 md:hidden">
-        <Row items={ROW_M_TOP} direction="left" />
-        <Row items={ROW_M_MID} direction="right" />
-        <Row items={ROW_M_BOTTOM} direction="left" />
+        <Row items={ROW_MID} direction="right" />
+        <Row items={ROW_BOTTOM} direction="left" />
       </div>
     </div>
   );
