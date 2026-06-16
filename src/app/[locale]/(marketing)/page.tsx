@@ -10,9 +10,24 @@ export async function generateMetadata(): Promise<Metadata> {
   return { alternates: buildAlternates(locale, "/") };
 }
 
+type FaqItem = { q: string; a: string };
+
 export default async function HomePage() {
   const t = await getTranslations("metadata");
+  const tFaq = await getTranslations("faq");
   const locale = await getLocale();
+
+  const faqItems = tFaq.raw("items") as FaqItem[];
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: LANGUAGE_TAG[locale] ?? "ko-KR",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
 
   const organizationJsonLd = {
     "@context": "https://schema.org",
@@ -63,6 +78,10 @@ export default async function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero />
     </>

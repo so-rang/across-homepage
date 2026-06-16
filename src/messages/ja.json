@@ -517,5 +517,26 @@
       "next": "次の記事",
       "back": "← コンテンツ"
     }
+  },
+  "faq": {
+    "title": "よくある質問",
+    "items": [
+      {
+        "q": "アクロスはどんな会社ですか?",
+        "a": "アクロス(Across Inc.)はAI回答最適化(AEO・GEO)の専門企業です。ChatGPT、Gemini、Perplexity などの生成AIが回答を作る際に、あなたのブランドが引用・推薦されるようコンテンツと構造化データを設計します。"
+      },
+      {
+        "q": "AEOとGEOとは何ですか?",
+        "a": "AEO(Answer Engine Optimization)はAI回答エンジンが質問に答える際に自社ブランドを根拠として選ぶよう最適化する作業で、GEO(Generative Engine Optimization)は生成AIの出力の中でブランドの露出と引用を高める戦略です。"
+      },
+      {
+        "q": "従来のSEOと何が違いますか?",
+        "a": "従来のSEOは検索結果ページの順位を上げることが目標ですが、AEO・GEOはAIが直接生成する『回答』の中にブランドが含まれるようにすることが目標です。クリックの前に、回答の中で選ばれる段階を扱います。"
+      },
+      {
+        "q": "どのAIサービスを対象にしますか?",
+        "a": "ChatGPT、Google Gemini、Perplexity、Microsoft Copilot など主要な生成AIおよびAI検索サービスを対象に最適化します。"
+      }
+    ]
   }
 }
