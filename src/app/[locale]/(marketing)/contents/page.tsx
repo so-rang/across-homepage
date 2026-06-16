@@ -1,18 +1,26 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/brand/page-header";
 import { ZoomOutGesture } from "@/components/nav/zoom-out-gesture";
 import { ContentsBrowser } from "@/components/sections/contents/contents-browser";
 import { getAllContents } from "@/lib/content";
 import type { ContentsFilter } from "@/lib/content/types";
+import { buildAlternates } from "@/lib/seo/site";
 
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("contents.metadata");
+  const locale = await getLocale();
   return {
     title: "Contents",
     description: t("description"),
+    alternates: buildAlternates(locale, "/contents"),
+    openGraph: {
+      title: "Contents",
+      description: t("description"),
+      url: buildAlternates(locale, "/contents").canonical as string,
+    },
   };
 }
 

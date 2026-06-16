@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { buildAlternates } from "@/lib/seo/site";
 
 const LAST_UPDATED = "2026-04-23";
 const OFFICE_ADDRESS = "[B05 — 본점 도로명 주소 (juso.go.kr 확정 후 반영)]";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("legal.privacy.metadata");
+  const locale = await getLocale();
   return {
     title: t("title"),
     robots: { index: true, follow: true },
+    alternates: buildAlternates(locale, "/privacy"),
   };
 }
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { generateHTML } from "@tiptap/html";
@@ -9,6 +9,7 @@ import ImageExtension from "@tiptap/extension-image";
 import { ArrowLeft } from "lucide-react";
 import { PageHeader } from "@/components/brand/page-header";
 import { getAllBlogSlugs, getAllContents, getBlogPost } from "@/lib/content";
+import { buildAlternates, SITE_URL } from "@/lib/seo/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -24,13 +25,16 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getBlogPost(slug);
-  if (!post) return { title: "Not Found" };
+  if (!post) return { title: "Not Found", robots: { index: false } };
+  const locale = await getLocale();
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: buildAlternates(locale, `/contents/posts/${slug}`),
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      // No cover → Next falls back to the site-wide brand OG card.
       images: post.coverImage ? [post.coverImage] : undefined,
       type: "article",
       publishedTime: post.date,
@@ -65,7 +69,25 @@ export default async function PostPage({ params }: PageProps) {
     description: post.excerpt,
     datePublished: post.date,
     author: { "@type": "Person", name: post.author },
-    image: post.coverImage,
+    publisher: {
+      "@type": "Organization",
+      name: "Across Inc.",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/logo/logo_across_black.png`,
+      },
+    },
+    image: post.coverImage ?? `${SITE_URL}/opengraph-image`,
+    mainEntityOfPage: `${SITE_URL}/contents/posts/${slug}`,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Contents", item: `${SITE_URL}/contents` },
+      { "@type": "ListItem", position: 2, name: post.title, item: `${SITE_URL}/contents/posts/${slug}` },
+    ],
   };
 
   return (
@@ -74,6 +96,10 @@ export default async function PostPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <article className="mx-auto max-w-[760px] px-6 pb-24 pt-20 sm:px-10">
         <Link

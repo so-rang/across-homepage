@@ -1,16 +1,14 @@
+import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Hero } from "@/components/sections/hero";
+import { buildAlternates, LANGUAGE_TAG, SITE_URL } from "@/lib/seo/site";
 
 export const revalidate = 300;
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://across.center";
-
-const LANGUAGE_TAG: Record<string, string> = {
-  ko: "ko-KR",
-  en: "en-US",
-  ja: "ja-JP",
-  zh: "zh-CN",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return { alternates: buildAlternates(locale, "/") };
+}
 
 export default async function HomePage() {
   const t = await getTranslations("metadata");
@@ -22,7 +20,23 @@ export default async function HomePage() {
     name: t("organizationName"),
     alternateName: "Across Inc.",
     url: SITE_URL,
-    logo: `${SITE_URL}/brand/across-mark.svg`,
+    logo: `${SITE_URL}/logo/logo_across_black.png`,
+    image: `${SITE_URL}/opengraph-image`,
+    description: t("description"),
+    knowsAbout: [
+      "Answer Engine Optimization",
+      "Generative Engine Optimization",
+      "AEO",
+      "GEO",
+      "AI SEO",
+      "LLM visibility",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "ask@across.center",
+      contactType: "sales",
+      availableLanguage: ["Korean", "English", "Japanese", "Chinese"],
+    },
     sameAs: [
       "https://www.youtube.com/@acrosshouse",
       "https://www.instagram.com/across.house",
@@ -35,6 +49,7 @@ export default async function HomePage() {
     name: t("websiteName"),
     url: SITE_URL,
     inLanguage: LANGUAGE_TAG[locale] ?? "ko-KR",
+    publisher: { "@type": "Organization", name: t("organizationName") },
   };
 
   return (

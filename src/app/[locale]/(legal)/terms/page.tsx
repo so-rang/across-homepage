@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { buildAlternates } from "@/lib/seo/site";
 
 const LAST_UPDATED = "2026-04-23";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("legal.terms.metadata");
+  const locale = await getLocale();
   return {
     title: t("title"),
     robots: { index: true, follow: true },
+    alternates: buildAlternates(locale, "/terms"),
   };
 }
 
