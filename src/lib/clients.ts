@@ -57,7 +57,6 @@ export type ClientId =
   | "kyyb"
   | "langflix"
   | "leesol"
-  | "lghello"
   | "livet"
   | "meditherapy"
   | "melting"
@@ -77,7 +76,6 @@ export type ClientId =
   | "sleepus"
   | "ssupport"
   | "tounou"
-  | "uniqlo"
   | "videostew";
 
 export type Client = {
@@ -661,16 +659,7 @@ export const CLIENTS: readonly Client[] = [
     height: 611,
     href: "https://leesolbrain.com",
   },
-  {
-    id: "lghello",
-    name: "Lghello",
-    src: "/logo/customers/lghello.png",
-    darkSrc: null,
-    width: 1280,
-    height: 191,
-    href: "https://rental.lghellovision.net",
-  },
-  {
+    {
     id: "livet",
     name: "Livet",
     src: "/logo/customers/livet_bk.png",
@@ -859,16 +848,7 @@ export const CLIENTS: readonly Client[] = [
     displayHeight: 32,
     href: "https://tounou.co.kr",
   },
-  {
-    id: "uniqlo",
-    name: "Uniqlo",
-    src: "/logo/customers/uniqlo.svg",
-    darkSrc: null,
-    width: 203,
-    height: 203,
-    href: "https://www.uniqlo.com/kr/ko/",
-  },
-  {
+    {
     id: "videostew",
     name: "Videostew",
     src: "/logo/customers/videostew.png",
