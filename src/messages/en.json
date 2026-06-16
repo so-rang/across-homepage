@@ -517,27 +517,5 @@
       "next": "Next",
       "back": "← Contents"
     }
-  },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "description": "Frequently asked questions about Across and AI Answer Optimization (AEO·GEO).",
-    "items": [
-      {
-        "q": "What does Across do?",
-        "a": "Across Inc. specializes in AI Answer Optimization (AEO·GEO). We design content and structured data so your brand gets cited and recommended when generative AI like ChatGPT, Gemini, and Perplexity composes its answers."
-      },
-      {
-        "q": "What are AEO and GEO?",
-        "a": "AEO (Answer Engine Optimization) optimizes your brand to be chosen as the basis for AI-generated answers, while GEO (Generative Engine Optimization) increases your brand's exposure and citation inside generative AI outputs."
-      },
-      {
-        "q": "How is this different from traditional SEO?",
-        "a": "Traditional SEO aims to rank higher on the search results page. AEO·GEO aims to make your brand part of the answer the AI generates directly — winning the selection inside the answer, before any click."
-      },
-      {
-        "q": "Which AI services do you optimize for?",
-        "a": "We optimize for major generative AI and AI search services, including ChatGPT, Google Gemini, Perplexity, and Microsoft Copilot."
-      }
-    ]
   }
 }

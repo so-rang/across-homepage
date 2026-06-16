@@ -517,27 +517,5 @@
       "next": "다음 글",
       "back": "← 콘텐츠"
     }
-  },
-  "faq": {
-    "title": "자주 묻는 질문",
-    "description": "어크로스와 AI 답변 최적화(AEO·GEO)에 대해 자주 묻는 질문과 답변.",
-    "items": [
-      {
-        "q": "어크로스는 어떤 회사인가요?",
-        "a": "어크로스(Across Inc.)는 AI 답변 최적화(AEO·GEO) 전문 기업입니다. ChatGPT, Gemini, Perplexity 같은 생성형 AI가 답을 만들 때 당신의 브랜드가 인용·추천되도록 콘텐츠와 구조화 데이터를 설계합니다."
-      },
-      {
-        "q": "AEO와 GEO는 무엇인가요?",
-        "a": "AEO(Answer Engine Optimization)는 AI 답변 엔진이 질문에 답할 때 우리 브랜드를 근거로 선택하도록 최적화하는 작업이고, GEO(Generative Engine Optimization)는 생성형 AI의 결과물 안에서 브랜드 노출과 인용을 높이는 전략입니다."
-      },
-      {
-        "q": "기존 SEO와 무엇이 다른가요?",
-        "a": "기존 SEO는 검색 결과 페이지의 순위를 높이는 것이 목표지만, AEO·GEO는 AI가 직접 생성하는 '답변' 안에 브랜드가 포함되도록 만드는 것이 목표입니다. 클릭 이전에 답 안에서 선택받는 단계를 다룹니다."
-      },
-      {
-        "q": "어떤 AI 서비스를 대상으로 하나요?",
-        "a": "ChatGPT, Google Gemini, Perplexity, Microsoft Copilot 등 주요 생성형 AI 및 AI 검색 서비스를 대상으로 최적화합니다."
-      }
-    ]
   }
 }

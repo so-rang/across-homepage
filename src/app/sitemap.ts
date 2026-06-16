@@ -11,7 +11,7 @@ function languagesFor(path: string): Record<string, string> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const staticRoutes = ["/", "/contents", "/faq", "/privacy", "/terms"];
+  const staticRoutes = ["/", "/contents", "/privacy", "/terms"];
 
   const slugs = await getAllBlogSlugs();
   const blogRoutes = slugs.map((slug) => {
