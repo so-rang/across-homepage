@@ -520,6 +520,7 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
+    "description": "Frequently asked questions about Across and AI Answer Optimization (AEO·GEO).",
     "items": [
       {
         "q": "What does Across do?",

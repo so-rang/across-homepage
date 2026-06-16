@@ -520,6 +520,7 @@
   },
   "faq": {
     "title": "常见问题",
+    "description": "关于 Across 与 AI 答案优化(AEO·GEO)的常见问题与解答。",
     "items": [
       {
         "q": "Across 是一家什么样的公司?",
