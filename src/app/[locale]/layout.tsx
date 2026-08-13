@@ -3,12 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import {
-  cormorant,
-  jetbrainsMono,
-  notoSerifKr,
-  pretendard,
-} from "@/app/fonts";
+import { cormorant, jetbrainsMono, pretendard } from "@/app/fonts";
 import { routing } from "@/i18n/routing";
 import { INTRO_BOOTSTRAP } from "@/lib/motion/intro";
 import {
@@ -112,8 +107,7 @@ export default async function LocaleLayout({
         "dark",
         pretendard.variable,
         jetbrainsMono.variable,
-        cormorant.variable,
-        notoSerifKr.variable
+        cormorant.variable
       )}
     >
       <head>

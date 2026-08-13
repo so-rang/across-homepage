@@ -34,10 +34,24 @@
     var(--font-pretendard), "Pretendard Variable", Pretendard, system-ui,
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-sans);
+  /*
+     Serif is one line on the whole site — the CEO blockquote in
+     `ceo-section.tsx`. Everything else is Pretendard.
+
+     Cormorant leads because that line is mostly latin ("AI는 Decision Layer
+     One이다.") and it was already drawing it: Noto Serif KR ships no italic,
+     so the italic latin fell through to Cormorant anyway. Noto Serif KR was
+     only ever rendering 는·이·다 — three glyphs, for which `next/font/google`
+     pulled 124 unicode-range files (6.0MB) on every build and kept the build
+     tied to fonts.gstatic.com, which is what broke production on 2026-08-13.
+
+     Those three glyphs now land on the system 명조: AppleMyungjo on Apple,
+     Batang on Windows. Slightly lighter against the latin than Noto Serif KR
+     was — accepted (user decision 2026-08-13).
+  */
   --font-serif:
-    var(--font-serif-kr), "Noto Serif KR", var(--font-cormorant),
-    "Cormorant Garamond", "Nanum Myeongjo", "AppleMyungjo", "Apple SD Gothic Neo",
-    ui-serif, Georgia, serif;
+    var(--font-cormorant), "Cormorant Garamond", "Nanum Myeongjo",
+    "AppleMyungjo", "Apple SD Gothic Neo", ui-serif, Georgia, serif;
   --font-mono:
     var(--font-jetbrains), "SF Mono", ui-monospace, Menlo, Consolas, monospace;
 

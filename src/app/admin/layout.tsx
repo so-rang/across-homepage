@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  cormorant,
-  jetbrainsMono,
-  notoSerifKr,
-  pretendard,
-} from "@/app/fonts";
+import { cormorant, jetbrainsMono, pretendard } from "@/app/fonts";
 import { Toaster } from "@/components/ui/sonner";
 import { THEME_BOOTSTRAP } from "@/lib/theme/bootstrap";
 import { cn } from "@/lib/utils";
@@ -29,7 +24,6 @@ export default function AdminRootLayout({
         pretendard.variable,
         jetbrainsMono.variable,
         cormorant.variable,
-        notoSerifKr.variable,
       )}
     >
       <head>

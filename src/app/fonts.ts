@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import { Noto_Serif_KR } from "next/font/google";
 
 /*
   Why the latin faces are vendored instead of pulled from `next/font/google`
@@ -18,13 +17,10 @@ import { Noto_Serif_KR } from "next/font/google";
   one file per family covering the whole weight range — Google emits separate
   `@font-face` blocks per weight but points them at the same woff2.
 
-  ⚠️ `Noto_Serif_KR` below stays on `next/font/google` and remains exposed to
-     this failure. It is Korean: Google splits it into 372 unicode-range
-     chunks, which is what keeps the payload sane. Vendoring it would mean one
-     multi-megabyte file per weight, or subsetting to the exact glyphs in the
-     copy — which silently breaks the moment the copy is edited. Neither trade
-     is worth it for one blockquote face that already falls back through
-     "Nanum Myeongjo" / "AppleMyungjo" in `globals.css`.
+  Nothing here reaches out to Google any more. Noto Serif KR used to, and it
+  was the last one — see the `--font-serif` comment in `globals.css` for why
+  it went. ⛔ Do not reintroduce `next/font/google`: a CJK face here costs
+  ~124 build-time fetches and re-arms the failure above.
 */
 
 /**
@@ -59,16 +55,5 @@ export const cormorant = localFont({
   variable: "--font-cormorant",
   display: "swap",
   weight: "500 600",
-  preload: false,
-});
-
-/**
- * Noto Serif KR — Korean 명조체 for editorial quotes (e.g. CEO blockquote).
- */
-export const notoSerifKr = Noto_Serif_KR({
-  variable: "--font-serif-kr",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
   preload: false,
 });
