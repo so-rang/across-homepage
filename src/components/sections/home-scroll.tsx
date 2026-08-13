@@ -15,8 +15,29 @@ import { HomePartnersStrip } from "@/components/sections/home-partners-strip";
 import { HomeScaleStrip } from "@/components/sections/home-scale-strip";
 import { Toaster } from "@/components/ui/sonner";
 
+/**
+ * Vertical padding is scoped to below `lg` on purpose.
+ *
+ * These sections space themselves with `min-h-dvh` + `items-center`: when the
+ * content is shorter than the viewport the leftover height becomes the gap.
+ * That only holds while the content actually fits. On a phone it does not —
+ * measured at 390px wide, `#services` runs 1.42× the viewport and
+ * `home-partners` 1.05× — so `min-h-dvh` stops applying, the centering has
+ * nothing to distribute, and consecutive sections butt straight into each
+ * other (measured gaps: partners → services −40px, services → contents −34px).
+ * The explicit padding is the floor that survives the overflow.
+ *
+ * It is dropped at `lg` because desktop content very nearly fills the viewport
+ * on its own — at 1440px wide `home-partners` measures 801px against an 806px
+ * viewport — so adding 192px there would push the section past one screen and
+ * fight the `min-width: 768px` scroll-snap in `globals.css`. Below `lg` the
+ * sections already overflow, so nothing is lost.
+ *
+ * `py-24 sm:py-32` matches the rhythm the About deep-dive sections already use
+ * (`market-shift-section` · `method-section` · `ceo-section`).
+ */
 const fullSectionClass =
-  "home-snap-section relative flex min-h-dvh items-center px-6 sm:px-10 lg:px-20";
+  "home-snap-section relative flex min-h-dvh items-center px-6 py-24 sm:px-10 sm:py-32 lg:px-20 lg:py-0";
 
 const h2Class =
   "text-[30px] font-medium leading-[1.3] tracking-[-0.02em] text-text [word-break:keep-all] sm:text-[40px] sm:leading-[1.25] lg:text-[52px] lg:leading-[1.2]";
