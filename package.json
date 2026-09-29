@@ -10,6 +10,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit",
+    "test": "node --test",
     "content:fetch": "node scripts/fetch-content.mjs"
   },
   "dependencies": {
