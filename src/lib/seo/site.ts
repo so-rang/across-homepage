@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
 /**
- * Canonical production origin. The live site redirects across.cx → www.across.cx,
- * so the www host is the canonical origin for og:url / canonical / sitemap.
+ * Canonical production origin. The live site is www.across.center; the legacy
+ * across.cx / www.across.cx hosts 308-redirect there. canonical / og:url /
+ * hreflang / sitemap / robots must all declare the host that actually serves
+ * the page — declaring a redirecting host makes crawlers (and GPTO's homepage
+ * reader) reject the page as inconsistent.
  * Override via NEXT_PUBLIC_SITE_URL in the deployment environment.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.across.cx"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.across.center"
 ).replace(/\/$/, "");
 
 /** BCP-47 language tags for each supported locale (used by JSON-LD / og:locale). */

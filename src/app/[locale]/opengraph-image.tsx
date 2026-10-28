@@ -120,7 +120,7 @@ export default async function OpenGraphImage({
               color: "rgba(243,236,222,0.85)",
             }}
           >
-            across.cx
+            across.center
           </div>
         </div>
       </div>
