@@ -14,10 +14,16 @@ const ADMIN_PUBLIC_PATHS = ["/admin/login", "/admin/auth/callback"];
 // these prerendered routes directly so og:image/twitter:image return 200.
 const LOCALE_METADATA_FILE = /^\/(?:ko|en|ja|zh)\/(?:opengraph-image|twitter-image)\/?$/;
 
+// Root-level metadata routes (app/apple-icon.tsx). They have no dot, so the
+// matcher sends them through next-intl, which rewrote /apple-icon to
+// /ko/apple-icon — a path that does not exist under [locale] — and every
+// page's apple-touch-icon link answered 404. Serve them directly.
+const ROOT_METADATA_FILE = /^\/(?:apple-icon|icon)\d*\/?$/;
+
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (LOCALE_METADATA_FILE.test(pathname)) {
+  if (LOCALE_METADATA_FILE.test(pathname) || ROOT_METADATA_FILE.test(pathname)) {
     return NextResponse.next();
   }
 

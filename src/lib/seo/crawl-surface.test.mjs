@@ -13,11 +13,23 @@ test("unknown [locale] segments 404 instead of rendering (dotted paths used to 5
   assert.match(src("app/[locale]/layout.tsx"), /export const dynamicParams = false;/);
 });
 
-test("llms.txt is a static text/plain route", () => {
-  const route = src("app/llms.txt/route.ts");
-  assert.match(route, /export const dynamic = "force-static";/);
-  assert.match(route, /"content-type": "text\/plain; charset=utf-8"/);
-  assert.doesNotMatch(route, /across\.cx/);
+test("llms.txt, llms-full.txt and humans.txt are static text/plain routes", () => {
+  for (const rel of ["app/llms.txt/route.ts", "app/llms-full.txt/route.ts", "app/humans.txt/route.ts"]) {
+    const route = src(rel);
+    assert.match(route, /export const dynamic = "force-static";/, rel);
+    assert.match(route, /"content-type": "text\/plain; charset=utf-8"/, rel);
+  }
+  assert.doesNotMatch(src("lib/seo/llms-text.ts"), /across\.cx/);
+});
+
+test("favicon.ico is a real multi-size icon (browsers request it on every visit)", () => {
+  const ico = readFileSync(fileURLToPath(new URL("../../app/favicon.ico", import.meta.url)));
+  assert.deepEqual([...ico.subarray(0, 4)], [0, 0, 1, 0], "ICO magic");
+  assert.ok(ico.readUInt16LE(4) >= 3, "expected 16/32/48(/64) entries");
+});
+
+test("root metadata routes bypass the intl proxy (apple-touch-icon used to 404)", () => {
+  assert.match(src("proxy.ts"), /ROOT_METADATA_FILE = \/\^\\\/\(\?:apple-icon\|icon\)/);
 });
 
 test("CountUp server-renders the final value, not the 0 the tween starts from", () => {
