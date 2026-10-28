@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Hero } from "@/components/sections/hero";
-import { buildAlternates, LANGUAGE_TAG, SITE_URL } from "@/lib/seo/site";
+import { buildAlternates, COMPANY, LANGUAGE_TAG, SITE_URL } from "@/lib/seo/site";
 
 export const revalidate = 300;
 
@@ -18,11 +18,15 @@ export default async function HomePage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: t("organizationName"),
-    alternateName: "Across Inc.",
+    legalName: COMPANY.legalName,
+    alternateName: COMPANY.tradeName,
     url: SITE_URL,
     logo: `${SITE_URL}/logo/logo_across_black.png`,
     image: `${SITE_URL}/opengraph-image`,
     description: t("description"),
+    email: COMPANY.email,
+    taxID: COMPANY.registrationNumber,
+    founder: { "@type": "Person", name: COMPANY.ceo, jobTitle: "CEO" },
     knowsAbout: [
       "Answer Engine Optimization",
       "Generative Engine Optimization",
@@ -33,14 +37,11 @@ export default async function HomePage() {
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "ask@across.center",
+      email: COMPANY.email,
       contactType: "sales",
       availableLanguage: ["Korean", "English", "Japanese", "Chinese"],
     },
-    sameAs: [
-      "https://www.youtube.com/@acrosshouse",
-      "https://www.instagram.com/across.house",
-    ],
+    sameAs: [...COMPANY.sameAs],
   };
 
   const websiteJsonLd = {

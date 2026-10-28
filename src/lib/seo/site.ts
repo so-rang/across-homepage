@@ -13,6 +13,24 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.across.center"
 ).replace(/\/$/, "");
 
+/**
+ * Company facts already published on the site (footer `companyLine`, legal
+ * pages). JSON-LD and llms.txt read them from here so every surface spells
+ * them the same way. The registered office address is still unconfirmed and
+ * is deliberately absent — do not add one here until it is.
+ */
+export const COMPANY = {
+  legalName: "주식회사 어크로스",
+  tradeName: "Across Inc.",
+  ceo: "이재홍",
+  registrationNumber: "288-86-03687",
+  email: "ask@across.center",
+  sameAs: [
+    "https://www.youtube.com/@acrosshouse",
+    "https://www.instagram.com/across.house",
+  ],
+} as const;
+
 /** BCP-47 language tags for each supported locale (used by JSON-LD / og:locale). */
 export const LANGUAGE_TAG: Record<string, string> = {
   ko: "ko-KR",

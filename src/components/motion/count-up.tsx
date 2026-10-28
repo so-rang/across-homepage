@@ -42,6 +42,11 @@ function usePrefersReducedMotion() {
  * Counts from 0 → `to` once, when the element first crosses into view.
  * Uses a single `requestAnimationFrame` loop with `easeOutCubic`. Falls
  * back to the final value immediately for `prefers-reduced-motion`.
+ *
+ * The server HTML (and the first client paint) carry the FINAL value, not 0:
+ * crawlers and LLM readers only see server HTML, and "0 AI models / 0+
+ * customers" is what they quoted before. The tween resets to 0 on the client
+ * only when the element is still off-screen at mount.
  */
 export function CountUp({
   to,
@@ -51,7 +56,7 @@ export function CountUp({
   className,
 }: Props) {
   const prefersReduced = usePrefersReducedMotion();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
   const hasRunRef = useRef(false);
 
@@ -59,6 +64,12 @@ export function CountUp({
     if (prefersReduced) return;
     const el = ref.current;
     if (!el) return;
+
+    // Already on screen at mount (tall viewports, headless renderers): keep
+    // the final value instead of flashing to 0 and counting back up.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) return;
+    setValue(0);
 
     const io = new IntersectionObserver(
       (entries) => {

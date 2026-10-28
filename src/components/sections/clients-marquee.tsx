@@ -30,37 +30,40 @@ function logoHeight(c: Client): number {
 
 function LogoItem({ client }: { client: Client }) {
   const h = logoHeight(client);
+  // Intrinsic size = rendered size (no `sizes`), so next/image emits a 1x/2x
+  // srcset. With `sizes` it listed every configured device width per logo:
+  // ~1.3 KB of srcset × 275 <img> ≈ 350 KB of the homepage HTML, which pushed
+  // the document past the size cap of several AI/LLM page readers.
+  const w = Math.round(h * (client.width / client.height));
   const imgClass = "w-auto object-contain";
   const media = client.darkSrc ? (
     <>
       <Image
         src={client.src + ASSET_V}
         alt={client.name}
-        width={client.width}
-        height={client.height}
+        width={w}
+        height={h}
         loading="lazy"
         className={cn(imgClass, "block dark:hidden")}
         style={{ height: `${h}px` }}
-        sizes="(min-width: 640px) 200px, 140px"
       />
       <Image
         src={client.darkSrc + ASSET_V}
         alt=""
-        width={client.width}
-        height={client.height}
+        width={w}
+        height={h}
         loading="lazy"
         aria-hidden="true"
         className={cn(imgClass, "hidden dark:block")}
         style={{ height: `${h}px` }}
-        sizes="(min-width: 640px) 200px, 140px"
       />
     </>
   ) : (
     <Image
       src={client.src + ASSET_V}
       alt={client.name}
-      width={client.width}
-      height={client.height}
+      width={w}
+      height={h}
       loading="lazy"
       className={cn(
         imgClass,
@@ -68,7 +71,6 @@ function LogoItem({ client }: { client: Client }) {
         client.brightenOnDark && "dark:brightness-125 dark:saturate-150"
       )}
       style={{ height: `${h}px` }}
-      sizes="(min-width: 640px) 200px, 140px"
     />
   );
   return (

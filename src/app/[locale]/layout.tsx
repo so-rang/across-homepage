@@ -85,6 +85,13 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Paths with a dot (/llms.txt, /favicon.ico, /foo.bar) skip the intl proxy
+// matcher and land here with that path as `locale`. They must 404 statically:
+// with dynamicParams on, generateMetadata ran for the bogus locale, next-intl
+// read request headers, and the prerendered route threw "Page changed from
+// static to dynamic at runtime" → 500 on every browser's favicon.ico request.
+export const dynamicParams = false;
+
 export default async function LocaleLayout({
   children,
   params,
