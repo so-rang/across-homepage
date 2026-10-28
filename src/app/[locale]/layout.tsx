@@ -1,6 +1,7 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { cormorant, jetbrainsMono, pretendard } from "@/app/fonts";
@@ -72,6 +73,12 @@ export async function generateMetadata({
     other: {
       "content-language": LANGUAGE_TAG[locale] ?? "ko-KR",
     },
+    // Search Console URL-prefix verification (HTML tag method). Only emitted
+    // when the deployment provides the token; the domain property is verified
+    // by DNS TXT and needs nothing here.
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+      : {}),
   };
 }
 
@@ -91,6 +98,10 @@ export function generateStaticParams() {
 // read request headers, and the prerendered route threw "Page changed from
 // static to dynamic at runtime" → 500 on every browser's favicon.ico request.
 export const dynamicParams = false;
+
+// GA4 is wired only when the deployment provides a measurement ID; local and
+// preview builds without it ship no Google script at all.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export default async function LocaleLayout({
   children,
@@ -124,6 +135,17 @@ export default async function LocaleLayout({
         <script dangerouslySetInnerHTML={{ __html: INTRO_BOOTSTRAP }} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Analytics />
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   );

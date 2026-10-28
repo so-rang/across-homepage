@@ -7,11 +7,11 @@ const isDev = process.env.NODE_ENV === "development";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.youtube-nocookie.com https://va.vercel-scripts.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.youtube-nocookie.com https://va.vercel-scripts.com https://www.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://api.resend.com https://*.supabase.co wss://*.supabase.co",
+  "connect-src 'self' https://api.resend.com https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
   "frame-src https://www.youtube-nocookie.com",
   "object-src 'none'",
   "base-uri 'self'",
